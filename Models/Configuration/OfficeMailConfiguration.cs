@@ -14,29 +14,31 @@ namespace MailManager.Models.Configuration
                   .IsRequired()
                   .IsUnicode(false)
                   .HasMaxLength(20)
-                  .ForSqlServerHasColumnType("varchar");
+                  .ForSqlServerHasColumnType("varchar(20)");
 
             entity.Property(m => m.Subject)
                   .IsRequired()
                   .IsUnicode(false)
                   .HasMaxLength(100)
-                  .ForSqlServerHasColumnType("varchar");
+                  .ForSqlServerHasColumnType("varchar(100)");
             
             entity.Property(m => m.From)
                   .IsRequired()
                   .IsUnicode(false)
                   .HasMaxLength(50)
-                  .ForSqlServerHasColumnType("varchar");
+                  .ForSqlServerHasColumnType("varchar(50)");
             
             entity.Property(m => m.To)
                   .IsRequired()
                   .IsUnicode(false)
                   .HasMaxLength(50)
-                  .ForSqlServerHasColumnType("varchar");
+                  .ForSqlServerHasColumnType("varchar(50)");
 
             entity.Property(m => m.RowVersion)
                   .IsRequired()
                   .IsRowVersion();
+
+            entity.ToTable("OfficeMail");
         }
     }
 }

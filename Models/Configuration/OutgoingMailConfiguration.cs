@@ -20,13 +20,13 @@ namespace MailManager.Models.Configuration
                   .IsRequired()
                   .IsUnicode(false)
                   .HasMaxLength(150)
-                  .ForSqlServerHasColumnType("varchar");
+                  .ForSqlServerHasColumnType("varchar(150)");
 
             entity.Property(m => m.Officer)
                   .IsRequired()
                   .IsUnicode(false)
                   .HasMaxLength(50)
-                  .ForSqlServerHasColumnType("varchar");
+                  .ForSqlServerHasColumnType("varchar(50)");
             
             entity.Property(m => m.OutgoingDate)
                   .IsRequired()
@@ -35,6 +35,8 @@ namespace MailManager.Models.Configuration
             entity.Property(m => m.RowVersion)
                   .IsRequired()
                   .IsRowVersion();
+
+            entity.ToTable("OutgoingMail");
         }
     }
 }

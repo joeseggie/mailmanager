@@ -6,7 +6,7 @@ namespace MailManager.Models
     {
         public string FileNumber { get; set; }
         public string Subject { get; set; }
-        public byte[] RowVersions { get; set; }
+        public byte[] RowVersion { get; set; }
 
         public virtual IEnumerable<IncomingFile> IncomingFiles { get; set; }
         public virtual IEnumerable<OutgoingFile> OutgoingFiles { get; set; }

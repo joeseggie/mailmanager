@@ -23,6 +23,8 @@ namespace MailManager.Models.Configuration
             entity.Property(m => m.RowVersion)
                   .IsRequired()
                   .IsRowVersion();
+
+            entity.ToTable("IncomingFile");
         }
     }
 }
