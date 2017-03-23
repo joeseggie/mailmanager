@@ -1,15 +1,16 @@
 using System;
 using MailManager.Models;
 using System.Collections.Generic;
+using MailManager.Models.FileViewModels;
 
 namespace MailManager.Services
 {
     public interface IIncomingFile
     {
-         IEnumerable<IncomingFile> IncomingFiles { get; }
-         OperationResult NewIncomingFile(IncomingFile newIncomingFile);
-         OperationResult UpdateIncomingFile(IncomingFile incomingFileUpdate);
-         IncomingFile GetIncomingFileById(Guid incomingFileId);
-         IEnumerable<IncomingFile> GetIncomingFilesByFileNumber(string fileNumber);
+         IEnumerable<IncomingFileViewModel> IncomingFiles { get; }
+         OperationResult NewIncomingFile(IncomingFileViewModel newIncomingFile);
+         OperationResult UpdateIncomingFile(IncomingFileViewModel incomingFileUpdate);
+         IncomingFileViewModel GetIncomingFileById(Guid incomingFileId);
+         IEnumerable<IncomingFileViewModel> GetIncomingFilesByFileNumber(string fileNumber);
     }
 }
