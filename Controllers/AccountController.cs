@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using WebApplication.Models;
-using WebApplication.Models.AccountViewModels;
-using WebApplication.Services;
+using MailManager.Models;
+using MailManager.Models.AccountViewModels;
+using MailManager.Services;
 
-namespace WebApplication.Controllers
+namespace MailManager.Controllers
 {
     [Authorize]
     public class AccountController : Controller

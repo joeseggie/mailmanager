@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WebApplication.Models;
-using WebApplication.Models.ManageViewModels;
-using WebApplication.Services;
+using MailManager.Models;
+using MailManager.Models.ManageViewModels;
+using MailManager.Services;
 
-namespace WebApplication.Controllers
+namespace MailManager.Controllers
 {
     [Authorize]
     public class ManageController : Controller
