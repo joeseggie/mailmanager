@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace MailManager.Models
 {
     /// <summary>
@@ -5,25 +7,11 @@ namespace MailManager.Models
     /// </summary>
     public class OfficeMail
     {
-        /// <summary>
-        /// Mail reference number.
-        /// </summary>
         public string ReferenceNumber { get; set; }
-        /// <summary>
-        /// Sender of the mail.
-        /// </summary>
-        public string From { get; set; }
-        /// <summary>
-        /// Recipient of the mail.
-        /// </summary>
-        public string To { get; set; }
-        /// <summary>
-        /// Subject of the mail.
-        /// </summary>
         public string Subject { get; set; }
-        /// <summary>
-        /// Record version
-        /// </summary>
         public byte[] RowVersion { get; set; }
+
+        public virtual IEnumerable<IncomingMail> IncomingMails { get; set; }
+        public virtual IEnumerable<OutgoingMail> OutgoingMails { get; set; }
     }
 }
