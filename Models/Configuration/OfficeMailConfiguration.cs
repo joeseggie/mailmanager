@@ -9,7 +9,7 @@ namespace MailManager.Models.Configuration
         public override void Configure(EntityTypeBuilder<OfficeMail> entity)
         {
             entity.HasKey(m => m.ReferenceNumber);
-            
+
             entity.Property(m => m.ReferenceNumber)
                   .IsRequired()
                   .IsUnicode(false)
@@ -20,6 +20,18 @@ namespace MailManager.Models.Configuration
                   .IsRequired()
                   .IsUnicode(false)
                   .HasMaxLength(100)
+                  .ForSqlServerHasColumnType("varchar");
+            
+            entity.Property(m => m.From)
+                  .IsRequired()
+                  .IsUnicode(false)
+                  .HasMaxLength(50)
+                  .ForSqlServerHasColumnType("varchar");
+            
+            entity.Property(m => m.To)
+                  .IsRequired()
+                  .IsUnicode(false)
+                  .HasMaxLength(50)
                   .ForSqlServerHasColumnType("varchar");
 
             entity.Property(m => m.RowVersion)

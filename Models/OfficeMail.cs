@@ -9,6 +9,8 @@ namespace MailManager.Models
     {
         public string ReferenceNumber { get; set; }
         public string Subject { get; set; }
+        public string From { get; set; }
+        public string To { get; set; }
         public byte[] RowVersion { get; set; }
 
         public virtual IEnumerable<IncomingMail> IncomingMails { get; set; }
