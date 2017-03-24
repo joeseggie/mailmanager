@@ -23,8 +23,7 @@ namespace MailManager.Services
                 OutgoingDate = i.OutgoingDate,
                 Comment = i.Comment,
                 Officer = i.Officer,
-                RowVersion = i.RowVersion,
-                RecordFile = i.RecordFile
+                RowVersion = i.RowVersion
             });
 
         public OperationResult AddOutgoingFile(OutgoingFileViewModel newOutgoingFile)
