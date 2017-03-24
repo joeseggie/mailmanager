@@ -21,8 +21,6 @@ namespace MailManager.Services
                 FileNumber  = f.FileNumber,
                 Subject = f.Subject,
                 RowVersion = f.RowVersion,
-                IncomingFiles = f.IncomingFiles,
-                OutgoingFiles = f.OutgoingFiles
             });
 
         public OperationResult AddRecordFile(RecordFileViewModel newRecordFile)
