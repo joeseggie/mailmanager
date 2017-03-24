@@ -41,19 +41,22 @@ namespace MailManager.Services
             return new OperationResult { Success = true, Message = "Outgoing file updated successfully" };
         }
 
-        public IncomingMailViewModel GetIncomingMailById(Guid incomingMailId)
-        {
-            throw new NotImplementedException();
-        }
+        public IncomingMailViewModel GetIncomingMailById(Guid incomingMailId) => IncomingMails
+            .SingleOrDefault(m => m.IncomingMailId == incomingMailId);
 
-        public IEnumerable<IncomingMailViewModel> GetIncomingMailsByReferenceNumber(string referenceNumber)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<IncomingMailViewModel> GetIncomingMailsByReferenceNumber(string referenceNumber) => IncomingMails
+            .Where(m => m.ReferenceNumber == referenceNumber).ToList();
 
         public OperationResult NewIncomingMail(IncomingMailViewModel newMail)
         {
-            throw new NotImplementedException();
+            _db.IncomingMails.Add(new IncomingMail{
+                ReferenceNumber = newMail.ReferenceNumber,
+                Details = newMail.Details,
+                IncomingDate = newMail.IncomingDate
+            });
+            _db.SaveChanges();
+
+            return new OperationResult { Success = true, Message = "Incoming mail added successfully" };
         }
     }
 }
