@@ -14,8 +14,5 @@ namespace MailManager.Models.FileViewModels
 
         [Required(ErrorMessage = "Row version is required")]
         public byte[] RowVersion { get; set; }
-
-        public virtual IEnumerable<IncomingFile> IncomingFiles { get; set; }
-        public virtual IEnumerable<OutgoingFile> OutgoingFiles { get; set; }
     }
 }

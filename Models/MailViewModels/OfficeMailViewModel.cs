@@ -42,8 +42,5 @@ namespace MailManager.Models.MailViewModels
         /// <returns>byte[]</returns>
         [Required(ErrorMessage = "Row version is required")]
         public byte[] RowVersion { get; set; }
-
-        public virtual IEnumerable<IncomingMailViewModel> IncomingMails { get; set; }
-        public virtual IEnumerable<OutgoingMailViewModel> OutgoingMails { get; set; }
     }
 }

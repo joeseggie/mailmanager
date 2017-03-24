@@ -24,7 +24,5 @@ namespace MailManager.Models.FileViewModels
 
         [Required(ErrorMessage = "Row version is required")]
         public byte[] RowVersion { get; set; }
-
-        public virtual RecordFile RecordFile { get; set; }
     }
 }
