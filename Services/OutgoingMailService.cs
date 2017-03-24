@@ -46,10 +46,8 @@ namespace MailManager.Services
         public OutgoingMailViewModel GetOutgoingMailById(Guid outgoingMailId) => OutgoingMails
             .SingleOrDefault(m => m.OutgoingMailId == outgoingMailId);
 
-        public IEnumerable<OutgoingMailViewModel> GetOutgoingMailsByReferenceNumber(string referenceNumber)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<OutgoingMailViewModel> GetOutgoingMailsByReferenceNumber(string referenceNumber) => OutgoingMails
+            .Where(m => m.ReferenceNumber == referenceNumber).ToList();
 
         public OperationResult NewOutgoingMail(OutgoingMailViewModel newOutgoingMail)
         {
