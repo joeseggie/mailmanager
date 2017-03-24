@@ -28,7 +28,19 @@ namespace MailManager.Services
 
         public OperationResult EditOutgoingMail(OutgoingMailViewModel outgoingMailUpdate)
         {
-            throw new NotImplementedException();
+            var mailForUpdate = _db.OutgoingMails.Find(outgoingMailUpdate.OutgoingMailId);
+            
+            if(mailForUpdate == null)
+                return new OperationResult{ Success = false, Message = "Mail for update doesn't exist" };
+
+            mailForUpdate.OutgoingDate = outgoingMailUpdate.OutgoingDate;
+            mailForUpdate.Comment = outgoingMailUpdate.Comment;
+            mailForUpdate.Officer = outgoingMailUpdate.Officer;
+
+            _db.Update(mailForUpdate);
+            _db.SaveChangesAsync();
+
+            return new OperationResult { Success = true, Message = "Outgoing mail updated successfully" };
         }
 
         public OutgoingMailViewModel GetOutgoingMailById(Guid outgoingMailId)
