@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using MailManager.Models;
+using MailManager.Models.MailViewModels;
 
 namespace MailManager.Services
 {
     public interface IOfficeMail
     {
-         IEnumerable<OfficeMail> OfficeMails { get; }
-         OperationResult AddOfficeMail(OfficeMail newOfficeMail);
-         OperationResult EditOfficeMail(OfficeMail officeMailUpdate);
-         OfficeMail GetOfficeMailByReferenceNumber(string referenceNumber);
+         IEnumerable<OfficeMailViewModel> OfficeMails { get; }
+         OperationResult AddOfficeMail(OfficeMailViewModel newOfficeMail);
+         OperationResult EditOfficeMail(OfficeMailViewModel officeMailUpdate);
+         OfficeMailViewModel GetOfficeMailByReferenceNumber(string referenceNumber);
          string GenerateReferenceNumber();
     }
 }
