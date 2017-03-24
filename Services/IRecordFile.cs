@@ -1,13 +1,13 @@
-using MailManager.Models;
+using MailManager.Models.FileViewModels;
 using System.Collections.Generic;
 
 namespace MailManager.Services
 {
     public interface IRecordFile
     {
-         IEnumerable<RecordFile> RecordFiles { get; }
-         OperationResult AddRecordFile(RecordFile newRecordFile);
-         OperationResult UpdateRecordFile(RecordFile recordFileUpdate);
-         RecordFile GetRecordFileById(string fileNumber);
+         IEnumerable<RecordFileViewModel> RecordFiles { get; }
+         OperationResult AddRecordFile(RecordFileViewModel newRecordFile);
+         OperationResult UpdateRecordFile(RecordFileViewModel recordFileUpdate);
+         RecordFileViewModel GetRecordFileById(string fileNumber);
     }
 }
