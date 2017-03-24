@@ -43,10 +43,8 @@ namespace MailManager.Services
             return new OperationResult { Success = true, Message = "Outgoing mail updated successfully" };
         }
 
-        public OutgoingMailViewModel GetOutgoingMailById(Guid outgoingMailId)
-        {
-            throw new NotImplementedException();
-        }
+        public OutgoingMailViewModel GetOutgoingMailById(Guid outgoingMailId) => OutgoingMails
+            .SingleOrDefault(m => m.OutgoingMailId == outgoingMailId);
 
         public IEnumerable<OutgoingMailViewModel> GetOutgoingMailsByReferenceNumber(string referenceNumber)
         {
