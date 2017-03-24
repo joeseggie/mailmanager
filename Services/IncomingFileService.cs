@@ -21,8 +21,7 @@ namespace MailManager.Services
                 IncomingFileId = i.IncomingFileId,
                 FileNumber = i.FileNumber,
                 IncomingDate = i.IncomingDate,
-                RowVersion = i.RowVersion,
-                RecordFile = i.RecordFile
+                RowVersion = i.RowVersion
             });
 
         public IncomingFileViewModel GetIncomingFileById(Guid incomingFileId) => IncomingFiles
