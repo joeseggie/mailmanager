@@ -51,7 +51,15 @@ namespace MailManager.Services
 
         public OperationResult NewOutgoingMail(OutgoingMailViewModel newOutgoingMail)
         {
-            throw new NotImplementedException();
+            _db.OutgoingMails.Add(new OutgoingMail{
+                ReferenceNumber = newOutgoingMail.ReferenceNumber,
+                Comment = newOutgoingMail.Comment,
+                Officer = newOutgoingMail.Officer,
+                OutgoingDate = newOutgoingMail.OutgoingDate
+            });
+            _db.SaveChanges();
+
+            return new OperationResult{ Success = true, Message = "New outgoing mail added successfully" };
         }
     }
 }
