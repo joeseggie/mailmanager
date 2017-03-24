@@ -11,7 +11,7 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "taskName": "min",
+            "taskName": "minify",
             "command": "gulp",
             "isShellCommand": true,
             "args": [],

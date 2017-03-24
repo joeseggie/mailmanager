@@ -7,12 +7,14 @@
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
@@ -30,14 +32,34 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Mail</a></li>
-                    <li><a href="#">Files</a></li>
-                    <li><a href="#">Users</a></li>
+                    <li>
+                        <div class="topnav-dropdown">
+                            <a href="#" class="topnav-dropbtn"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;Mail</a>
+                            <div class="topnav-dropdown-content">
+                                <a href="#">Incoming Mails</a>
+                                <a href="#">Outgoing Mails</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li><div class="topnav-dropdown">
+                            <a href="#" class="topnav-dropbtn"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;&nbsp;Files</a>
+                            <div class="topnav-dropdown-content">
+                                <a href="#">Incoming Files</a>
+                                <a href="#">Outgoing Files</a>
+                            </div>
+                        </div></li>
+                    <li><div class="topnav-dropdown">
+                            <a href="#" class="topnav-dropbtn"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Users</a>
+                            <div class="topnav-dropdown-content">
+                                <a href="#">Add User</a>
+                            </div>
+                        </div></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </div>
+    <div id="borderimg">&nbsp;</div>
     <div class="container-fluid body-content">
         @RenderBody()
         <hr />
