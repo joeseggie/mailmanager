@@ -1,4 +1,4 @@
-using MailManager.Models;
+using MailManager.Models.MailViewModels;
 using System.Collections.Generic;
 using System;
 
@@ -6,10 +6,10 @@ namespace MailManager.Services
 {
     public interface IOutgoingMail
     {
-         IEnumerable<OutgoingMail> OutgoingMails { get; }
-         OperationResult NewOutgoingMail(OutgoingMail newOutgoingMail);
-         OperationResult EditOutgoingMail(OutgoingMail outgoingMailUpdate);
-         OutgoingMail GetOutgoingMailById(Guid outgoingMailId);
-         IEnumerable<OutgoingMail> GetOutgoingMailsByReferenceNumber(string referenceNumber);
+         IEnumerable<OutgoingMailViewModel> OutgoingMails { get; }
+         OperationResult NewOutgoingMail(OutgoingMailViewModel newOutgoingMail);
+         OperationResult EditOutgoingMail(OutgoingMailViewModel outgoingMailUpdate);
+         OutgoingMailViewModel GetOutgoingMailById(Guid outgoingMailId);
+         IEnumerable<OutgoingMailViewModel> GetOutgoingMailsByReferenceNumber(string referenceNumber);
     }
 }
