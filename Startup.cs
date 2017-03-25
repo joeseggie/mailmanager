@@ -53,6 +53,9 @@ namespace MailManager
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<IOfficeMail, OfficeMailService>();
+            services.AddTransient<IIncomingMail, IncomingMailService>();
+            services.AddTransient<IOutgoingMail, OutgoingMailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
