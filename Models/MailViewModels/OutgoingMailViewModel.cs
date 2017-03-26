@@ -21,6 +21,7 @@ namespace MailManager.Models.MailViewModels
         [Display(Name = "Outgoing Date")]
         [Required(ErrorMessage = "Outgoing date is required")]
         public DateTime OutgoingDate { get; set; }
+        public OfficeMailViewModel OfficeMail { get; set; }
 
         [Required(ErrorMessage = "Row version is required")]
         public byte[] RowVersion { get; set; }
