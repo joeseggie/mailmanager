@@ -22,6 +22,14 @@ namespace MailManager.Services
                 ReferenceNumber = m.ReferenceNumber,
                 Details = m.Details,
                 IncomingDate = m.IncomingDate,
+                OfficeMail = new OfficeMailViewModel{
+                    ReferenceNumber = m.OfficeMail.ReferenceNumber,
+                    Subject = m.OfficeMail.Subject,
+                    From = m.OfficeMail.From,
+                    To = m.OfficeMail.To,
+                    Stub = m.OfficeMail.Stub,
+                    RowVersion = m.OfficeMail.RowVersion
+                },
                 RowVersion = m.RowVersion
             });
 
