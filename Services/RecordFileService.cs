@@ -26,9 +26,11 @@ namespace MailManager.Services
 
         public OperationResult AddRecordFile(RecordFileViewModel newRecordFile)
         {
+
             _db.RecordFiles.Add(new RecordFile{
                 FileNumber = newRecordFile.FileNumber,
-                Subject = newRecordFile.Subject
+                Subject = newRecordFile.Subject,
+                Stub = newRecordFile.FileNumber.Replace('/', '-')
             });
             _db.SaveChanges();
 

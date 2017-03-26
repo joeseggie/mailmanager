@@ -32,7 +32,8 @@ namespace MailManager.Services
                 ReferenceNumber = newOfficeMail.ReferenceNumber,
                 Subject = newOfficeMail.Subject,
                 From = newOfficeMail.From,
-                To = newOfficeMail.To
+                To = newOfficeMail.To,
+                Stub = newOfficeMail.ReferenceNumber.Replace('/', '-')
             });
             _db.SaveChanges();
 
