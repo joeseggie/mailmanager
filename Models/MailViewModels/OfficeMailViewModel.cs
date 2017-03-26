@@ -36,6 +36,8 @@ namespace MailManager.Models.MailViewModels
         [Required(ErrorMessage = "Recipeint is required")]
         public string To { get; set; }
 
+        public string Stub { get; set; }
+
         /// <summary>
         /// Record version.
         /// </summary>

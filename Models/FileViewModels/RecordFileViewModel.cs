@@ -11,6 +11,7 @@ namespace MailManager.Models.FileViewModels
 
         [Required(ErrorMessage = "Subject is required")]
         public string Subject { get; set; }
+        public string Stub { get; set; }
 
         [Required(ErrorMessage = "Row version is required")]
         public byte[] RowVersion { get; set; }
