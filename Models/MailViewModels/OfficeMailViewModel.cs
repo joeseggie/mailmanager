@@ -32,7 +32,7 @@ namespace MailManager.Models.MailViewModels
         /// Recipient of mail.
         /// </summary>
         /// <returns>string</returns>
-        [Display(Name = "Recipeint")]
+        [Display(Name = "Recipient")]
         [Required(ErrorMessage = "Recipeint is required")]
         public string To { get; set; }
 
