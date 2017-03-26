@@ -20,14 +20,14 @@ namespace MailManager.Controllers
             _outcomingMailService = outgoingMailService;
         }
 
-        public IActionResult Index(string search, string mailsearch, string filesearch)
+        public IActionResult Index(string search)
         {
             var mails = _mailService.OfficeMails;
             if(search != null)
             {
-                mails = mails.Where(m => m.ReferenceNumber.Contains(search)).ToList();
+                mails = mails.Where(m => m.ReferenceNumber.ToLower().Contains(search.ToLower()) || m.Subject.ToLower().Contains(search.ToLower()));
             }
-            return View(mails);
+            return View(mails.ToList());
         }
 
         public IActionResult New()
@@ -61,6 +61,16 @@ namespace MailManager.Controllers
                 ModelState.AddModelError("", operationResult.Message);
             }
             return View(newMail);
+        }
+
+        public IActionResult Incoming(string search)
+        {
+            var model = _incomingMailService.IncomingMails;
+            if(search != null)
+            {
+                model = model.Where(m => m.ReferenceNumber.ToLower().Contains(search.ToLower()) || m.OfficeMail.Subject.ToLower().Contains(search.ToLower()));
+            }
+            return View(model.ToList());
         }
     }
 }
