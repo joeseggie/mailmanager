@@ -22,6 +22,7 @@ namespace MailManager.Services
                 Subject = m.Subject,
                 From = m.From,
                 To = m.To,
+                Stub = m.Stub,
                 RowVersion = m.RowVersion
             });
 

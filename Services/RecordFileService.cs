@@ -20,6 +20,7 @@ namespace MailManager.Services
             .Select(f => new RecordFileViewModel{
                 FileNumber  = f.FileNumber,
                 Subject = f.Subject,
+                Stub = f.Stub,
                 RowVersion = f.RowVersion,
             });
 
