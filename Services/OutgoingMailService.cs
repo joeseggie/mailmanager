@@ -23,6 +23,14 @@ namespace MailManager.Services
                 Comment = m.Comment,
                 Officer = m.Officer,
                 OutgoingDate = m.OutgoingDate,
+                OfficeMail = new OfficeMailViewModel{
+                    ReferenceNumber = m.OfficeMail.ReferenceNumber,
+                    Subject = m.OfficeMail.Subject,
+                    From = m.OfficeMail.From,
+                    To = m.OfficeMail.To,
+                    Stub = m.OfficeMail.Stub,
+                    RowVersion = m.OfficeMail.RowVersion
+                },
                 RowVersion = m.RowVersion
             });
 
