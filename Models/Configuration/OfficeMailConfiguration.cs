@@ -34,6 +34,12 @@ namespace MailManager.Models.Configuration
                   .HasMaxLength(50)
                   .ForSqlServerHasColumnType("varchar(50)");
 
+            entity.Property(m => m.Stub)
+                  .IsRequired()
+                  .IsUnicode(false)
+                  .HasMaxLength(20)
+                  .ForSqlServerHasColumnType("varchar(20)");
+
             entity.Property(m => m.RowVersion)
                   .IsRequired()
                   .IsRowVersion();
