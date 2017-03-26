@@ -41,6 +41,7 @@ namespace MailManager.Migrations
                     ReferenceNumber = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
                     From = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     RowVersion = table.Column<byte[]>(rowVersion: true, nullable: false),
+                    Stub = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
                     Subject = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     To = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
                 },
@@ -55,6 +56,7 @@ namespace MailManager.Migrations
                 {
                     FileNumber = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
                     RowVersion = table.Column<byte[]>(rowVersion: true, nullable: false),
+                    Stub = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
                     Subject = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false)
                 },
                 constraints: table =>

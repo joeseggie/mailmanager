@@ -135,6 +135,12 @@ namespace MailManager.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAddOrUpdate();
 
+                    b.Property<string>("Stub")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasAnnotation("SqlServer:ColumnType", "varchar(20)");
+
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -208,6 +214,12 @@ namespace MailManager.Migrations
                         .IsConcurrencyToken()
                         .IsRequired()
                         .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("Stub")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasAnnotation("SqlServer:ColumnType", "varchar(20)");
 
                     b.Property<string>("Subject")
                         .IsRequired()

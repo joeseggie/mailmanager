@@ -8,7 +8,7 @@ using MailManager.Data;
 namespace MailManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170323142232_InitialSchema")]
+    [Migration("20170326110345_InitialSchema")]
     partial class InitialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,6 +136,12 @@ namespace MailManager.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAddOrUpdate();
 
+                    b.Property<string>("Stub")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasAnnotation("SqlServer:ColumnType", "varchar(20)");
+
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -209,6 +215,12 @@ namespace MailManager.Migrations
                         .IsConcurrencyToken()
                         .IsRequired()
                         .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("Stub")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasAnnotation("SqlServer:ColumnType", "varchar(20)");
 
                     b.Property<string>("Subject")
                         .IsRequired()
