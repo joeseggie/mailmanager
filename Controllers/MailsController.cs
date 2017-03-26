@@ -25,5 +25,10 @@ namespace MailManager.Controllers
             mails = mails.Where(m => m.ReferenceNumber.Contains(search)).ToList();
             return View(mails);
         }
+
+        public IActionResult New()
+        {
+            return View();
+        }
     }
 }
