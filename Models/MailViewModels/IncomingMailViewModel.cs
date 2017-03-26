@@ -41,5 +41,7 @@ namespace MailManager.Models.MailViewModels
         /// <returns>byte[]</returns>
         [Required(ErrorMessage = "Row Version is required")]
         public byte[] RowVersion { get; set; }
+
+        public OfficeMailViewModel OfficeMail { get; set; }
     }
 }
