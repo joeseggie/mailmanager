@@ -11,13 +11,13 @@ namespace MailManager.Controllers
     {
         private readonly IOfficeMail _mailService;
         private readonly IIncomingMail _incomingMailService;
-        private readonly IOutgoingMail _outcomingMailService;
+        private readonly IOutgoingMail _outgoingMailService;
 
         public MailsController(IOfficeMail mailService, IIncomingMail incomingMailService, IOutgoingMail outgoingMailService)
         {
             _mailService = mailService;
             _incomingMailService = incomingMailService;
-            _outcomingMailService = outgoingMailService;
+            _outgoingMailService = outgoingMailService;
         }
 
         public IActionResult Index(string search)
@@ -66,6 +66,16 @@ namespace MailManager.Controllers
         public IActionResult Incoming(string search)
         {
             var model = _incomingMailService.IncomingMails;
+            if(search != null)
+            {
+                model = model.Where(m => m.ReferenceNumber.ToLower().Contains(search.ToLower()) || m.OfficeMail.Subject.ToLower().Contains(search.ToLower()));
+            }
+            return View(model.ToList());
+        }
+
+        public IActionResult Outgoing(string search)
+        {
+            var model = _outgoingMailService.OutgoingMails;
             if(search != null)
             {
                 model = model.Where(m => m.ReferenceNumber.ToLower().Contains(search.ToLower()) || m.OfficeMail.Subject.ToLower().Contains(search.ToLower()));
