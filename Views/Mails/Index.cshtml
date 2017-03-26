@@ -20,9 +20,9 @@
         <table class="table table-condensed table-bordered table-striped table-responsive">
             <thead>
                 <tr>
+                    <th class="col-sm-3">From</th>
                     <th class="col-sm-2">Reference Number</th>
                     <th class="col-sm-4">Subject</th>
-                    <th class="col-sm-3">From</th>
                     <th class="col-sm-3">To</th>
                 </tr>
             </thead>
@@ -30,9 +30,9 @@
                 @foreach(var mail in Model)
                 {
                 <tr>
+                    <td class="col-sm-3">@mail.From</td>
                     <td class="col-sm-2"><a asp-action="details" asp-route-id=@mail.ReferenceNumber>@mail.ReferenceNumber</a></td>
                     <td class="col-sm-4"><a asp-action="details" asp-route-id=@mail.ReferenceNumber>@mail.Subject</a></td>
-                    <td class="col-sm-3">@mail.From</td>
                     <td class="col-sm-3">@mail.To</td>
                 </tr>
                 }
