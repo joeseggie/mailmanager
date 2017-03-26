@@ -30,13 +30,13 @@
             <tbody>
                 @foreach(var mail in Model)
                 {
-                <tr>
-                    <td class="col-sm-2">@mail.OfficeMail.From</td>
-                    <td class="col-sm-2">@mail.IncomingDate.ToString("dd MMMM, yyyy")</td>
-                    <td class="col-sm-3"><a asp-action="details" asp-route-id=@mail.OfficeMail.Subject>@mail.OfficeMail.Subject</a></td>
-                    <td class="col-sm-2"><a asp-action="details" asp-route-id=@mail.OfficeMail.Stub>@mail.OfficeMail.ReferenceNumber</a></td>
-                    <td class="col-sm-3">@mail.OfficeMail.To</td>
-                </tr>
+                    <tr>
+                        <td class="col-sm-2">@mail.OfficeMail.From</td>
+                        <td class="col-sm-2">@mail.IncomingDate.ToString("dd MMMM, yyyy")</td>
+                        <td class="col-sm-3"><a asp-action="details" asp-route-id=@mail.OfficeMail.Stub>@mail.OfficeMail.Subject</a></td>
+                        <td class="col-sm-2"><a asp-action="details" asp-route-id=@mail.OfficeMail.Stub>@mail.OfficeMail.ReferenceNumber</a></td>
+                        <td class="col-sm-3">@mail.OfficeMail.To</td>
+                    </tr>
                 }
             </tbody>
         </table>
