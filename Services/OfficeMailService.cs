@@ -60,7 +60,7 @@ namespace MailManager.Services
         public string GenerateReferenceNumber()
         {
             Random generator = new Random();
-            return $@"MOES\{generator.Next(1, 99).ToString("D3")}";
+            return $@"MOES/{generator.Next(1, 99).ToString("D3")}";
         }
 
         public OfficeMailViewModel GetOfficeMailByReferenceNumber(string referenceNumber) => OfficeMails
