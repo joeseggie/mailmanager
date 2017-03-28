@@ -26,7 +26,7 @@ namespace MailManager.Services
                 Details = m.Details,
                 IncomingDate = m.IncomingDate,
                 RowVersion = m.RowVersion,
-                OutgoingMail = new OutgoingMailViewModel{
+                OutgoingMail = m.OutgoingMail == null ? null : new OutgoingMailViewModel{
                     IncomingMailId = m.OutgoingMail.IncomingMailId,
                     Comment = m.OutgoingMail.Comment,
                     Officer = m.OutgoingMail.Officer,

@@ -23,7 +23,7 @@ namespace MailManager.Services
                 Officer = m.Officer,
                 OutgoingDate = m.OutgoingDate,
                 RowVersion = m.RowVersion,
-                IncomingMail = new IncomingMailViewModel{
+                IncomingMail = m.IncomingMail == null ? null : new IncomingMailViewModel{
                     IncomingMailId = m.IncomingMail.IncomingMailId,
                     ReferenceNumber = m.IncomingMail.ReferenceNumber,
                     Subject = m.IncomingMail.Subject,

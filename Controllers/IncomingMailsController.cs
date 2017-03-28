@@ -17,12 +17,14 @@ namespace MailManager.Controllers
 
         public IActionResult Index(string search)
         {
-            var model = _incomingMailService.IncomingMails;
-            if(search != null)
+            var incomingMails = _incomingMailService.IncomingMails;
+            if(!string.IsNullOrWhiteSpace(search))
             {
-                model = model.Where(m => m.ReferenceNumber.ToLower().Contains(search.ToLower()) || m.Subject.ToLower().Contains(search.ToLower()));
+                incomingMails = incomingMails.Where(m => m.Subject.ToLower().Contains(search.ToLower()));
             }
-            return View(model.ToList());
+            incomingMails.ToList();
+            
+            return View(incomingMails);
         }
 
         public IActionResult New()
