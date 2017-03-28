@@ -13,6 +13,7 @@ using MailManager.Data;
 using MailManager.Models;
 using MailManager.Services;
 using Microsoft.AspNetCore.Session;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace MailManager
 {
@@ -49,6 +50,7 @@ namespace MailManager
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddMemoryCache();
             services.AddSession();
             services.AddMvc();
 
@@ -76,6 +78,7 @@ namespace MailManager
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseIdentity();
