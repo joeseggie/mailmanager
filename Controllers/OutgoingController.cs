@@ -17,17 +17,31 @@ namespace MailManager.Controllers
 
         public IActionResult Index(string search)
         {
-            var model = _outgoingMailService.OutgoingMails;
-            if(search != null)
+            var outgoingMails = _outgoingMailService.OutgoingMails;
+            if(!string.IsNullOrWhiteSpace(search))
             {
-                model = model.Where(m => m.IncomingMail.ReferenceNumber.ToLower().Contains(search.ToLower()) || m.IncomingMail.Subject.ToLower().Contains(search.ToLower()));
+                outgoingMails = outgoingMails.Where(m => m.IncomingMail.Subject.ToLower().Contains(search.ToLower()));
             }
-            return View(model.ToList());
+            outgoingMails.ToList();
+            
+            return View(outgoingMails);
         }
 
-        public IActionResult New()
+        public IActionResult New(string id)
         {
-            return View();
+            if(string.IsNullOrWhiteSpace(id))
+            {
+                TempData["Message"] = "No mail being responded to";
+                return RedirectToAction("index", new { controller = "incomingmails" } );
+            }
+            Guid incomingMailId;
+            if(Guid.TryParse(id, out incomingMailId))
+            {
+                ViewBag.IncomingMailId = incomingMailId;
+                return View();
+            }
+            TempData["Message"] = "Invalid mail being responded to";
+            return RedirectToAction("index", new { controller = "incomingmails" } );
         }
 
         [HttpPost]

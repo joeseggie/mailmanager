@@ -1,0 +1,64 @@
+@model OutgoingMailViewModel
+
+@{
+    ViewData["Title"] = "New Outgoing Mail";
+}
+<h2>New Outgoing Mail</h2>
+<hr />
+<a asp-action="index" asp-controller="incomingmails" class="btn btn-default col-sm-offset-2">&laquo; Back</a><br /><br />
+<form asp-action="new" method="POST" role="form">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="IncomingMailId" value=@ViewBag.IncomingMailId>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <div class="form-group">
+                                    <label asp-for="Officer" class="control-label"></label>
+                                    <input type="text" asp-for="Officer" class="form-control" placeholder="Officer or office's name" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <div class="form-group">
+                                    <label asp-for="OutgoingDate" class="control-label"></label>
+                                    <input type="text" asp-for="OutgoingDate" class="form-control" placeholder="Outgoing date" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <div class="form-group">
+                                    <label asp-for="Comment" class="control-label"></label>
+                                    <textarea asp-for="Comment" placeholder="Brief comment about the outgoing mail" class="form-control" cols="30" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <div class="form-group">
+                                    <input type="submit" value="Save" class="btn btn-danger" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+    <link rel="stylesheet" href="~/lib/jquery-ui/themes/base/all.css" />
+    <link rel="stylesheet" href="~/lib/jquery-ui/themes/base/datepicker.css" />
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#OutgoingDate").datepicker();
+        });
+    </script>
+}

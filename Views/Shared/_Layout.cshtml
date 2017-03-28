@@ -34,10 +34,10 @@
                 <ul class="nav navbar-nav">
                     <li>
                         <div class="topnav-dropdown">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;<span style="cursor: pointer;">Mail</span>
+                            <a class="topnav-dropbtn"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;Mail</a>
                             <div class="topnav-dropdown-content">
                                 <a asp-controller="incomingmails" asp-action="index" >Incoming Mails</a>
-                                <a asp-controller="mails" asp-action="outgoing" >Outgoing Mails</a>
+                                <a asp-controller="outgoingmails" asp-action="index" >Outgoing Mails</a>
                             </div>
                         </div>
                     </li>

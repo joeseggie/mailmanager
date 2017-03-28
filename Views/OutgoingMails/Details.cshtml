@@ -1,0 +1,52 @@
+@model OutgoingMailViewModel
+
+@{
+    ViewData["Title"] = "Outgoing Mail Details";
+}
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Outgoing Mail Details</strong>
+    </div>
+    <div class="panel-body">
+        <form asp-action="details" asp-controller="outgoingmails" method="POST" role="form">
+            <a asp-action="index" asp-controller="outgoingmails" class="btn btn-default">&laquo; Back</a>&nbsp;<input type="submit" class="btn btn-danger" value="Save"><br />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="IncomingMailId">
+            <input type="hidden" asp-for="RowVersion">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Officer" class="control-label"></label>
+                        <input type="text" class="form-control" asp-for="Officer" disabled>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="OutgoingDate" class="control-label"></label>
+                        <input type="text" class="form-control" asp-for="OutgoingDate">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Comment" class="control-label"></label>
+                        <textarea asp-for="Comment" class="form-control" cols="30" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>        
+    </div>
+</div>
+
+@section scripts{
+    <link rel="stylesheet" href="~/lib/jquery-ui/themes/base/all.css" />
+    <link rel="stylesheet" href="~/lib/jquery-ui/themes/base/datepicker.css" />
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#OutgoingDate").datepicker();
+        });
+    </script>
+}
