@@ -31,6 +31,14 @@ namespace MailManager.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("Firstname")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");

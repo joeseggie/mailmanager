@@ -1,0 +1,42 @@
+@model IEnumerable<RegisterViewModel>
+
+@{
+    ViewData["Title"] = "Users";
+}
+<h2>Users</h2>
+<hr />
+<a asp-action="register" asp-controller="account" class="btn btn-default">Add User</a><br /><br />
+<form asp-action="users" asp-controller="account" method="GET" role="form">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="input-group">
+                <span class="input-group-addon">Search for user</span>
+                <input type="text" name="search" id="search" class="form-control" placeholder="Username, First name or Last name">
+                <span class="input-group-btn">
+                    <input type="submit" class="btn btn-default" value="Search">
+                </span>
+            </div>
+        </div>
+        <table class="table table-condensed table-bordered table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th class="col-sm-3">First name</th>
+                    <th class="col-sm-3">Last name</th>
+                    <th class="col-sm-3">Username</th>
+                    <th class="col-sm-3">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var user in Model)
+                {
+                    <tr>
+                        <td class="col-sm-3">@user.Firstname</td>
+                        <td class="col-sm-3">@user.Lastname</td>
+                        <td class="col-sm-3">@user.Username</td>
+                        <td class="col-sm-3">@user.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</form>

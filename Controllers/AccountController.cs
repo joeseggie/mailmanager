@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using MailManager.Models;
 using MailManager.Models.AccountViewModels;
 using MailManager.Services;
+using MailManager.Data;
 
 namespace MailManager.Controllers
 {
@@ -22,19 +23,22 @@ namespace MailManager.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly IUserService _userService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            ApplicationDbContext databaseContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _db = databaseContext;
         }
 
         //
@@ -105,7 +109,7 @@ namespace MailManager.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, Firstname = model.Firstname, Lastname = model.Lastname };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -434,6 +438,11 @@ namespace MailManager.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid code.");
                 return View(model);
             }
+        }
+
+        public IActionResult Users()
+        {
+            return View(_userService.Users);
         }
 
         #region Helpers
