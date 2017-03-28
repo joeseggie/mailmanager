@@ -18,56 +18,52 @@ namespace MailManager.Services
 
         public IEnumerable<OutgoingMailViewModel> OutgoingMails => _db.OutgoingMails
             .Select(m => new OutgoingMailViewModel{
-                OutgoingMailId = m.OutgoingMailId,
-                ReferenceNumber = m.ReferenceNumber,
+                IncomingMailId = m.IncomingMailId,
                 Comment = m.Comment,
                 Officer = m.Officer,
                 OutgoingDate = m.OutgoingDate,
-                OfficeMail = new OfficeMailViewModel{
-                    ReferenceNumber = m.OfficeMail.ReferenceNumber,
-                    Subject = m.OfficeMail.Subject,
-                    From = m.OfficeMail.From,
-                    To = m.OfficeMail.To,
-                    Stub = m.OfficeMail.Stub,
-                    RowVersion = m.OfficeMail.RowVersion
-                },
-                RowVersion = m.RowVersion
+                RowVersion = m.RowVersion,
+                IncomingMail = new IncomingMailViewModel{
+                    IncomingMailId = m.IncomingMail.IncomingMailId,
+                    ReferenceNumber = m.IncomingMail.ReferenceNumber,
+                    Subject = m.IncomingMail.Subject,
+                    From = m.IncomingMail.From,
+                    To = m.IncomingMail.To,
+                    Details = m.IncomingMail.Details,
+                    IncomingDate = m.IncomingMail.IncomingDate,
+                    RowVersion = m.IncomingMail.RowVersion
+                }
             });
 
-        public OperationResult EditOutgoingMail(OutgoingMailViewModel outgoingMailUpdate)
+        public OperationResult EditOutgoingMail(OutgoingMailViewModel mailUpdate)
         {
-            var mailForUpdate = _db.OutgoingMails.Find(outgoingMailUpdate.OutgoingMailId);
+            var record = _db.OutgoingMails.Find(mailUpdate.IncomingMailId);
+            if(record == null)
+                return new OperationResult { Success = false, Message = "Mail for update doesnot exist." };
             
-            if(mailForUpdate == null)
-                return new OperationResult{ Success = false, Message = "Mail for update doesn't exist" };
+            record.Comment = mailUpdate.Comment;
+            record.Officer = mailUpdate.Officer;
+            record.OutgoingDate = mailUpdate.OutgoingDate;
 
-            mailForUpdate.OutgoingDate = outgoingMailUpdate.OutgoingDate;
-            mailForUpdate.Comment = outgoingMailUpdate.Comment;
-            mailForUpdate.Officer = outgoingMailUpdate.Officer;
+            _db.Update(record);
+            _db.SaveChanges();
 
-            _db.Update(mailForUpdate);
-            _db.SaveChangesAsync();
-
-            return new OperationResult { Success = true, Message = "Outgoing mail updated successfully" };
+            return new OperationResult{ Success = true, Message = "Mail updated successfully" };
         }
 
-        public OutgoingMailViewModel GetOutgoingMailById(Guid outgoingMailId) => OutgoingMails
-            .SingleOrDefault(m => m.OutgoingMailId == outgoingMailId);
+        public OutgoingMailViewModel GetOutgoingMailById(Guid incomingMailId) => OutgoingMails.SingleOrDefault(m => m.IncomingMailId == incomingMailId);
 
-        public IEnumerable<OutgoingMailViewModel> GetOutgoingMailsByReferenceNumber(string referenceNumber) => OutgoingMails
-            .Where(m => m.ReferenceNumber == referenceNumber).ToList();
-
-        public OperationResult NewOutgoingMail(OutgoingMailViewModel newOutgoingMail)
+        public OperationResult NewOutgoingMail(OutgoingMailViewModel newMail)
         {
             _db.OutgoingMails.Add(new OutgoingMail{
-                ReferenceNumber = newOutgoingMail.ReferenceNumber,
-                Comment = newOutgoingMail.Comment,
-                Officer = newOutgoingMail.Officer,
-                OutgoingDate = newOutgoingMail.OutgoingDate
+                IncomingMailId = newMail.IncomingMailId,
+                Comment = newMail.Comment,
+                Officer = newMail.Officer,
+                OutgoingDate = newMail.OutgoingDate,
             });
             _db.SaveChanges();
 
-            return new OperationResult{ Success = true, Message = "New outgoing mail added successfully" };
+            return new OperationResult{ Success = true, Message = "Mail added successfully" };
         }
     }
 }

@@ -35,33 +35,21 @@ namespace MailManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OfficeMail",
+                name: "IncomingMail",
                 columns: table => new
                 {
-                    ReferenceNumber = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
+                    IncomingMailId = table.Column<Guid>(nullable: false),
+                    Details = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false),
                     From = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    IncomingDate = table.Column<DateTime>(type: "date", nullable: false),
+                    ReferenceNumber = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true),
                     RowVersion = table.Column<byte[]>(rowVersion: true, nullable: false),
-                    Stub = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
                     Subject = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     To = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OfficeMail", x => x.ReferenceNumber);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RecordFile",
-                columns: table => new
-                {
-                    FileNumber = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
-                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: false),
-                    Stub = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
-                    Subject = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RecordFile", x => x.FileNumber);
+                    table.PrimaryKey("PK_IncomingMail", x => x.IncomingMailId);
                 });
 
             migrationBuilder.CreateTable(
@@ -134,88 +122,24 @@ namespace MailManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IncomingMail",
+                name: "OutgoingMail",
                 columns: table => new
                 {
                     IncomingMailId = table.Column<Guid>(nullable: false),
-                    Details = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false),
-                    IncomingDate = table.Column<DateTime>(type: "date", nullable: false),
-                    ReferenceNumber = table.Column<string>(nullable: true),
+                    Comment = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false),
+                    Officer = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    OutgoingDate = table.Column<DateTime>(type: "date", nullable: false),
                     RowVersion = table.Column<byte[]>(rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IncomingMail", x => x.IncomingMailId);
+                    table.PrimaryKey("PK_OutgoingMail", x => x.IncomingMailId);
                     table.ForeignKey(
-                        name: "FK_IncomingMail_OfficeMail_ReferenceNumber",
-                        column: x => x.ReferenceNumber,
-                        principalTable: "OfficeMail",
-                        principalColumn: "ReferenceNumber",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OutgoingMails",
-                columns: table => new
-                {
-                    OutgoingMailId = table.Column<Guid>(nullable: false),
-                    Comment = table.Column<string>(nullable: true),
-                    Officer = table.Column<string>(nullable: true),
-                    OutgoingDate = table.Column<DateTime>(nullable: false),
-                    ReferenceNumber = table.Column<string>(nullable: true),
-                    RowVersion = table.Column<byte[]>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OutgoingMails", x => x.OutgoingMailId);
-                    table.ForeignKey(
-                        name: "FK_OutgoingMails_OfficeMail_ReferenceNumber",
-                        column: x => x.ReferenceNumber,
-                        principalTable: "OfficeMail",
-                        principalColumn: "ReferenceNumber",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "IncomingFile",
-                columns: table => new
-                {
-                    IncomingFileId = table.Column<Guid>(nullable: false),
-                    FileNumber = table.Column<string>(nullable: true),
-                    IncomingDate = table.Column<DateTime>(type: "date", nullable: false),
-                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IncomingFile", x => x.IncomingFileId);
-                    table.ForeignKey(
-                        name: "FK_IncomingFile_RecordFile_FileNumber",
-                        column: x => x.FileNumber,
-                        principalTable: "RecordFile",
-                        principalColumn: "FileNumber",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OutgoingFiles",
-                columns: table => new
-                {
-                    OutgoingFileId = table.Column<Guid>(nullable: false),
-                    Comment = table.Column<string>(nullable: true),
-                    FileNumber = table.Column<string>(nullable: true),
-                    Officer = table.Column<string>(nullable: true),
-                    OutgoingDate = table.Column<DateTime>(nullable: false),
-                    RowVersion = table.Column<byte[]>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OutgoingFiles", x => x.OutgoingFileId);
-                    table.ForeignKey(
-                        name: "FK_OutgoingFiles_RecordFile_FileNumber",
-                        column: x => x.FileNumber,
-                        principalTable: "RecordFile",
-                        principalColumn: "FileNumber",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_OutgoingMail_IncomingMail_IncomingMailId",
+                        column: x => x.IncomingMailId,
+                        principalTable: "IncomingMail",
+                        principalColumn: "IncomingMailId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -275,26 +199,6 @@ namespace MailManager.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_IncomingFile_FileNumber",
-                table: "IncomingFile",
-                column: "FileNumber");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IncomingMail_ReferenceNumber",
-                table: "IncomingMail",
-                column: "ReferenceNumber");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OutgoingFiles_FileNumber",
-                table: "OutgoingFiles",
-                column: "FileNumber");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OutgoingMails_ReferenceNumber",
-                table: "OutgoingMails",
-                column: "ReferenceNumber");
-
-            migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
@@ -324,16 +228,7 @@ namespace MailManager.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "IncomingFile");
-
-            migrationBuilder.DropTable(
-                name: "IncomingMail");
-
-            migrationBuilder.DropTable(
-                name: "OutgoingFiles");
-
-            migrationBuilder.DropTable(
-                name: "OutgoingMails");
+                name: "OutgoingMail");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -351,10 +246,7 @@ namespace MailManager.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "RecordFile");
-
-            migrationBuilder.DropTable(
-                name: "OfficeMail");
+                name: "IncomingMail");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

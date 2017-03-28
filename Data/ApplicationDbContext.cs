@@ -16,13 +16,9 @@ namespace MailManager.Data
             : base(options)
         {
         }
-
-        public DbSet<OfficeMail> OfficeMails { get; set; }
+        
         public DbSet<IncomingMail> IncomingMails { get; set; }
         public DbSet<OutgoingMail> OutgoingMails { get; set; }
-        public DbSet<RecordFile> RecordFiles { get; set; }
-        public DbSet<IncomingFile> IncomingFiles { get; set; }
-        public DbSet<OutgoingFile> OutgoingFiles { get; set; }
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -31,12 +27,8 @@ namespace MailManager.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
 
-            builder.AddConfiguration(new OfficeMailConfiguration());
             builder.AddConfiguration(new IncomingMailConfiguration());
-            builder.AddConfiguration(new OfficeMailConfiguration());
-            builder.AddConfiguration(new RecordFileConfiguration());
-            builder.AddConfiguration(new IncomingFileConfiguration());
-            builder.AddConfiguration(new OfficeMailConfiguration());
+            builder.AddConfiguration(new OutgoingMailConfiguration());
         }
     }
 }

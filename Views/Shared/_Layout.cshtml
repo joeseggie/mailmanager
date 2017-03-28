@@ -36,12 +36,12 @@
                         <div class="topnav-dropdown">
                             <a asp-controller="mails" asp-action="index" class="topnav-dropbtn"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;Mail</a>
                             <div class="topnav-dropdown-content">
-                                <a asp-controller="mails" asp-action="incoming" >Incoming Mails</a>
+                                <a asp-controller="incomingmails" asp-action="index" >Incoming Mails</a>
                                 <a asp-controller="mails" asp-action="outgoing" >Outgoing Mails</a>
                             </div>
                         </div>
                     </li>
-                    <li><div class="topnav-dropdown">
+                    <!--<li><div class="topnav-dropdown">
                             <a href="#" class="topnav-dropbtn"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;&nbsp;Files</a>
                             <div class="topnav-dropdown-content">
                                 <a href="#">Incoming Files</a>
@@ -53,7 +53,7 @@
                             <div class="topnav-dropdown-content">
                                 <a asp-controller="Account" asp-action="Register">Add User</a>
                             </div>
-                        </div></li>
+                        </div></li>-->
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

@@ -1,0 +1,105 @@
+@model OfficeMailViewModel
+
+@{
+    ViewData["Title"] = "Mail Details";
+}
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Mail Details</strong>
+    </div>
+    <div class="panel-body">
+        <form asp-action="details" asp-controller="mails" method="POST" role="form">
+            <input type="submit" class="btn btn-danger" value="Save"><br /><br />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="ReferenceNumber">
+            <input type="hidden" asp-for="RowVersion">
+            <input type="hidden" asp-for="Stub">
+            <input type="hidden" asp-for="IncomingDetails.IncomingMailId">
+            <input type="hidden" asp-for="IncomingDetails.ReferenceNumber">
+            <input type="hidden" asp-for="IncomingDetails.RowVersion">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="ReferenceNumber" class="control-label"></label>
+                        <input type="text" class="form-control" asp-for="ReferenceNumber" disabled>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Subject" class="control-label"></label>
+                        <input type="text" class="form-control" asp-for="Subject">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="From" class="control-label"></label>
+                        <input type="text" class="form-control" asp-for="From">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="To" class="control-label"></label>
+                        <input type="text" class="form-control" asp-for="To">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="IncomingDetails.IncomingDate" class="control-label"></label>
+                        <input type="text" class="form-control" asp-for="IncomingDetails.IncomingDate">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="IncomingDetails.Details" class="control-label"></label>
+                        <textarea asp-for="IncomingDetails.Details" class="form-control" cols="30" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="well">
+                <h4><strong>Outgoing Details</strong></h4>
+            <hr />
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="OutgoingDetails.OutgoingDate" class="control-label"></label>
+                        <input type="text" class="form-control" asp-for="OutgoingDetails.OutgoingDate">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="OutgoingDetails.Officer" class="control-label"></label>
+                        <input type="text" class="form-control" asp-for="OutgoingDetails.Officer">
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="OutgoingDetails.Comment" class="control-label"></label>
+                            <textarea asp-for="OutgoingDetails.Comment" class="form-control" cols="30" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>        
+    </div>
+</div>
+
+@section scripts{
+    <link rel="stylesheet" href="~/lib/jquery-ui/themes/base/all.css" />
+    <link rel="stylesheet" href="~/lib/jquery-ui/themes/base/datepicker.css" />
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#IncomingDetails_IncomingDate").datepicker();
+            $("#OutgoingDetails_OutgoingDate").datepicker();
+        });
+    </script>
+}

@@ -12,9 +12,31 @@ namespace MailManager.Models.Configuration
             entity.Property(m => m.IncomingMailId)
                   .ValueGeneratedOnAdd();
 
-            entity.HasOne(m => m.OfficeMail)
-                  .WithMany(o => o.IncomingMails)
-                  .HasForeignKey(m => m.ReferenceNumber);
+            entity.HasOne(m => m.OutgoingMail)
+                  .WithOne(o => o.IncomingMail);
+
+            entity.Property(m => m.ReferenceNumber)
+                  .IsUnicode(false)
+                  .HasMaxLength(20)
+                  .ForSqlServerHasColumnType("varchar(20)");
+
+            entity.Property(m => m.Subject)
+                  .IsRequired()
+                  .IsUnicode(false)
+                  .HasMaxLength(100)
+                  .ForSqlServerHasColumnType("varchar(100)");
+            
+            entity.Property(m => m.From)
+                  .IsRequired()
+                  .IsUnicode(false)
+                  .HasMaxLength(50)
+                  .ForSqlServerHasColumnType("varchar(50)");
+            
+            entity.Property(m => m.To)
+                  .IsRequired()
+                  .IsUnicode(false)
+                  .HasMaxLength(50)
+                  .ForSqlServerHasColumnType("varchar(50)");
 
             entity.Property(m => m.Details)
                   .IsRequired()
