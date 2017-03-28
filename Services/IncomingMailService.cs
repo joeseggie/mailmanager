@@ -20,43 +20,55 @@ namespace MailManager.Services
             .Select(m => new IncomingMailViewModel{
                 IncomingMailId = m.IncomingMailId,
                 ReferenceNumber = m.ReferenceNumber,
+                Subject = m.Subject,
+                From = m.From,
+                To = m.To,
                 Details = m.Details,
                 IncomingDate = m.IncomingDate,
-                RowVersion = m.RowVersion
+                RowVersion = m.RowVersion,
+                OutgoingMail = m.OutgoingMail == null ? null : new OutgoingMailViewModel{
+                    IncomingMailId = m.OutgoingMail.IncomingMailId,
+                    Comment = m.OutgoingMail.Comment,
+                    Officer = m.OutgoingMail.Officer,
+                    OutgoingDate = m.OutgoingMail.OutgoingDate,
+                    RowVersion = m.OutgoingMail.RowVersion
+                }
             });
 
         public OperationResult EditIncomingMail(IncomingMailViewModel mailUpdate)
         {
-            var mailForUpdate = _db.IncomingMails.Find(mailUpdate.IncomingMailId);
+            var record = _db.IncomingMails.Find(mailUpdate.IncomingMailId);
+            if(record == null)
+                return new OperationResult { Success = false, Message = "Mail for update doesnot exist." };
             
-            if(mailForUpdate == null)
-                return new OperationResult{ Success = false, Message = "Mail for update doesn't exist" };
+            record.ReferenceNumber = mailUpdate.ReferenceNumber;
+            record.Subject = mailUpdate.Subject;
+            record.From = mailUpdate.From;
+            record.To = mailUpdate.To;
+            record.Details = mailUpdate.Details;
+            record.IncomingDate = mailUpdate.IncomingDate;
 
-            mailForUpdate.Details = mailUpdate.Details;
-            mailForUpdate.IncomingDate = mailUpdate.IncomingDate;
+            _db.Update(record);
+            _db.SaveChanges();
 
-            _db.Update(mailForUpdate);
-            _db.SaveChangesAsync();
-
-            return new OperationResult { Success = true, Message = "Outgoing file updated successfully" };
+            return new OperationResult{ Success = true, Message = "Mail updated successfully" };
         }
 
-        public IncomingMailViewModel GetIncomingMailById(Guid incomingMailId) => IncomingMails
-            .SingleOrDefault(m => m.IncomingMailId == incomingMailId);
-
-        public IEnumerable<IncomingMailViewModel> GetIncomingMailsByReferenceNumber(string referenceNumber) => IncomingMails
-            .Where(m => m.ReferenceNumber == referenceNumber).ToList();
+        public IncomingMailViewModel GetIncomingMailById(Guid incomingMailId) => IncomingMails.SingleOrDefault(m => m.IncomingMailId == incomingMailId);
 
         public OperationResult NewIncomingMail(IncomingMailViewModel newMail)
         {
             _db.IncomingMails.Add(new IncomingMail{
                 ReferenceNumber = newMail.ReferenceNumber,
+                Subject = newMail.Subject,
+                From = newMail.From,
+                To = newMail.To,
                 Details = newMail.Details,
                 IncomingDate = newMail.IncomingDate
             });
             _db.SaveChanges();
 
-            return new OperationResult { Success = true, Message = "Incoming mail added successfully" };
+            return new OperationResult{ Success = true, Message = "Mail added successfully" };
         }
     }
 }

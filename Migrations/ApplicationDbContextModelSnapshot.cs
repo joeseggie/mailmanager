@@ -66,28 +66,6 @@ namespace MailManager.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("MailManager.Models.IncomingFile", b =>
-                {
-                    b.Property<Guid>("IncomingFileId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("FileNumber");
-
-                    b.Property<DateTime>("IncomingDate")
-                        .HasAnnotation("SqlServer:ColumnType", "date");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("IncomingFileId");
-
-                    b.HasIndex("FileNumber");
-
-                    b.ToTable("IncomingFile");
-                });
-
             modelBuilder.Entity("MailManager.Models.IncomingMail", b =>
                 {
                     b.Property<Guid>("IncomingMailId")
@@ -99,36 +77,19 @@ namespace MailManager.Migrations
                         .IsUnicode(false)
                         .HasAnnotation("SqlServer:ColumnType", "varchar(150)");
 
-                    b.Property<DateTime>("IncomingDate")
-                        .HasAnnotation("SqlServer:ColumnType", "date");
-
-                    b.Property<string>("ReferenceNumber");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("IncomingMailId");
-
-                    b.HasIndex("ReferenceNumber");
-
-                    b.ToTable("IncomingMail");
-                });
-
-            modelBuilder.Entity("MailManager.Models.OfficeMail", b =>
-                {
-                    b.Property<string>("ReferenceNumber")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(20)
-                        .IsUnicode(false)
-                        .HasAnnotation("SqlServer:ColumnType", "varchar(20)");
-
                     b.Property<string>("From")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasAnnotation("SqlServer:ColumnType", "varchar(50)");
+
+                    b.Property<DateTime>("IncomingDate")
+                        .HasAnnotation("SqlServer:ColumnType", "date");
+
+                    b.Property<string>("ReferenceNumber")
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasAnnotation("SqlServer:ColumnType", "varchar(20)");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -147,77 +108,38 @@ namespace MailManager.Migrations
                         .IsUnicode(false)
                         .HasAnnotation("SqlServer:ColumnType", "varchar(50)");
 
-                    b.HasKey("ReferenceNumber");
+                    b.HasKey("IncomingMailId");
 
-                    b.ToTable("OfficeMail");
-                });
-
-            modelBuilder.Entity("MailManager.Models.OutgoingFile", b =>
-                {
-                    b.Property<Guid>("OutgoingFileId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Comment");
-
-                    b.Property<string>("FileNumber");
-
-                    b.Property<string>("Officer");
-
-                    b.Property<DateTime>("OutgoingDate");
-
-                    b.Property<byte[]>("RowVersion");
-
-                    b.HasKey("OutgoingFileId");
-
-                    b.HasIndex("FileNumber");
-
-                    b.ToTable("OutgoingFiles");
+                    b.ToTable("IncomingMail");
                 });
 
             modelBuilder.Entity("MailManager.Models.OutgoingMail", b =>
                 {
-                    b.Property<Guid>("OutgoingMailId")
-                        .ValueGeneratedOnAdd();
+                    b.Property<Guid>("IncomingMailId");
 
-                    b.Property<string>("Comment");
-
-                    b.Property<string>("Officer");
-
-                    b.Property<DateTime>("OutgoingDate");
-
-                    b.Property<string>("ReferenceNumber");
-
-                    b.Property<byte[]>("RowVersion");
-
-                    b.HasKey("OutgoingMailId");
-
-                    b.HasIndex("ReferenceNumber");
-
-                    b.ToTable("OutgoingMails");
-                });
-
-            modelBuilder.Entity("MailManager.Models.RecordFile", b =>
-                {
-                    b.Property<string>("FileNumber")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(20)
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(150)
                         .IsUnicode(false)
-                        .HasAnnotation("SqlServer:ColumnType", "varchar(20)");
+                        .HasAnnotation("SqlServer:ColumnType", "varchar(150)");
+
+                    b.Property<string>("Officer")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasAnnotation("SqlServer:ColumnType", "varchar(50)");
+
+                    b.Property<DateTime>("OutgoingDate")
+                        .HasAnnotation("SqlServer:ColumnType", "date");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .IsRequired()
                         .ValueGeneratedOnAddOrUpdate();
 
-                    b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .IsUnicode(false)
-                        .HasAnnotation("SqlServer:ColumnType", "varchar(150)");
+                    b.HasKey("IncomingMailId");
 
-                    b.HasKey("FileNumber");
-
-                    b.ToTable("RecordFile");
+                    b.ToTable("OutgoingMail");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -327,32 +249,12 @@ namespace MailManager.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MailManager.Models.IncomingFile", b =>
-                {
-                    b.HasOne("MailManager.Models.RecordFile", "RecordFile")
-                        .WithMany("IncomingFiles")
-                        .HasForeignKey("FileNumber");
-                });
-
-            modelBuilder.Entity("MailManager.Models.IncomingMail", b =>
-                {
-                    b.HasOne("MailManager.Models.OfficeMail", "OfficeMail")
-                        .WithMany("IncomingMails")
-                        .HasForeignKey("ReferenceNumber");
-                });
-
-            modelBuilder.Entity("MailManager.Models.OutgoingFile", b =>
-                {
-                    b.HasOne("MailManager.Models.RecordFile", "RecordFile")
-                        .WithMany("OutgoingFiles")
-                        .HasForeignKey("FileNumber");
-                });
-
             modelBuilder.Entity("MailManager.Models.OutgoingMail", b =>
                 {
-                    b.HasOne("MailManager.Models.OfficeMail", "OfficeMail")
-                        .WithMany("OutgoingMails")
-                        .HasForeignKey("ReferenceNumber");
+                    b.HasOne("MailManager.Models.IncomingMail", "IncomingMail")
+                        .WithOne("OutgoingMail")
+                        .HasForeignKey("MailManager.Models.OutgoingMail", "IncomingMailId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

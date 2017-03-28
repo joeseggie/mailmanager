@@ -8,13 +8,7 @@ namespace MailManager.Models.Configuration
     {
         public override void Configure(EntityTypeBuilder<OutgoingMail> entity)
         {
-            entity.HasKey(m => m.OutgoingMailId);
-            entity.Property(m => m.OutgoingMailId)
-                  .ValueGeneratedOnAdd();
-
-            entity.HasOne(m => m.OfficeMail)
-                  .WithMany(o => o.OutgoingMails)
-                  .HasForeignKey(m => m.ReferenceNumber);
+            entity.HasKey(m => m.IncomingMailId);
 
             entity.Property(m => m.Comment)
                   .IsRequired()

@@ -10,6 +10,5 @@ namespace MailManager.Services
          OperationResult NewOutgoingMail(OutgoingMailViewModel newOutgoingMail);
          OperationResult EditOutgoingMail(OutgoingMailViewModel outgoingMailUpdate);
          OutgoingMailViewModel GetOutgoingMailById(Guid outgoingMailId);
-         IEnumerable<OutgoingMailViewModel> GetOutgoingMailsByReferenceNumber(string referenceNumber);
     }
 }

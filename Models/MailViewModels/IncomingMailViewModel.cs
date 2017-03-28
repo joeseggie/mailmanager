@@ -5,41 +5,31 @@ namespace MailManager.Models.MailViewModels
 {
     public class IncomingMailViewModel
     {
-        /// <summary>
-        /// Incoming mail Id.
-        /// </summary>
-        /// <returns>Guid</returns>
         [Required(ErrorMessage = "Incoming mail Id is required")]
         public Guid IncomingMailId { get; set; }
 
-        /// <summary>
-        /// Mail reference number.
-        /// </summary>
-        /// <returns>string</returns>
         [Display(Name = "Reference Number")]
-        [Required(ErrorMessage = "Reference number is required")]
         public string ReferenceNumber { get; set; }
 
-        /// <summary>
-        /// Details about the incoming mail.
-        /// </summary>
-        /// <returns>string</returns>
-        [Required(ErrorMessage = "Details about incoming mail are required.")]
+        [Required(ErrorMessage = "Subject is required")]
+        public string Subject { get; set; }
+
+        [Required(ErrorMessage = "Mail sender is required")]
+        public string From { get; set; }
+
+        [Required(ErrorMessage = "Mail recipient is required")]
+        public string To { get; set; }
+
+        [Required(ErrorMessage = "Details are required")]
         public string Details { get; set; }
 
-        /// <summary>
-        /// Incoming mail date.
-        /// </summary>
-        /// <returns>DateTime</returns>
         [Display(Name = "Incoming Date")]
-        [Required(ErrorMessage = "Incoming date is required")]
+        [Required(ErrorMessage = "Incoming date are required")]
         public DateTime IncomingDate { get; set; }
 
-        /// <summary>
-        /// Row version.
-        /// </summary>
-        /// <returns>byte[]</returns>
-        [Required(ErrorMessage = "Row Version is required")]
+        [Required(ErrorMessage = "Row version required")]
         public byte[] RowVersion { get; set; }
+
+        public virtual OutgoingMailViewModel OutgoingMail { get; set; }
     }
 }

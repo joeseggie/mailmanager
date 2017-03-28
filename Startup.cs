@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using MailManager.Data;
 using MailManager.Models;
 using MailManager.Services;
+using Microsoft.AspNetCore.Session;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace MailManager
 {
@@ -48,11 +50,15 @@ namespace MailManager
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddMemoryCache();
+            services.AddSession();
             services.AddMvc();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<IIncomingMail, IncomingMailService>();
+            services.AddTransient<IOutgoingMail, OutgoingMailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +78,7 @@ namespace MailManager
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseIdentity();

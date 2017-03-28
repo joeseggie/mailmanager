@@ -10,6 +10,5 @@ namespace MailManager.Services
          OperationResult NewIncomingMail(IncomingMailViewModel newMail);
          OperationResult EditIncomingMail(IncomingMailViewModel mailUpdate);
          IncomingMailViewModel GetIncomingMailById(Guid incomingMailId);
-         IEnumerable<IncomingMailViewModel> GetIncomingMailsByReferenceNumber(string referenceNumber);
     }
 }
