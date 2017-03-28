@@ -8,16 +8,16 @@
     <h2>Mail Management System</h2>
 </div>
 <div class="container-fluid">
-    <form asp-action="index" asp-controller="mails" method="POST">
+    <form asp-action="index" asp-controller="incomingmails" method="GET">
         <div class="row">
             <div class="col-sm-offset-1 col-sm-10">
                 <div class="form-horizontal">
                     <div class="form-group text-center">
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon3">Search for mails and files</span>
-                            <input type="text" class="form-control" placeholder="Mail reference or file number">
+                            <input type="text" class="form-control" name="search" id="search" placeholder="Mail reference or file number">
                             <span class="input-group-btn">
-                                <input class="btn btn-primary" name="search" id="search" type="submit" value="Search Mails" />
+                                <input class="btn btn-primary" type="submit" value="Search Mails" />
                             </span>
                         </div>
                     </div>
