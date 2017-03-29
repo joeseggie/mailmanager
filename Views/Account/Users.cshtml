@@ -21,9 +21,10 @@
             <thead>
                 <tr>
                     <th class="col-sm-3">First name</th>
-                    <th class="col-sm-3">Last name</th>
-                    <th class="col-sm-3">Username</th>
+                    <th class="col-sm-2">Last name</th>
+                    <th class="col-sm-2">Username</th>
                     <th class="col-sm-3">Email</th>
+                    <th class="col-sm-2"></th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +35,10 @@
                         <td class="col-sm-3">@user.Lastname</td>
                         <td class="col-sm-3">@user.Username</td>
                         <td class="col-sm-3">@user.Email</td>
+                        <td class="col-sm-3">
+                            <!--<a asp-controller="account" asp-action="userprofile" asp-route-id=@user.Username>Details</a>&nbsp;
+                            <a asp-controller="account" asp-action="removeuser" asp-route-id=@user.Username>Remove</a>-->
+                        </td>
                     </tr>
                 }
             </tbody>

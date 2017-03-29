@@ -19,8 +19,8 @@ namespace MailManager.Services
             .Select(u => new RegisterViewModel{
                 Firstname = u.Firstname,
                 Lastname = u.Lastname,
-                Email = u.UserName,
-                Username = u.Email
+                Email = u.Email,
+                Username = u.UserName
             });
     }
 }

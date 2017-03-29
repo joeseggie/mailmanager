@@ -31,14 +31,14 @@ namespace MailManager.Controllers
             IEmailSender emailSender,
             ISmsSender smsSender,
             ILoggerFactory loggerFactory,
-            ApplicationDbContext databaseContext)
+            IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
-            _db = databaseContext;
+            _userService = userService;
         }
 
         //
@@ -63,7 +63,7 @@ namespace MailManager.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
@@ -439,10 +439,46 @@ namespace MailManager.Controllers
                 return View(model);
             }
         }
-
+        
         public IActionResult Users()
         {
-            return View(_userService.Users);
+            return View(_userService.Users.ToList());
+        }
+
+        public IActionResult UserProfile(string id)
+        {
+            var viewModel = _userService.Users.SingleOrDefault(u => u.Username == id);
+            if(viewModel == null)
+            {
+                TempData["message"] = "User does not exist";
+                return RedirectToAction("users");
+            }
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UserProfile(RegisterViewModel profileUpdate)
+        {
+            ModelState.Remove("Password");
+            ModelState.Remove("ConfirmPassword");
+            if(ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName=profileUpdate.Username, Email = profileUpdate.Email, Firstname = profileUpdate.Firstname, Lastname = profileUpdate.Lastname };
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("users");
+                }
+                AddErrors(result);
+            }
+
+            return View(profileUpdate);
+        }
+
+        public IActionResult RemoveUser(string id)
+        {
+            return View();
         }
 
         #region Helpers
