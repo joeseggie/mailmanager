@@ -3,7 +3,7 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
+<div class="container">
 @if (SignInManager.IsSignedIn(User))
 {
     <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
@@ -24,3 +24,4 @@ else
         <li><a asp-controller="Account" asp-action="Login">Log in</a></li>
     </ul>
 }
+</div>

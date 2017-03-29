@@ -47,13 +47,13 @@
                                 <a href="#">Incoming Files</a>
                                 <a href="#">Outgoing Files</a>
                             </div>
-                        </div></li>
-                    <li><div class="topnav-dropdown">
-                            <a href="#" class="topnav-dropbtn"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Users</a>
-                            <div class="topnav-dropdown-content">
-                                <a asp-controller="Account" asp-action="Register">Add User</a>
-                            </div>
                         </div></li>-->
+                    <li><div class="topnav-dropdown">
+                            <a class="topnav-dropbtn"><i class="fa fa-gear" aria-hidden="true"></i>&nbsp;&nbsp;Admin</a>
+                            <div class="topnav-dropdown-content">
+                                <a asp-controller="account" asp-action="users">Users</a>
+                            </div>
+                        </div></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

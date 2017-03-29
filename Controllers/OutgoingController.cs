@@ -3,9 +3,11 @@ using System;
 using System.Linq;
 using MailManager.Services;
 using MailManager.Models.MailViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MailManager.Controllers
 {
+    [Authorize]
     public class OutgoingMailsController : Controller
     {
         private readonly IOutgoingMail _outgoingMailService;

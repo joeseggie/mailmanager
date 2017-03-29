@@ -8,7 +8,7 @@ using MailManager.Data;
 namespace MailManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170328080648_InitialSchema")]
+    [Migration("20170328133203_InitialSchema")]
     partial class InitialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,14 @@ namespace MailManager.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("Firstname")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<bool>("LockoutEnabled");
 
