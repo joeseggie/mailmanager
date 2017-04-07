@@ -74,6 +74,7 @@ namespace MailManager
 
             services.AddMemoryCache();
             services.AddSession();
+            services.AddLogging();
             services.AddMvc();
 
             // Add application services.

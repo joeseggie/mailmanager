@@ -25,6 +25,7 @@ namespace MailManager.Controllers
                 incomingMails = incomingMails.Where(m => m.Subject.ToLower().Contains(search.ToLower()));
             }
             incomingMails.ToList();
+            ViewBag.search = search;
             
             return View(incomingMails);
         }
