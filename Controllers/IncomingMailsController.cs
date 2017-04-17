@@ -4,6 +4,7 @@ using System.Linq;
 using MailManager.Services;
 using MailManager.Models.MailViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace MailManager.Controllers
 {
@@ -11,14 +12,17 @@ namespace MailManager.Controllers
     public class IncomingMailsController : Controller
     {
         private readonly IIncomingMail _incomingMailService;
+        private readonly ILogger<IncomingMailsController> _logger;
 
-        public IncomingMailsController(IIncomingMail incomingMailService)
+        public IncomingMailsController(IIncomingMail incomingMailService, ILogger<IncomingMailsController> logger)
         {
             _incomingMailService = incomingMailService;
+            _logger = logger;
         }
 
         public IActionResult Index(string search)
         {
+            _logger.LogInformation($"Accessing incoming mails with search term: {search??"None"}");
             var incomingMails = _incomingMailService.IncomingMails;
             if(!string.IsNullOrWhiteSpace(search))
             {
@@ -32,6 +36,7 @@ namespace MailManager.Controllers
 
         public IActionResult New()
         {
+            _logger.LogInformation($"Accessing view to add new incoming mail");
             return View();
         }
 
@@ -39,6 +44,7 @@ namespace MailManager.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult New(IncomingMailViewModel newMail)
         {
+            _logger.LogInformation($"Saving new incoming mail");
             ModelState.Remove("IncomingMailId");
             ModelState.Remove("RowVersion");
 
@@ -58,6 +64,7 @@ namespace MailManager.Controllers
 
         public IActionResult Details(string id)
         {
+            _logger.LogInformation($"Accessing details of incomingmail with Id: {id??"None"}");
             if(string.IsNullOrWhiteSpace(id))
             {
                 TempData["Message"] = "Incoming mail Id not supplied";
@@ -80,6 +87,7 @@ namespace MailManager.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Details(IncomingMailViewModel mailUpdates)
         {
+            _logger.LogInformation($"Updating details of incomingmail with Id: {mailUpdates.IncomingMailId.ToString()??"None"}");
             if(ModelState.IsValid)
             {
                 var mailUpdateOperationResult = _incomingMailService.EditIncomingMail(mailUpdates);

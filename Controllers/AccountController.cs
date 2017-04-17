@@ -22,7 +22,7 @@ namespace MailManager.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
-        private readonly ILogger _logger;
+        private readonly ILogger<AccountController> _logger;
         private readonly IUserService _userService;
 
         public AccountController(
@@ -30,14 +30,14 @@ namespace MailManager.Controllers
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory,
+            ILogger<AccountController> loggerFactory,
             IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
-            _logger = loggerFactory.CreateLogger<AccountController>();
+            _logger = loggerFactory;
             _userService = userService;
         }
 

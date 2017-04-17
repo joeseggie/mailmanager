@@ -19,7 +19,7 @@ namespace MailManager.Controllers
         }
         public IActionResult Index()
         {
-            _logger.LogInformation("Am at the landing page");
+            _logger.LogInformation("Landing view request", new object[0]);
             return View();
         }
 

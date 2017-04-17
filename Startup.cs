@@ -12,8 +12,9 @@ using Microsoft.Extensions.Logging;
 using MailManager.Data;
 using MailManager.Models;
 using MailManager.Services;
-using Microsoft.AspNetCore.Session;
-using Microsoft.Extensions.Caching.Memory;
+using NLog.Extensions.Logging;
+using NLog.Web;
+using Microsoft.AspNetCore.Http;
 
 namespace MailManager
 {
@@ -21,6 +22,8 @@ namespace MailManager
     {
         public Startup(IHostingEnvironment env)
         {
+            env.ConfigureNLog("nlog.config");
+         
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -83,13 +86,14 @@ namespace MailManager
             services.AddTransient<IIncomingMail, IncomingMailService>();
             services.AddTransient<IOutgoingMail, OutgoingMailService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            loggerFactory.AddNLog();
+            app.AddNLogWeb();
 
             if (env.IsDevelopment())
             {

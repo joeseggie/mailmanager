@@ -11,14 +11,17 @@ namespace MailManager.Controllers
     public class OutgoingMailsController : Controller
     {
         private readonly IOutgoingMail _outgoingMailService;
+        private readonly ILogger<OutgoingMailsController> _logger;
 
-        public OutgoingMailsController(IOutgoingMail outgoingMailService)
+        public OutgoingMailsController(IOutgoingMail outgoingMailService, ILogger<OutgoingMailsController> logger)
         {
             _outgoingMailService = outgoingMailService;
+            _logger = logger;
         }
 
         public IActionResult Index(string search)
         {
+            _logger.LogInformation(1, "Accessing outgoing mails");
             var outgoingMails = _outgoingMailService.OutgoingMails;
             if(!string.IsNullOrWhiteSpace(search))
             {
@@ -31,6 +34,7 @@ namespace MailManager.Controllers
 
         public IActionResult New(string id)
         {
+            _logger.LogInformation(2, "Access view to add new outgoing mail.");
             if(string.IsNullOrWhiteSpace(id))
             {
                 TempData["Message"] = "No mail being responded to";
@@ -50,6 +54,7 @@ namespace MailManager.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult New(OutgoingMailViewModel newMail)
         {
+            _logger.LogInformation(2, "Adding new outgoing mail");
             ModelState.Remove("RowVersion");
 
             if(ModelState.IsValid)
@@ -68,6 +73,7 @@ namespace MailManager.Controllers
 
         public IActionResult Details(string id)
         {
+            _logger.LogInformation(3, "Accessing outgoing mail details.");
             if(string.IsNullOrWhiteSpace(id))
             {
                 TempData["Message"] = "Outgoing mail Id not supplied";
@@ -90,6 +96,7 @@ namespace MailManager.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Details(OutgoingMailViewModel mailUpdates)
         {
+            _logger.LogInformation(3, "Saving changes made to the outgoing mail details");
             if(ModelState.IsValid)
             {
                 var mailUpdateOperationResult = _outgoingMailService.EditOutgoingMail(mailUpdates);
