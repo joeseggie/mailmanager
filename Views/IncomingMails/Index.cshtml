@@ -17,7 +17,7 @@
                 </span>
             </div>
         </div>
-        <table class="table table-condensed table-bordered table-striped table-responsive">
+        <table class="table table-condensed table-bordered table-striped table-responsive" style="table-layout: fixed; width: 100%;">
             <thead>
                 <tr>
                     <th class="col-sm-2">From</th>
@@ -33,7 +33,7 @@
                     <tr>
                         <td class="col-sm-2">@mail.From</td>
                         <td class="col-sm-2">@mail.IncomingDate.ToString("dd MMMM, yyyy")</td>
-                        <td class="col-sm-3"><a asp-controller="incomingmails" asp-action="details" asp-route-id=@mail.IncomingMailId>@mail.Subject</a></td>
+                        <td class="col-sm-3" style="word-wrap:break-word;"><a asp-controller="incomingmails" asp-action="details" asp-route-id=@mail.IncomingMailId>@mail.Subject</a></td>
                         <td class="col-sm-2"><a asp-controller="mails" asp-action="details" asp-route-id=@mail.IncomingMailId>@mail.ReferenceNumber</a></td>
                         <td class="col-sm-3">@mail.To</td>
                     </tr>
