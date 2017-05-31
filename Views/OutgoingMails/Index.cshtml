@@ -32,7 +32,9 @@
                 @foreach(var mail in Model)
                 {
                     <tr>
-                        <td class="col-sm-2">@mail.IncomingMail.From</td>
+                        <td class="col-sm-2">
+                            <a asp-controller="incomingmails" asp-action="sender" asp-route-id=@mail.IncomingMail.From.ToLower().Replace(' ', '-')>
+                            @mail.IncomingMail.From</a></td>
                         <td class="col-sm-2">@mail.IncomingMail.IncomingDate.ToString("dd MMMM, yyyy")</td>
                         <td class="col-sm-3" style="word-wrap: break-word;"><a asp-controller="incomingmails" asp-action="details" asp-route-id=@mail.IncomingMailId>@mail.IncomingMail.Subject</a></td>
                         <td class="col-sm-2">@mail.OutgoingDate</td>

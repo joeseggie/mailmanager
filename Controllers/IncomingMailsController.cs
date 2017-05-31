@@ -26,10 +26,23 @@ namespace MailManager.Controllers
             var incomingMails = _incomingMailService.IncomingMails;
             if(!string.IsNullOrWhiteSpace(search))
             {
-                incomingMails = incomingMails.Where(m => m.Subject.ToLower().Contains(search.ToLower()));
+                incomingMails = incomingMails.Where(m => m.Subject.ToLower().Contains(search.ToLower()) || m.From.ToLower().Contains(search.ToLower()));
             }
             incomingMails.ToList();
             ViewBag.search = search;
+            
+            return View(incomingMails);
+        }
+
+        public IActionResult Sender(string id)
+        {
+            _logger.LogInformation($"Accessing incoming mails from sender: {id??"None"}");
+            var incomingMails = _incomingMailService.IncomingMails;
+            if(!string.IsNullOrWhiteSpace(id))
+            {
+                incomingMails = incomingMails.Where(m => m.From.ToLower().Replace(' ', '-') == id.ToLower());
+            }
+            incomingMails.ToList();
             
             return View(incomingMails);
         }

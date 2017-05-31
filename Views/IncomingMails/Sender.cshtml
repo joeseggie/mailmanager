@@ -8,15 +8,6 @@
 <a asp-action="new" class="btn btn-default">New Incoming Mail</a><br /><br />
 <form asp-action="index" method="GET" role="form">
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="input-group">
-                <span class="input-group-addon">Search for incoming mail</span>
-                <input type="text" name="search" id="search" class="form-control" value=@ViewBag.search placeholder="Mail subject">
-                <span class="input-group-btn">
-                    <input type="submit" class="btn btn-default" value="Search">
-                </span>
-            </div>
-        </div>
         <table class="table table-condensed table-bordered table-striped table-responsive" style="table-layout: fixed; width: 100%;">
             <thead>
                 <tr>

@@ -26,7 +26,7 @@ namespace MailManager.Controllers
             var outgoingMails = _outgoingMailService.OutgoingMails;
             if(!string.IsNullOrWhiteSpace(search))
             {
-                outgoingMails = outgoingMails.Where(m => m.IncomingMail.Subject.ToLower().Contains(search.ToLower()));
+                outgoingMails = outgoingMails.Where(m => m.IncomingMail.Subject.ToLower().Contains(search.ToLower()) || m.IncomingMail.From.ToLower().Contains(search.ToLower()));
             }
             outgoingMails.ToList();
             
