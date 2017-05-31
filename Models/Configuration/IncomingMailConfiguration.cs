@@ -24,7 +24,7 @@ namespace MailManager.Models.Configuration
                   .IsRequired()
                   .IsUnicode(false)
                   .HasMaxLength(100)
-                  .ForSqlServerHasColumnType("varchar(100)");
+                  .ForSqlServerHasColumnType("varchar(1500)");
             
             entity.Property(m => m.From)
                   .IsRequired()
@@ -42,7 +42,7 @@ namespace MailManager.Models.Configuration
                   .IsRequired()
                   .IsUnicode(false)
                   .HasMaxLength(150)
-                  .ForSqlServerHasColumnType("varchar(150)");
+                  .ForSqlServerHasColumnType("varchar(1500)");
             
             entity.Property(m => m.IncomingDate)
                   .IsRequired()

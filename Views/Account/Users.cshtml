@@ -20,24 +20,24 @@
         <table class="table table-condensed table-bordered table-striped table-responsive">
             <thead>
                 <tr>
-                    <th class="col-sm-3">First name</th>
+                    <th class="col-sm-2">First name</th>
                     <th class="col-sm-2">Last name</th>
                     <th class="col-sm-2">Username</th>
                     <th class="col-sm-3">Email</th>
-                    <th class="col-sm-2"></th>
+                    <th class="col-sm-3"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach(var user in Model)
                 {
                     <tr>
-                        <td class="col-sm-3">@user.Firstname</td>
-                        <td class="col-sm-3">@user.Lastname</td>
-                        <td class="col-sm-3">@user.Username</td>
+                        <td class="col-sm-2">@user.Firstname</td>
+                        <td class="col-sm-2">@user.Lastname</td>
+                        <td class="col-sm-2">@user.Username</td>
                         <td class="col-sm-3">@user.Email</td>
                         <td class="col-sm-3">
-                            <!--<a asp-controller="account" asp-action="userprofile" asp-route-id=@user.Username>Details</a>&nbsp;
-                            <a asp-controller="account" asp-action="removeuser" asp-route-id=@user.Username>Remove</a>-->
+                            <a asp-controller="account" asp-action="userprofile" asp-route-id=@user.Username><i class="fa fa-list"></i>&nbsp;&nbsp;View Details</a>&nbsp;
+                            <a asp-controller="account" asp-action="removeuser" asp-route-id=@user.Username><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete User</a>
                         </td>
                     </tr>
                 }

@@ -4,6 +4,7 @@ using System.Linq;
 using MailManager.Services;
 using MailManager.Models.MailViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace MailManager.Controllers
 {

@@ -14,7 +14,7 @@ namespace MailManager.Models.Configuration
                   .IsRequired()
                   .IsUnicode(false)
                   .HasMaxLength(150)
-                  .ForSqlServerHasColumnType("varchar(150)");
+                  .ForSqlServerHasColumnType("varchar(1500)");
 
             entity.Property(m => m.Officer)
                   .IsRequired()

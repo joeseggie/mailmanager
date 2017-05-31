@@ -464,8 +464,12 @@ namespace MailManager.Controllers
             ModelState.Remove("ConfirmPassword");
             if(ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName=profileUpdate.Username, Email = profileUpdate.Email, Firstname = profileUpdate.Firstname, Lastname = profileUpdate.Lastname };
+
+                var user = await _userManager.FindByNameAsync(profileUpdate.Username);
+                user.Firstname = profileUpdate.Firstname;
+                user.Lastname = profileUpdate.Lastname;
                 var result = await _userManager.UpdateAsync(user);
+
                 if (result.Succeeded)
                 {
                     return RedirectToAction("users");
@@ -476,9 +480,11 @@ namespace MailManager.Controllers
             return View(profileUpdate);
         }
 
-        public IActionResult RemoveUser(string id)
+        public async Task<IActionResult> RemoveUser(string id)
         {
-            return View();
+            var user = await _userManager.FindByNameAsync(id);
+            await _userManager.DeleteAsync(user);
+            return RedirectToAction("users");
         }
 
         #region Helpers
