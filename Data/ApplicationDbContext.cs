@@ -1,34 +1,27 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
+using MailManager.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MailManager.Models;
-using MailManager.Extensions;
-using MailManager.Models.Configuration;
 
 namespace MailManager.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
-        
-        public DbSet<IncomingMail> IncomingMails { get; set; }
-        public DbSet<OutgoingMail> OutgoingMails { get; set; }
-        
+
+        public virtual DbSet<CorrespondanceAction> CorrespondanceActions { get; set; }
+        public virtual DbSet<ActionStatus> ActionStatuses { get; set; }
+        public virtual DbSet<Correspondance> Correspondances { get; set; }
+        public virtual DbSet<Mail> Mails { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
-
-            builder.AddConfiguration(new IncomingMailConfiguration());
-            builder.AddConfiguration(new OutgoingMailConfiguration());
         }
     }
 }

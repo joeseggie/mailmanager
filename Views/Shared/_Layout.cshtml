@@ -1,26 +1,24 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Mail Manager</title>
+    <title>@ViewData["Title"] - MailManager</title>
 
-    <environment names="Development">
+    <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
-    <environment names="Staging,Production">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -28,63 +26,50 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">Mail Manager</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">MailManager</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <div class="topnav-dropdown">
-                            <a class="topnav-dropbtn"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;Mail</a>
-                            <div class="topnav-dropdown-content">
-                                <a asp-controller="incomingmails" asp-action="index" >Incoming Mails</a>
-                                <a asp-controller="outgoingmails" asp-action="index" >Outgoing Mails</a>
-                            </div>
-                        </div>
-                    </li>
-                    <!--<li><div class="topnav-dropdown">
-                            <a href="#" class="topnav-dropbtn"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;&nbsp;Files</a>
-                            <div class="topnav-dropdown-content">
-                                <a href="#">Incoming Files</a>
-                                <a href="#">Outgoing Files</a>
-                            </div>
-                        </div></li>-->
-                    <li><div class="topnav-dropdown">
-                            <a class="topnav-dropbtn"><i class="fa fa-gear" aria-hidden="true"></i>&nbsp;&nbsp;Admin</a>
-                            <div class="topnav-dropdown-content">
-                                <a asp-controller="account" asp-action="users">Users</a>
-                            </div>
-                        </div></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
-                @await Html.PartialAsync("_LoginPartial")
+                <partial name="_LoginPartial" />
             </div>
         </div>
-    </div>
-    <div id="borderimg">&nbsp;</div>
-    <div class="container-fluid body-content">
+    </nav>
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2016 - Mail Manager</p>
+            <p>&copy; 2018 - MailManager</p>
         </footer>
     </div>
 
-    <environment names="Development">
+    <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
-    <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.3.min.js"
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery">
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
         </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
-    @RenderSection("scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
