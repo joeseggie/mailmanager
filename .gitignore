@@ -234,3 +234,5 @@ _Pvt_Extensions
 .fake/
 # Configuration file
 config.json
+
+c:\temp\internal-nlog.txt
