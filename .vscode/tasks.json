@@ -1,30 +1,15 @@
 {
-    "version": "0.1.0",
-    "tasks": [{
-            "taskName": "build",
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
             "command": "dotnet",
-            "isShellCommand": true,
+            "type": "process",
             "args": [
-                "${workspaceRoot}/project.json"
+                "build",
+                "${workspaceFolder}/MailManager.csproj"
             ],
-            "isBuildCommand": true,
             "problemMatcher": "$msCompile"
-        },
-        {
-            "taskName": "minify",
-            "command": "gulp",
-            "isShellCommand": true,
-            "args": [],
-            "isBuildCommand": true,
-            "showOutput": "always"
-        },
-        {
-            "taskName": "clean",
-            "command": "gulp",
-            "isShellCommand": true,
-            "args": [],
-            "isBuildCommand": true,
-            "showOutput": "always"
         }
     ]
 }
