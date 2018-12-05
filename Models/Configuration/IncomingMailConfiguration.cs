@@ -18,7 +18,7 @@ namespace MailManager.Models.Configuration
             entity.Property(m => m.ReferenceNumber)
                   .IsUnicode(false)
                   .HasMaxLength(20)
-                  .ForSqlServerHasColumnType("varchar(20)");
+                  .ForSqlServerHasColumnType("varchar(1500)");
 
             entity.Property(m => m.Subject)
                   .IsRequired()
@@ -36,7 +36,7 @@ namespace MailManager.Models.Configuration
                   .IsRequired()
                   .IsUnicode(false)
                   .HasMaxLength(50)
-                  .ForSqlServerHasColumnType("varchar(50)");
+                  .ForSqlServerHasColumnType("varchar(500)");
 
             entity.Property(m => m.Details)
                   .IsRequired()

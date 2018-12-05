@@ -20,7 +20,7 @@ namespace MailManager.Models.Configuration
                   .IsRequired()
                   .IsUnicode(false)
                   .HasMaxLength(50)
-                  .ForSqlServerHasColumnType("varchar(50)");
+                  .ForSqlServerHasColumnType("varchar(500)");
             
             entity.Property(m => m.OutgoingDate)
                   .IsRequired()

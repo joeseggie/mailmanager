@@ -8,8 +8,8 @@ using MailManager.Data;
 namespace MailManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170531150230_columnLength")]
-    partial class columnLength
+    [Migration("20170602194421_RemoveReferenceLimit")]
+    partial class RemoveReferenceLimit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -98,7 +98,7 @@ namespace MailManager.Migrations
                     b.Property<string>("ReferenceNumber")
                         .HasMaxLength(20)
                         .IsUnicode(false)
-                        .HasAnnotation("SqlServer:ColumnType", "varchar(20)");
+                        .HasAnnotation("SqlServer:ColumnType", "varchar(1500)");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -115,7 +115,7 @@ namespace MailManager.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasAnnotation("SqlServer:ColumnType", "varchar(50)");
+                        .HasAnnotation("SqlServer:ColumnType", "varchar(500)");
 
                     b.HasKey("IncomingMailId");
 
@@ -136,7 +136,7 @@ namespace MailManager.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasAnnotation("SqlServer:ColumnType", "varchar(50)");
+                        .HasAnnotation("SqlServer:ColumnType", "varchar(500)");
 
                     b.Property<DateTime>("OutgoingDate")
                         .HasAnnotation("SqlServer:ColumnType", "date");
