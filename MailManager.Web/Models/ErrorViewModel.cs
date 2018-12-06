@@ -1,6 +1,6 @@
 using System;
 
-namespace MailManager.Models
+namespace MailManager.Web.Models
 {
     public class ErrorViewModel
     {

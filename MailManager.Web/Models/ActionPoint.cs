@@ -2,22 +2,24 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MailManager.Models
+namespace MailManager.Web.Models
 {
-    public class Correspondance
+    public class ActionPoint
     {
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        public Guid MailId { get; set; }
-
         [Required]
-        public DateTime Logged { get; set; }
+        public string Details { get; set; }
 
-        [Required]
-        public string Office { get; set; }
+        public Guid? MailId { get; set; }
+
+        public Guid? ActionStatusId { get; set; }
 
         [ForeignKey("MailId")]
         public virtual Mail Mail { get; set; }
+
+        [ForeignKey("ActionStatusId")]
+        public virtual ActionStatus ActionStatus { get; set; }     
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MailManager.Models
+namespace MailManager.Web.Models
 {
     public class ActionStatus
     {
