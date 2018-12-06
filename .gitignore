@@ -236,3 +236,6 @@ _Pvt_Extensions
 config.json
 
 c:\temp\internal-nlog.txt
+
+# VS Code
+.vscode
