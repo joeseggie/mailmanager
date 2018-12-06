@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MailManager.Models
 {
-    public class CorrespondanceAction
+    public class ActionPoint
     {
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }

@@ -14,7 +14,7 @@ namespace MailManager.Data
         {
         }
 
-        public virtual DbSet<CorrespondanceAction> CorrespondanceActions { get; set; }
+        public virtual DbSet<ActionPoint> ActionPoints { get; set; }
         public virtual DbSet<ActionStatus> ActionStatuses { get; set; }
         public virtual DbSet<Correspondance> Correspondances { get; set; }
         public virtual DbSet<Mail> Mails { get; set; }
