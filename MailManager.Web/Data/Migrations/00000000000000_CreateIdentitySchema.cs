@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MailManager.Data.Migrations
+namespace MailManager.Web.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

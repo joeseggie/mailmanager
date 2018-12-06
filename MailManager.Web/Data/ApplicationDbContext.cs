@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using MailManager.Models;
+using MailManager.Web.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace MailManager.Data
+namespace MailManager.Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

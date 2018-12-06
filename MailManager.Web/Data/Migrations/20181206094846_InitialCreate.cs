@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MailManager.Data.Migrations
+namespace MailManager.Web.Data.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -37,7 +37,7 @@ namespace MailManager.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Actions",
+                name: "ActionPoints",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -47,15 +47,15 @@ namespace MailManager.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Actions", x => x.Id);
+                    table.PrimaryKey("PK_ActionPoints", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Actions_ActionStatuses_ActionStatusId",
+                        name: "FK_ActionPoints_ActionStatuses_ActionStatusId",
                         column: x => x.ActionStatusId,
                         principalTable: "ActionStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Actions_Mails_MailId",
+                        name: "FK_ActionPoints_Mails_MailId",
                         column: x => x.MailId,
                         principalTable: "Mails",
                         principalColumn: "Id",
@@ -83,13 +83,13 @@ namespace MailManager.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Actions_ActionStatusId",
-                table: "Actions",
+                name: "IX_ActionPoints_ActionStatusId",
+                table: "ActionPoints",
                 column: "ActionStatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Actions_MailId",
-                table: "Actions",
+                name: "IX_ActionPoints_MailId",
+                table: "ActionPoints",
                 column: "MailId");
 
             migrationBuilder.CreateIndex(
@@ -101,7 +101,7 @@ namespace MailManager.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Actions");
+                name: "ActionPoints");
 
             migrationBuilder.DropTable(
                 name: "Correspondances");

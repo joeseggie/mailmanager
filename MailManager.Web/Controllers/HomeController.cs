@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MailManager.Models;
+using MailManager.Web.Models;
 
-namespace MailManager.Controllers
+namespace MailManager.Web.Controllers
 {
     public class HomeController : Controller
     {
