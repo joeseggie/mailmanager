@@ -68,6 +68,67 @@ namespace MailManager.Web.Controllers
                 return RedirectToAction("details", new { controller = "mail", id = newActionPoint.MailId });
             }
 
+            ViewData["ActionStatuses"] = await _actionStatusService.GetActionStatuses()
+                .Select(s => new SelectListItem
+                {
+                    Text = s.Description,
+                    Value = s.Id.ToString()
+                }).ToListAsync();
+
+            return View(formData);
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var actionPoint = await _actionPointService.GetActionPointAsync(id);
+            if (actionPoint == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["ActionStatuses"] = await _actionStatusService.GetActionStatuses()
+                .Select(s => new SelectListItem
+                {
+                    Text = s.Description,
+                    Value = s.Id.ToString()
+                }).ToListAsync();
+
+            var model = new ActionPointDetailsViewModel
+            {
+                ActionStatusId = actionPoint.ActionStatusId,
+                Details = actionPoint.Details,
+                Id = actionPoint.Id,
+                MailId = actionPoint.MailId
+            };
+
+            return View(model);
+        }
+
+        [HttpPost("{id:guid}")]
+        public async Task<IActionResult> Details(ActionPointDetailsViewModel formData)
+        {
+            if (ModelState.IsValid)
+            {
+                var updatedActionPoint = await _actionPointService.UpdateActionPointAsync(new ActionPoint
+                {
+                    ActionStatusId = formData.ActionStatusId,
+                    Details = formData.Details,
+                    Id = formData.Id,
+                    MailId = formData.MailId
+                });
+
+                TempData["Message"] = "Changes saved successfully";
+                return RedirectToAction("details", new { id = updatedActionPoint.Id });
+            }
+
+            ViewData["ActionStatuses"] = await _actionStatusService.GetActionStatuses()
+                .Select(s => new SelectListItem
+                {
+                    Text = s.Description,
+                    Value = s.Id.ToString()
+                }).ToListAsync();
+
             return View(formData);
         }
     }
