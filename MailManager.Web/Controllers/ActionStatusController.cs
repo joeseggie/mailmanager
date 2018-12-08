@@ -51,6 +51,7 @@ namespace MailManager.Web.Controllers
                     Description = formData.Description
                 });
 
+                TempData["Message"] = "New action status added successfully";
                 return RedirectToAction("details", new{ id = newActionStatus.Id });
             }
 
@@ -86,6 +87,7 @@ namespace MailManager.Web.Controllers
                         Description = formData.Description
                     });
 
+                    TempData["Message"] = "Changes saved successfully";
                     return RedirectToAction("details", new{ id = updatedActionStatus.Id });
                 }
                 catch (ApplicationException error)
