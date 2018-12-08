@@ -63,5 +63,61 @@ namespace MailManager.Web.Controllers
 
             return View(formData);
         }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var correspondanceToUpdate = await _correspondanceService.GetCorrespondanceAsync(id);
+            if (correspondanceToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            var model = new CorrespondanceDetailsViewModel
+            {
+                Details = correspondanceToUpdate.Details,
+                Id = correspondanceToUpdate.Id,
+                Logged = correspondanceToUpdate.Logged.ToString("dd/MM/yyyy"),
+                MailId = correspondanceToUpdate.MailId,
+                Office = correspondanceToUpdate.Office
+            };
+
+            return View(model);
+        }
+
+        [HttpPost("{id:guid}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Details(CorrespondanceDetailsViewModel formData)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (DateTime.TryParse(formData.Logged, out DateTime dateLogged))
+                    {
+                        var updatedCorrespondance = await _correspondanceService.UpdateCorrespondanceAsync(new Correspondance
+                        {
+                            Details = formData.Details,
+                            Id = formData.Id,
+                            Logged = dateLogged,
+                            MailId = formData.MailId ?? Guid.Empty,
+                            Office = formData.Office
+                        });
+
+                        TempData["Message"] = "Changes saved successfully";
+                        return RedirectToAction("details", new { id = updatedCorrespondance.Id });
+                    }
+
+                    ModelState.AddModelError("Logged", "Invalid date logged entered");
+                }
+                catch (ApplicationException error)
+                {
+                    _logger.LogError(error.Message);
+                    ModelState.AddModelError("", "Failed to updated correspondance details");
+                }
+            }
+
+            return View(formData);
+        }
     }
 }
