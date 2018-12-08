@@ -17,6 +17,9 @@ namespace MailManager.Web.Models
         [Required]
         public string Office { get; set; }
 
+        [Required]
+        public string Details { get; set; }
+
         [ForeignKey("MailId")]
         public virtual Mail Mail { get; set; }
     }
