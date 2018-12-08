@@ -15,11 +15,17 @@ namespace MailManager.Web.Controllers
     {
         private readonly IMailService _mailService;
         private readonly ILogger<MailController> _logger;
+        private readonly ICorrespondanceService _correspondanceService;
 
-        public MailController(IMailService mailService, ILogger<MailController> logger)
+        public MailController(
+            IMailService mailService,
+            ILogger<MailController> logger,
+            ICorrespondanceService correspondanceService
+        )
         {
             _mailService = mailService;
             _logger = logger;
+            _correspondanceService = correspondanceService;
         }
 
         // GET: mail/
@@ -81,6 +87,17 @@ namespace MailManager.Web.Controllers
                 return NotFound();
             }
 
+            var mailCorrespondances = await _correspondanceService.GetCorrespondances()
+                .Where(c => c.MailId == mail.Id)
+                .Select(c => new CorrespondanceListViewModel
+                {
+                    Details = c.Details,
+                    Id = c.Id,
+                    Logged = c.Logged.ToString("dd/MM/yyyy"),
+                    MailId = c.MailId,
+                    Office = c.Office
+                }).ToListAsync();
+
             var model = new MailDetailsViewModel
             {
                 Id = mail.Id,
@@ -89,7 +106,8 @@ namespace MailManager.Web.Controllers
                 From = mail.From,
                 Received = mail.Received.ToString("dd/MM/yyyy"),
                 Subject = mail.Subject,
-                To = mail.To
+                To = mail.To,
+                Correspondances = mailCorrespondances
             };
 
             return View(model);

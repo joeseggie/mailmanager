@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MailManager.Web.Models
@@ -25,5 +26,7 @@ namespace MailManager.Web.Models
 
         [Required, Display(Name = "Date received")]
         public string Received { get; set; }
+
+        public IEnumerable<CorrespondanceListViewModel> Correspondances { get; set; }
     }
 }
