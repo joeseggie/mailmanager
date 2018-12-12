@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using MailManager.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MailManager.Web.Services;
 
 namespace MailManager.Web
 {
@@ -39,6 +40,11 @@ namespace MailManager.Web
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<IActionPointService, ActionPointService>();
+            services.AddTransient<IActionStatusService, ActionStatusService>();
+            services.AddTransient<ICorrespondanceService, CorrespondanceService>();
+            services.AddTransient<IMailService, MailService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
