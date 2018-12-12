@@ -9,7 +9,7 @@ namespace MailManager.Web.Models
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        [Required, Display(Name = "Reference number")]
+        [Display(Name = "Reference number")]
         public string ReferenceNumber { get; set; }
 
         [Required]
@@ -21,7 +21,6 @@ namespace MailManager.Web.Models
         [Required]
         public string To { get; set; }
 
-        [Required]
         public string Details { get; set; }
 
         [Required]
