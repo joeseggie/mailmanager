@@ -1,0 +1,131 @@
+﻿@model MailDetailsViewModel
+@{
+    ViewData["Title"] = "Mail Details";
+}
+
+<h1 class="display-5">Mail Details</h1>
+<hr />
+
+<div class="card bg-secondary text-white">
+    <div class="card-body">
+        <form class="form-horizontal" method="post" asp-action="details" asp-controller="mail" role="form">
+            <div class="form-group">
+                <div>
+                    <a asp-action="index" asp-controller="mail" class="btn btn-primary">&laquo; Incoming Mail</a>
+                    <input type="submit" class="btn btn-danger" value="Save" />
+                </div>
+            </div>
+            <div asp-validation-summary="All" class="text-danger col-12"></div>
+            <input asp-for="Id" type="hidden" />
+
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="From" class="col-form-label"></label>
+                        <div>
+                            <input type="text" class="form-control" asp-for="From" placeholder="Mail sender" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="To" class="col-form-label"></label>
+                        <div>
+                            <input type="text" class="form-control" asp-for="To" placeholder="Mail recipient" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="Received" class="col-form-label"></label>
+                        <div>
+                            <input type="text" class="form-control" asp-for="Received" placeholder="Date received" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="Subject" class="col-form-label"></label>
+                        <div>
+                            <input type="text" class="form-control" asp-for="Subject" placeholder="Subject" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label asp-for="ReferenceNumber" class="col-form-label"></label>
+                        <div>
+                            <input type="text" class="form-control" asp-for="ReferenceNumber" placeholder="Reference number" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Details" class="col-form-label"></label>
+                        <div>
+                            <textarea rows="3" class="form-control" asp-for="Details" placeholder="Mail brief details"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+
+<h1 class="display-6">Action Points</h1>
+<hr />
+<div class="row">
+    <div class="col-8">
+        <table class="table table-hover table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>Action Point</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.ActionPoints != null)
+                {
+                    foreach (var actionPoint in Model.ActionPoints)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-action="details" asp-controller="actionpoint" asp-route-id="@actionPoint.Id">
+                                    @actionPoint.Details
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-action="details" asp-controller="actionstatus" asp-route-id="@actionPoint.ActionStatusId">
+                                    @actionPoint.ActionStatus
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-4">
+
+    </div>
+</div>
+
+<h1 class="display-6">Correspondances</h1>
+<hr />
+
+@section Scripts{
+    <link href="~/lib/datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/lib/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Received").datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d'
+            });
+        });
+    </script>
+}

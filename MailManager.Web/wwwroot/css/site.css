@@ -53,3 +53,16 @@ body {
     background-repeat: repeat;
     height: 12px;
 }
+
+.clickable-row {
+    cursor: pointer;
+}
+
+.bg-message {
+    padding: 5px;
+    background-color: rgba(23, 162, 184, 0.4);
+}
+
+.bg-message .card-body{
+    padding: 5px;
+}

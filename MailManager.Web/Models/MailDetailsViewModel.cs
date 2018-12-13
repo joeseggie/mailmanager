@@ -28,5 +28,7 @@ namespace MailManager.Web.Models
         public string Received { get; set; }
 
         public IEnumerable<CorrespondanceListViewModel> Correspondances { get; set; }
+
+        public IEnumerable<ActionPointListViewModel> ActionPoints { get; set; }
     }
 }
