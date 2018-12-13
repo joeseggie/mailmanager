@@ -23,6 +23,7 @@ namespace MailManager.Web.Services
         public async Task<Mail> AddMailAsync(Mail mail)
         {
             var mailEntry = await _db.Mails.AddAsync(mail);
+            await _db.SaveChangesAsync();
             return mailEntry.Entity;
         }
 
