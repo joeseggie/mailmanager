@@ -38,7 +38,7 @@ namespace MailManager.Web.Controllers
                     ReferenceNumber = m.ReferenceNumber,
                     Details = m.Details,
                     From = m.From,
-                    Received = m.Received,
+                    Received = m.Received.ToString("dd MMMM yyyy"),
                     Subject = m.Subject,
                     To = m.To
                 }).ToListAsync();
@@ -52,6 +52,8 @@ namespace MailManager.Web.Controllers
         }
 
         // POST: mail/add
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(NewMailViewModel formData)
         {
             if (ModelState.IsValid)
