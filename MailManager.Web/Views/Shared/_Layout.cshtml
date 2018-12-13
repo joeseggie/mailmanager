@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var message = TempData["Message"] as string;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -46,6 +49,14 @@
     <partial name="_CookieConsentPartial" />
 
     <div class="container-fluid body-content" style="padding-top: 10px;">
+        @if (!string.IsNullOrWhiteSpace(message))
+        {
+            <div class="card bg-message text-dark">
+                <div class="card-body">
+                    @message
+                </div>
+            </div>
+        }
         @RenderBody()
         <hr />
         <footer>
