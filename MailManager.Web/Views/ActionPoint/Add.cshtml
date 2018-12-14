@@ -1,0 +1,42 @@
+﻿@model NewActionPointViewModel
+@{
+    ViewData["Title"] = "Add action point";
+    var actionStatus = ViewData["ActionStatuses"] as IEnumerable<SelectListItem>;
+}
+
+<h1 class="display-5">Add action point</h1>
+<hr />
+<a asp-action="details" asp-controller="mail" asp-route-id="@Model.MailId" class="btn btn-primary">&laquo; Back</a>
+<form class="form-horizontal" method="post" asp-action="add" asp-controller="actionpoint" role="form">
+    <div asp-validation-summary="All" class="text-danger col-12"></div>
+
+    <input type="hidden" asp-for="MailId" />
+
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group">
+                <label asp-for="Details" class="col-form-label"></label>
+                <div>
+                    <textarea type="text" class="form-control" asp-for="Details" placeholder="Action point description" rows="2"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="ActionStatusId" class="col-form-label"></label>
+                <div>
+                    <select class="form-control" asp-for="ActionStatusId" asp-items="@actionStatus">
+                        <option>Select status</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div>
+            <input type="submit" class="btn btn-danger" value="Save" />
+        </div>
+    </div>
+</form>
+

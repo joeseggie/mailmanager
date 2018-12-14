@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MailListViewModel>
+@{
+    ViewData["Title"] = "Incoming Mail";
+}
+
+<h1 class="display-5">Incoming Mail</h1>
+<hr />
+<a asp-action="add" asp-controller="mail" class="btn btn-primary">New mail</a><br /><br />
+<table class="table table-sm table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th class="col-2">From</th>
+            <th class="col-2">To</th>
+            <th class="col-4">Subject</th>
+            <th class="col-2">Received</th>
+            <th class="col-2">Ref. No.</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var mail in Model)
+            {
+                <tr class="clickable-row" data-href='@Url.Action("details", "mail", new { id=mail.Id})'>
+                    <td class="col-2">@mail.From</td>
+                    <td class="col-2">@mail.To</td>
+                    <td class="col-4">@mail.Subject</td>
+                    <td class="col-2">@mail.Received</td>
+                    <td class="col-2">@mail.ReferenceNumber</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $('.clickable-row').click(function () {
+                window.location = $(this).data('href');
+            });
+        })
+    </script>
+}

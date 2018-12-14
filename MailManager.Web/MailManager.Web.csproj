@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>aspnet-MailManager.Web-207B9F3B-9394-4083-91BB-125B3C4F640E</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20181206094725_InitialCreate.cs" />
+    <Compile Remove="Data\Migrations\20181206094725_InitialCreate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\datetimepicker\jquery.datetimepicker.full.js" />
+    <None Include="wwwroot\lib\datetimepicker\jquery.datetimepicker.full.min.js" />
+    <None Include="wwwroot\lib\datetimepicker\jquery.datetimepicker.min.js" />
+    <None Include="wwwroot\lib\fontawesome\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\lib\fontawesome\fonts\fontawesome-webfont.woff2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" PrivateAssets="All" />
+  </ItemGroup>
+  
+</Project>
