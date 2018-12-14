@@ -24,6 +24,7 @@ namespace MailManager.Web.Services
         public async Task<ActionStatus> AddActionStatusAsync(ActionStatus actionStatus)
         {
             var actionStatusEntry = await _db.ActionStatuses.AddAsync(actionStatus);
+            await _db.SaveChangesAsync();
             return actionStatusEntry.Entity;
         }
 
