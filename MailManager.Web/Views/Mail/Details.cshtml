@@ -81,7 +81,7 @@
 <hr />
 <div class="row">
     <div class="col-12">
-        <table class="table table-hover table-bordered table-sm">
+        <table class="table table-striped table-bordered table-sm">
             <thead>
                 <tr>
                     <th class="col-8">Action Point</th>
@@ -95,7 +95,7 @@
                     {
                         <tr>
                             <td class="col-8">
-                                <a asp-action="details" asp-controller="actionpoint" asp-route-id="@actionPoint.Id">
+                                <a asp-action="details" asp-controller="actionpoint" asp-route-mail="@Model.Id" asp-route-id="@actionPoint.Id">
                                     @actionPoint.Details
                                 </a>
                             </td>

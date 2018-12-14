@@ -81,7 +81,7 @@ namespace MailManager.Web.Controllers
             return View(formData);
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("mail/{mail:guid}/actionpoints/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
             var actionPoint = await _actionPointService.GetActionPointAsync(id);
@@ -108,7 +108,7 @@ namespace MailManager.Web.Controllers
             return View(model);
         }
 
-        [HttpPost("{id:guid}")]
+        [HttpPost("mail/{mail:guid}/actionpoints/{id:guid}")]
         public async Task<IActionResult> Details(ActionPointDetailsViewModel formData)
         {
             if (ModelState.IsValid)
