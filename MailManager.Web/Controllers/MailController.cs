@@ -13,6 +13,7 @@ namespace MailManager.Web.Controllers
     [Route("[controller]/[action]")]
     public class MailController : Controller
     {
+        private readonly IActionPointService _actionPointService;
         private readonly IMailService _mailService;
         private readonly ILogger<MailController> _logger;
         private readonly ICorrespondanceService _correspondanceService;
@@ -20,9 +21,11 @@ namespace MailManager.Web.Controllers
         public MailController(
             IMailService mailService,
             ILogger<MailController> logger,
-            ICorrespondanceService correspondanceService
+            ICorrespondanceService correspondanceService,
+            IActionPointService actionPointService
         )
         {
+            _actionPointService = actionPointService;
             _mailService = mailService;
             _logger = logger;
             _correspondanceService = correspondanceService;
@@ -100,6 +103,16 @@ namespace MailManager.Web.Controllers
                     Office = c.Office
                 }).ToListAsync();
 
+            var mailActionPoints = await _actionPointService.GetActionPoints()
+                .Where(c => c.MailId == mail.Id)
+                .Select(a => new ActionPointListViewModel
+                {
+                    ActionStatus = a.ActionStatus.Description,
+                    ActionStatusId = a.ActionStatusId,
+                    Details = a.Details,
+                    Id = a.Id
+                }).ToListAsync();
+
             var model = new MailDetailsViewModel
             {
                 Id = mail.Id,
@@ -109,7 +122,8 @@ namespace MailManager.Web.Controllers
                 Received = mail.Received.ToString("dd/MM/yyyy"),
                 Subject = mail.Subject,
                 To = mail.To,
-                Correspondances = mailCorrespondances
+                Correspondances = mailCorrespondances,
+                ActionPoints = mailActionPoints
             };
 
             return View(model);

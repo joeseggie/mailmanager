@@ -47,8 +47,11 @@ namespace MailManager.Web.Controllers
                     Value = s.Id.ToString()
                 }).ToListAsync();
 
-            ViewData["MailId"] = actionPointMail.Id;
-            return View();
+            var model = new NewActionPointViewModel
+            {
+                MailId = actionPointMail.Id
+            };
+            return View(model);
         }
 
         [HttpPost("mail/{mail:guid}/actionpoints/add")]

@@ -6,7 +6,7 @@
 <h1 class="display-5">Mail Details</h1>
 <hr />
 
-<div class="card bg-secondary text-white">
+<div class="card bg-light text-dark">
     <div class="card-body">
         <form class="form-horizontal" method="post" asp-action="details" asp-controller="mail" role="form">
             <div class="form-group">
@@ -76,16 +76,16 @@
 </div>
 <br />
 
-<h1 class="display-6">Action Points</h1>
+<h1 class="display-6"><strong>Action Points</strong></h1>
 <hr />
 <a asp-action="add" asp-controller="actionpoint" asp-route-mail="@Model.Id" class="btn btn-primary btn-sm">Add action point</a><br /><br />
 <div class="row">
-    <div class="col-8">
+    <div class="col-12">
         <table class="table table-hover table-bordered table-sm">
             <thead>
                 <tr>
-                    <th>Action Point</th>
-                    <th>Status</th>
+                    <th class="col-8">Action Point</th>
+                    <th class="col-4">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -94,12 +94,12 @@
                     foreach (var actionPoint in Model.ActionPoints)
                     {
                         <tr>
-                            <td>
+                            <td class="col-8">
                                 <a asp-action="details" asp-controller="actionpoint" asp-route-id="@actionPoint.Id">
                                     @actionPoint.Details
                                 </a>
                             </td>
-                            <td>
+                            <td class="col-4">
                                 <a asp-action="details" asp-controller="actionstatus" asp-route-id="@actionPoint.ActionStatusId">
                                     @actionPoint.ActionStatus
                                 </a>
@@ -110,12 +110,9 @@
             </tbody>
         </table>
     </div>
-    <div class="col-4">
-
-    </div>
 </div>
 
-<h1 class="display-6">Correspondances</h1>
+<h1 class="display-6"><strong>Correspondances</strong></h1>
 <hr />
 <a asp-action="add" asp-controller="correspondance" asp-route-mail="@Model.Id" class="btn btn-primary btn-sm">Add correspondance</a><br /><br />
 @if (Model.Correspondances != null)

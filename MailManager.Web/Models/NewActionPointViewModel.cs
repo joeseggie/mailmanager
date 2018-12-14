@@ -8,7 +8,7 @@ namespace MailManager.Web.Models
         [Required]
         public Guid MailId { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Status")]
         public Guid ActionStatusId { get; set; }
 
         [Required]

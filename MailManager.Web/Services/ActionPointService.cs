@@ -23,6 +23,7 @@ namespace MailManager.Web.Services
         public async Task<ActionPoint> AddActionPointAsync(ActionPoint actionPoint)
         {
             var actionPointEntry = await _db.ActionPoints.AddAsync(actionPoint);
+            await _db.SaveChangesAsync();
             return actionPointEntry.Entity;
         }
 
