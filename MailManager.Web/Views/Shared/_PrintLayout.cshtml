@@ -1,0 +1,50 @@
+﻿@{ 
+    var message = TempData["Message"] as string;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Mail Manager</title>
+
+    <environment include="Development">
+        <link href="~/lib/vendor/css/vendor.min.css" rel="stylesheet" />
+        <link href="~/lib/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/lib/vendor/css/vendor.min.css" rel="stylesheet" />
+        <link href="~/lib/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body style="padding-top: 0;">
+    <div class="container-fluid body-content">
+        @if (!string.IsNullOrWhiteSpace(message))
+        {
+            <div class="card bg-message text-dark">
+                <div class="card-body">
+                    @message
+                </div>
+            </div>
+        }
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2018 - Ministry of Education and Sports.</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/vendor/js/vendor.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/lib/vendor/js/vendor.min.js"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

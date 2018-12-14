@@ -221,5 +221,51 @@ namespace MailManager.Web.Controllers
 
             return View(formData);
         }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> Print(Guid id)
+        {
+            var mail = await _mailService.GetMailAsync(id);
+            if (mail == null)
+            {
+                return NotFound();
+            }
+
+            var mailCorrespondances = await _correspondanceService.GetCorrespondances()
+                .Where(c => c.MailId == mail.Id)
+                .Select(c => new CorrespondanceListViewModel
+                {
+                    Details = c.Details,
+                    Id = c.Id,
+                    Logged = c.Logged.ToString("dd/MM/yyyy"),
+                    MailId = c.MailId,
+                    Office = c.Office
+                }).ToListAsync();
+
+            var mailActionPoints = await _actionPointService.GetActionPoints()
+                .Where(c => c.MailId == mail.Id)
+                .Select(a => new ActionPointListViewModel
+                {
+                    ActionStatus = a.ActionStatus.Description,
+                    ActionStatusId = a.ActionStatusId,
+                    Details = a.Details,
+                    Id = a.Id
+                }).ToListAsync();
+
+            var model = new MailDetailsViewModel
+            {
+                Id = mail.Id,
+                ReferenceNumber = mail.ReferenceNumber,
+                Details = mail.Details,
+                From = mail.From,
+                Received = mail.Received.ToString("dd/MM/yyyy"),
+                Subject = mail.Subject,
+                To = mail.To,
+                Correspondances = mailCorrespondances,
+                ActionPoints = mailActionPoints
+            };
+
+            return View(model);
+        }
     }
 }
