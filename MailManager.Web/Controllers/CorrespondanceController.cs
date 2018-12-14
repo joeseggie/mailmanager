@@ -67,7 +67,7 @@ namespace MailManager.Web.Controllers
             return View(formData);
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("mail/{mail:guid}/correspondances/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
             var correspondanceToUpdate = await _correspondanceService.GetCorrespondanceAsync(id);
@@ -88,7 +88,7 @@ namespace MailManager.Web.Controllers
             return View(model);
         }
 
-        [HttpPost("{id:guid}")]
+        [HttpPost("mail/{mail:guid}/correspondances/{id:guid}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Details(CorrespondanceDetailsViewModel formData)
         {

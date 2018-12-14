@@ -62,6 +62,7 @@ namespace MailManager.Web.Services
             correspondanceToUpdate.Logged = correspondance.Logged;
             correspondanceToUpdate.MailId = correspondance.MailId;
             correspondanceToUpdate.Office = correspondance.Office;
+            correspondanceToUpdate.Details = correspondance.Details;
 
             _db.Update(correspondanceToUpdate);
             await _db.SaveChangesAsync();

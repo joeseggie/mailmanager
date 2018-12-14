@@ -121,7 +121,7 @@
     {
         <div class="mail-correspondace">
             <p>
-                <a asp-action="details" asp-controller="correspondances" asp-route-id="@correspondance.Id">
+                <a asp-action="details" asp-controller="correspondance" asp-route-mail="@Model.Id" asp-route-id="@correspondance.Id">
                     @correspondance.Details
                 </a><br />
                 <small style="font-size: 12px;"><strong>Office:</strong> @correspondance.Office&nbsp;&nbsp;<strong>Logged:</strong> @correspondance.Logged</small>
