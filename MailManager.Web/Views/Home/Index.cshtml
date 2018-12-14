@@ -4,10 +4,12 @@
 
 <h4 style="padding-bottom: 0;padding-top: 10px;">Search</h4>
 <hr style="margin-top: 0; margin-bottom: 2px;" />
-<div class="input-group">
-    <input type="text" class="form-control" placeholder="Search mail..." aria-label="Mail search" aria-describedby="button-addon-search">
-    <div class="input-group-append" id="button-addon-search">
-        <button class="btn btn-outline-secondary" type="button">Search</button>
-        <a asp-action="index" asp-controller="mail" class="btn btn-outline-secondary">All mail</a>
+<form asp-action="index" asp-controller="mail" method="get" role="form">
+    <div class="input-group">
+        <input name="search" id="search" type="text" class="form-control" placeholder="Search mail..." aria-label="Mail search" aria-describedby="button-addon-search">
+        <div class="input-group-append" id="button-addon-search">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+            <a asp-action="index" asp-controller="mail" class="btn btn-outline-secondary">All mail</a>
+        </div>
     </div>
-</div>
+</form>

@@ -35,6 +35,7 @@ namespace MailManager.Web.Controllers
         public async Task<IActionResult> Index(string search, string sort, int page=1)
         {
             var model = await _mailService.GetMail()
+                .OrderBy(m => m.Received)
                 .Select(m => new MailListViewModel
                 {
                     Id = m.Id,
@@ -45,6 +46,48 @@ namespace MailManager.Web.Controllers
                     Subject = m.Subject,
                     To = m.To
                 }).ToListAsync();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                model = model
+                    .Where(m => 
+                        m.From.ToLowerInvariant().Contains(search.ToLowerInvariant()) || 
+                        m.To.ToLowerInvariant().Contains(search.ToLowerInvariant()) || 
+                        m.Subject.ToLowerInvariant().Contains(search.ToLowerInvariant()))
+                    .ToList();
+                ViewData["search"] = search;
+            }
+
+            ViewData["FromSortParam"] = string.IsNullOrWhiteSpace(sort) ? "from_desc" : "";
+            ViewData["ToSortParam"] = sort == "to" ? "to_desc" : "to";
+            ViewData["SubjectSortParam"] = sort == "subject" ? "subject_desc" : "subject";
+            switch (sort)
+            {
+                case "from_desc":
+                    model = model.OrderByDescending(m => m.From).ToList();
+                    ViewData["sort"] = "from";
+                    break;
+                case "to":
+                    model = model.OrderBy(m => m.To).ToList();
+                    ViewData["sort"] = "todesc";
+                    break;
+                case "to_desc":
+                    model = model.OrderByDescending(m => m.To).ToList();
+                    ViewData["sort"] = "to";
+                    break;
+                case "subject":
+                    model = model.OrderBy(m => m.Subject).ToList();
+                    ViewData["sort"] = "subjectdesc";
+                    break;
+                case "subject_desc":
+                    model = model.OrderByDescending(m => m.Subject).ToList();
+                    ViewData["sort"] = "subject";
+                    break;
+                default:
+                    model = model.OrderBy(m => m.From).ToList();
+                    break;
+            }
+
             return View(model);
         }
 

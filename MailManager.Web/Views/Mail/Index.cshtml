@@ -7,11 +7,17 @@
 <hr />
 <a asp-action="add" asp-controller="mail" class="btn btn-primary">New mail</a><br /><br />
 <table class="table table-sm table-bordered table-hover">
-    <thead class="thead-dark">
+    <thead class="thead-light">
         <tr>
-            <th class="col-2">From</th>
-            <th class="col-2">To</th>
-            <th class="col-4">Subject</th>
+            <th class="col-2">
+                <a asp-action="index" asp-controller="mail" asp-route-sort="@ViewData["FromSortParam"]">From</a>
+            </th>
+            <th class="col-2">
+                <a asp-action="index" asp-controller="mail" asp-route-sort="@ViewData["ToSortParam"]">To</a>
+            </th>
+            <th class="col-4">
+                <a asp-action="index" asp-controller="mail" asp-route-sort="@ViewData["SubjectSortParam"]">Subject</a>
+            </th>
             <th class="col-2">Received</th>
             <th class="col-2">Ref. No.</th>
         </tr>
