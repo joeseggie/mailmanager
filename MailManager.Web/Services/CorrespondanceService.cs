@@ -23,6 +23,7 @@ namespace MailManager.Web.Services
         public async Task<Correspondance> AddCorreespondanceAsync(Correspondance correspondance)
         {
             var correspondanceEntry = await _db.Correspondances.AddAsync(correspondance);
+            await _db.SaveChangesAsync();
             return correspondanceEntry.Entity;
         }
 

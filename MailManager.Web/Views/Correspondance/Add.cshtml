@@ -1,0 +1,63 @@
+﻿@model NewCorrespondanceViewModel
+@{
+    ViewData["Title"] = "Add mail correspondance";
+}
+
+<h1>Add mail correspondance</h1>
+<hr />
+<a asp-action="details" asp-controller="mail" asp-route-id="@Model.MailId" class="btn btn-primary">&laquo; Back</a>
+<br /><br />
+<form class="form-horizontal" method="post" asp-action="add" asp-controller="correspondance" role="form">
+    <div asp-validation-summary="All" class="text-danger col-12"></div>
+
+    <input type="hidden" asp-for="MailId" />
+
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group">
+                <label asp-for="Office" class="col-form-label"></label>
+                <div>
+                    <input type="text" class="form-control" asp-for="Office" placeholder="Office to receive correspondance" />
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="Logged" class="col-form-label"></label>
+                <div>
+                    <input type="text" class="form-control" asp-for="Logged" placeholder="Correspondance date" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group">
+                <label asp-for="Details" class="col-form-label"></label>
+                <div>
+                    <textarea type="text" class="form-control" asp-for="Details" placeholder="Action point description" rows="2"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div>
+            <input type="submit" class="btn btn-danger" value="Save" />
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <link href="~/lib/datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/lib/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Logged").datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d'
+            });
+        });
+    </script>
+}

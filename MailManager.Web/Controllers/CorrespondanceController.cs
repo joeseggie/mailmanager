@@ -34,11 +34,14 @@ namespace MailManager.Web.Controllers
                 return NotFound();
             }
 
-            ViewData["MailId"] = correspondanceMail.Id;
-            return View();
+            var model = new NewCorrespondanceViewModel
+            {
+                MailId = correspondanceMail.Id
+            };
+            return View(model);
         }
 
-        [HttpPost("mail/{mail:guid}")]
+        [HttpPost("mail/{mail:guid}/correspondances/add")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(NewCorrespondanceViewModel formData)
         {

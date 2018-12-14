@@ -77,8 +77,8 @@
 <br />
 
 <h1 class="display-6"><strong>Action Points</strong></h1>
+<a asp-action="add" asp-controller="actionpoint" asp-route-mail="@Model.Id" class="btn btn-primary btn-sm">Add action point</a>
 <hr />
-<a asp-action="add" asp-controller="actionpoint" asp-route-mail="@Model.Id" class="btn btn-primary btn-sm">Add action point</a><br /><br />
 <div class="row">
     <div class="col-12">
         <table class="table table-hover table-bordered table-sm">
@@ -113,8 +113,8 @@
 </div>
 
 <h1 class="display-6"><strong>Correspondances</strong></h1>
+<a asp-action="add" asp-controller="correspondance" asp-route-mail="@Model.Id" class="btn btn-primary btn-sm">Add correspondance</a>
 <hr />
-<a asp-action="add" asp-controller="correspondance" asp-route-mail="@Model.Id" class="btn btn-primary btn-sm">Add correspondance</a><br /><br />
 @if (Model.Correspondances != null)
 {
     foreach (var correspondance in Model.Correspondances)
@@ -123,11 +123,10 @@
             <p>
                 <a asp-action="details" asp-controller="correspondances" asp-route-id="@correspondance.Id">
                     @correspondance.Details
-                </a>
+                </a><br />
+                <small style="font-size: 12px;"><strong>Office:</strong> @correspondance.Office&nbsp;&nbsp;<strong>Logged:</strong> @correspondance.Logged</small>
             </p>
-            <p>
-                Office/Officer: @correspondance.Office&nbsp;&nbsp;Logged: @correspondance.Logged
-            </p>
+            <hr />
         </div>
     }
 }

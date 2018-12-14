@@ -8,7 +8,7 @@ namespace MailManager.Web.Models
         [Required]
         public Guid MailId { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Date")]
         public string Logged { get; set; }
 
         [Required]
