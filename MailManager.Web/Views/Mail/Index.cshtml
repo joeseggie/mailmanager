@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MailListViewModel>
+﻿@model PaginatedList<MailListViewModel>
 @{
     ViewData["Title"] = "Incoming Mail";
 }
@@ -10,13 +10,13 @@
     <thead class="thead-light">
         <tr>
             <th class="col-2">
-                <a asp-action="index" asp-controller="mail" asp-route-sort="@ViewData["FromSortParam"]">From</a>
+                <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["FromSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">From</a>
             </th>
             <th class="col-2">
-                <a asp-action="index" asp-controller="mail" asp-route-sort="@ViewData["ToSortParam"]">To</a>
+                <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["ToSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">To</a>
             </th>
             <th class="col-4">
-                <a asp-action="index" asp-controller="mail" asp-route-sort="@ViewData["SubjectSortParam"]">Subject</a>
+                <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["SubjectSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Subject</a>
             </th>
             <th class="col-2">Received</th>
             <th class="col-2">Ref. No.</th>
@@ -37,6 +37,35 @@
             }
         }
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                @{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                }
+
+                <a asp-action="index"
+                   asp-controller="mail"
+                   asp-route-search="@ViewData["CurrentFilter"]"
+                   asp-route-sort="@ViewData["CurrentSort"]"
+                   asp-route-view="@(Model.PageIndex - 1)"
+                   asp-route-currentfilter="@ViewData["CurrentFilter"]"
+                   class="btn btn-default @prevDisabled">
+                    &laquo; Previous
+                </a>
+                <a asp-action="index"
+                   asp-controller="mail" 
+                   asp-route-search="@ViewData["CurrentFilter"]"
+                   asp-route-sort="@ViewData["CurrentSort"]"
+                   asp-route-currentfilter="@ViewData["CurrentFilter"]"
+                   asp-route-view="@(Model.PageIndex + 1)" 
+                   class="btn btn-default @nextDisabled">
+                    Next &raquo;
+                </a>
+            </td>
+        </tr>
+    </tfoot>
 </table>
 
 @section Scripts

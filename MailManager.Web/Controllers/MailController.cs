@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MailManager.Web.Extensions;
 using MailManager.Web.Models;
 using MailManager.Web.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -32,9 +33,14 @@ namespace MailManager.Web.Controllers
         }
 
         // GET: mail/
-        public async Task<IActionResult> Index(string search, string sort, int page=1)
+        public async Task<IActionResult> Index(
+            string currentfilter,
+            string search, 
+            string sort, 
+            int? view)
         {
-            var model = await _mailService.GetMail()
+            ViewData["CurrentSort"] = sort;
+            var model = _mailService.GetMail()
                 .OrderBy(m => m.Received)
                 .Select(m => new MailListViewModel
                 {
@@ -45,18 +51,24 @@ namespace MailManager.Web.Controllers
                     Received = m.Received.ToString("dd MMMM yyyy"),
                     Subject = m.Subject,
                     To = m.To
-                }).ToListAsync();
+                });
 
             if (!string.IsNullOrWhiteSpace(search))
             {
+                view = 1;
                 model = model
                     .Where(m => 
                         m.From.ToLowerInvariant().Contains(search.ToLowerInvariant()) || 
                         m.To.ToLowerInvariant().Contains(search.ToLowerInvariant()) || 
-                        m.Subject.ToLowerInvariant().Contains(search.ToLowerInvariant()))
-                    .ToList();
+                        m.Subject.ToLowerInvariant().Contains(search.ToLowerInvariant()));
                 ViewData["search"] = search;
             }
+            else
+            {
+                search = currentfilter;
+            }
+
+            ViewData["CurrentFilter"] = search;
 
             ViewData["FromSortParam"] = string.IsNullOrWhiteSpace(sort) ? "from_desc" : "";
             ViewData["ToSortParam"] = sort == "to" ? "to_desc" : "to";
@@ -64,31 +76,33 @@ namespace MailManager.Web.Controllers
             switch (sort)
             {
                 case "from_desc":
-                    model = model.OrderByDescending(m => m.From).ToList();
+                    model = model.OrderByDescending(m => m.From);
                     ViewData["sort"] = "from";
                     break;
                 case "to":
-                    model = model.OrderBy(m => m.To).ToList();
+                    model = model.OrderBy(m => m.To);
                     ViewData["sort"] = "todesc";
                     break;
                 case "to_desc":
-                    model = model.OrderByDescending(m => m.To).ToList();
+                    model = model.OrderByDescending(m => m.To);
                     ViewData["sort"] = "to";
                     break;
                 case "subject":
-                    model = model.OrderBy(m => m.Subject).ToList();
+                    model = model.OrderBy(m => m.Subject);
                     ViewData["sort"] = "subjectdesc";
                     break;
                 case "subject_desc":
-                    model = model.OrderByDescending(m => m.Subject).ToList();
+                    model = model.OrderByDescending(m => m.Subject);
                     ViewData["sort"] = "subject";
                     break;
                 default:
-                    model = model.OrderBy(m => m.From).ToList();
+                    model = model.OrderBy(m => m.From);
                     break;
             }
 
-            return View(model);
+            int pageSize = 10;
+
+            return View(await PaginatedList<MailListViewModel>.CreateAsync(model.AsNoTracking(), view ?? 1, pageSize));
         }
 
         // GET mail/add
