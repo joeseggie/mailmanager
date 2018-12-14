@@ -9,7 +9,7 @@ namespace MailManager.Web.Models
         [Required]
         public Guid Id { get; set; }
 
-        [Required, Display(Name = "Reference No.")]
+        [Display(Name = "Reference No.")]
         public string ReferenceNumber { get; set; }
 
         [Required]
@@ -28,5 +28,7 @@ namespace MailManager.Web.Models
         public string Received { get; set; }
 
         public IEnumerable<CorrespondanceListViewModel> Correspondances { get; set; }
+
+        public IEnumerable<ActionPointListViewModel> ActionPoints { get; set; }
     }
 }

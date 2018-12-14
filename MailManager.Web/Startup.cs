@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using MailManager.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MailManager.Web.Services;
 
 namespace MailManager.Web
 {
@@ -40,7 +41,16 @@ namespace MailManager.Web
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddTransient<IActionPointService, ActionPointService>();
+            services.AddTransient<IActionStatusService, ActionStatusService>();
+            services.AddTransient<ICorrespondanceService, CorrespondanceService>();
+            services.AddTransient<IMailService, MailService>();
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddCookieTempDataProvider();
+
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +72,8 @@ namespace MailManager.Web
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

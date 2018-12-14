@@ -4,7 +4,7 @@ namespace MailManager.Web.Models
 {
     public class NewMailViewModel
     {
-        [Required, Display(Name = "Reference No.")]
+        [Display(Name = "Reference No.")]
         public string ReferenceNumber { get; set; }
 
         [Required]
