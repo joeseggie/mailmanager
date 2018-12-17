@@ -9,5 +9,9 @@ namespace MailManager.Web.Services
     public interface IApplicationUsersService
     {
         IQueryable<ApplicationUser> GetApplicationUsers();
+
+        Task<ApplicationUser> GetApplicationUserAsync(string username);
+
+        Task<ApplicationUser> UpdateUserAsync(ApplicationUser applicationUser);
     }
 }
