@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MailManager.Web.Models;
 using MailManager.Web.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -36,6 +37,29 @@ namespace MailManager.Web.Controllers
                 .ToListAsync();
 
             return View(model);
+        }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add(NewRoleViewModel formData)
+        {
+            if (ModelState.IsValid)
+            {
+                var newRole = await _applicationRolesService.AddRoleAsync(new IdentityRole
+                {
+                    Name = formData.Name
+                });
+
+                TempData["Message"] = "New roles added successfully";
+                return RedirectToAction("index", "admin");
+            }
+
+            return View(formData);
         }
     }
 }
