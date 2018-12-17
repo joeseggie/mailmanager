@@ -39,7 +39,22 @@ namespace MailManager.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<ApplicationUser>()
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+
+                // Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.AllowedForNewUsers = false;
+            })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI();
 
