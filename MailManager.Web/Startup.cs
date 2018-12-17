@@ -63,6 +63,7 @@ namespace MailManager.Web
             services.AddTransient<ICorrespondanceService, CorrespondanceService>();
             services.AddTransient<IMailService, MailService>();
             services.AddTransient<IApplicationUsersService, ApplicationUsersService>();
+            services.AddTransient<IApplicationRolesService, ApplicationRoleService>();
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
