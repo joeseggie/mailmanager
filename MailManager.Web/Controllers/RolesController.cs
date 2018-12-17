@@ -57,7 +57,7 @@ namespace MailManager.Web.Controllers
                 });
 
                 TempData["Message"] = "New roles added successfully";
-                return RedirectToAction("index", "admin");
+                return RedirectToAction("index", "roles");
             }
 
             return View(formData);
