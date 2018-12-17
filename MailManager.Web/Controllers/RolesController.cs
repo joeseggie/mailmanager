@@ -61,5 +61,47 @@ namespace MailManager.Web.Controllers
 
             return View(formData);
         }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest();
+            }
+
+            var roleDetails = await _applicationRolesService.GetApplicationRoleAsync(id);
+            if (roleDetails == null)
+            {
+                return NotFound();
+            }
+
+            var model = new RoleDetailsViewModel
+            {
+                Id = roleDetails.Id,
+                Name = roleDetails.Name
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Details(RoleDetailsViewModel formData)
+        {
+            if (ModelState.IsValid)
+            {
+                var updatedRole = await _applicationRolesService.UpdateRoleAsync(new IdentityRole
+                {
+                    Id = formData.Id,
+                    Name = formData.Name,
+                    NormalizedName = formData.NormalizedName
+                });
+
+                TempData["Messages"] = "Changes saved successfully.";
+                return RedirectToAction("details", new { id = formData.NormalizedName });
+            }
+
+            return View(formData);
+        }
     }
 }
