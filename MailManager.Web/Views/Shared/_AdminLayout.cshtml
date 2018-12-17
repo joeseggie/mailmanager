@@ -2,18 +2,20 @@
     Layout = "_Layout";
 }
 
-<div class="row">
-    <div class="col-2">
-        <div class="list-group">
-            <a class="list-group-item list-group-item-action active text-white">
-                Admin Panel
-            </a>
-            <a asp-action="index" asp-controller="admin" class="list-group-item list-group-item-action">Users</a>
-            <a asp-action="index" asp-controller="actionstatus" class="list-group-item list-group-item-action">Action point status</a>
+<div style="padding-top: 10px;">
+    <div class="row">
+        <div class="col-2">
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action active text-white">
+                    Admin Panel
+                </a>
+                <a asp-action="index" asp-controller="admin" class="list-group-item list-group-item-action">Users</a>
+                <a asp-action="index" asp-controller="actionstatus" class="list-group-item list-group-item-action">Action point status</a>
+            </div>
         </div>
-    </div>
-    <div class="col-10">
-        @RenderBody()
+        <div class="col-10">
+            @RenderBody()
+        </div>
     </div>
 </div>
 
