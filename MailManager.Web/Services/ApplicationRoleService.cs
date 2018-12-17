@@ -31,6 +31,23 @@ namespace MailManager.Web.Services
         }
 
         /// <summary>
+        /// Delete role.
+        /// </summary>
+        /// <param name="id">Role Id.</param>
+        /// <returns>Task result.</returns>
+        public async Task DeleteRoleAsync(string id)
+        {
+            var roleToDelete = await _db.Roles.FindAsync(id);
+            if (roleToDelete == null)
+            {
+                throw new ApplicationException("Role to be deleted was not found.");
+            }
+
+            _db.Roles.Remove(roleToDelete);
+            await _db.SaveChangesAsync();
+        }
+
+        /// <summary>
         /// Get application role.
         /// </summary>
         /// <param name="normalizedName">Role name</param>

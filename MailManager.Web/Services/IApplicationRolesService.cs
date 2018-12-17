@@ -16,5 +16,7 @@ namespace MailManager.Web.Services
         Task<IdentityRole> UpdateRoleAsync(IdentityRole role);
 
         Task<IdentityRole> AddRoleAsync(IdentityRole role);
+
+        Task DeleteRoleAsync(string id);
     }
 }
