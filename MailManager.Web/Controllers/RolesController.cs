@@ -32,7 +32,8 @@ namespace MailManager.Web.Controllers
                 .Select(r => new RolesListViewModel
                 {
                     Id = r.Id,
-                    Name = r.Name
+                    Name = r.Name,
+                    NormalizedName = r.NormalizedName
                 })
                 .ToListAsync();
 
