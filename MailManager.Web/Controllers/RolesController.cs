@@ -103,5 +103,27 @@ namespace MailManager.Web.Controllers
 
             return View(formData);
         }
+
+        public async Task<IActionResult> Delete(string role)
+        {
+            try
+            {
+                var roleToDelete = await _applicationRolesService.GetApplicationRoleAsync(role);
+                if (roleToDelete == null)
+                {
+                    return NotFound();
+                }
+
+                await _applicationRolesService.DeleteRoleAsync(roleToDelete.Id);
+
+                TempData["Message"] = "Role delete successfully.";
+
+                return RedirectToAction("index");
+            }
+            catch (ApplicationException)
+            {
+                return NotFound();
+            }
+        }
     }
 }
