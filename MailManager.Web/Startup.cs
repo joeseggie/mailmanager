@@ -13,6 +13,7 @@ using MailManager.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MailManager.Web.Services;
+using MailManager.Web.Models;
 
 namespace MailManager.Web
 {
@@ -38,8 +39,9 @@ namespace MailManager.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI();
 
             services.AddTransient<IActionPointService, ActionPointService>();
             services.AddTransient<IActionStatusService, ActionStatusService>();
