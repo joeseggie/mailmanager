@@ -33,11 +33,11 @@ namespace MailManager.Web.Services
         /// <summary>
         /// Get application role.
         /// </summary>
-        /// <param name="roleName">Role name</param>
+        /// <param name="normalizedName">Role name</param>
         /// <returns>Application role.</returns>
-        public async Task<IdentityRole> GetApplicationRoleAsync(string roleName)
+        public async Task<IdentityRole> GetApplicationRoleAsync(string normalizedName)
         {
-            return await _db.Roles.FirstOrDefaultAsync(r => r.Name.ToLowerInvariant() == roleName.ToLowerInvariant());
+            return await _db.Roles.FirstOrDefaultAsync(r => r.NormalizedName.ToLowerInvariant() == normalizedName.ToLowerInvariant());
         }
 
         /// <summary>
