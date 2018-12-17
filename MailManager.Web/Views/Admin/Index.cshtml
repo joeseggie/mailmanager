@@ -1,0 +1,67 @@
+﻿@model PaginatedList<ApplicationUsersListViewModel>
+@{
+    ViewData["Title"] = "Admin Panel";
+}
+
+<h1 class="display-5">Admin Panel</h1>
+<a class="btn btn-primary btn-sm text-white">Add user</a>
+<a class="btn btn-primary btn-sm text-white">Action Point Status</a>
+<br /><br />
+<h3 class="display-6">Users</h3>
+<hr />
+<table class="table table-hover table-sm table-bordered">
+    <thead>
+        <tr>
+            <th class="col-4">Firstname</th>
+            <th class="col-4">Lastname</th>
+            <th class="col-4">Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var user in Model)
+            {
+                <tr class="clickable-row" data-href='@Url.Action("details", "users", new { username=user.Username })'>
+                    <td class="col-4">@user.Firstname</td>
+                    <td class="col-4">@user.Lastname</td>
+                    <td class="col-4">@user.Email</td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                @{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                }
+
+                <a asp-action="index"
+                   asp-controller="admin"
+                   asp-route-view="@(Model.PageIndex - 1)"
+                   class="btn btn-default @prevDisabled">
+                    &laquo; Previous
+                </a>
+                <a asp-action="index"
+                   asp-controller="admin"
+                   asp-route-view="@(Model.PageIndex + 1)"
+                   class="btn btn-default @nextDisabled">
+                    Next &raquo;
+                </a>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts
+    {
+    <script>
+        $(function () {
+            $('.clickable-row').click(function () {
+                window.location = $(this).data('href');
+            });
+        })
+    </script>
+}

@@ -28,7 +28,7 @@
             <a class="navbar-brand" asp-action="index" asp-controller="home">Mail Manager</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Admin <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" asp-action="index" asp-controller="admin">Admin <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" asp-action="index" asp-controller="mail" method="get" role="form">
