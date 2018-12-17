@@ -74,7 +74,7 @@ namespace MailManager.Web.Services
         public async Task<IdentityRole> UpdateRoleAsync(IdentityRole role)
         {
             var roleToUpdate = await _db.Roles.FirstOrDefaultAsync(r =>
-                r.Id == role.Id);
+                r.NormalizedName == role.NormalizedName);
             if (roleToUpdate == null)
             {
                 throw new ApplicationException("Role to be updated was not found.");

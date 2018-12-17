@@ -21,10 +21,10 @@
         {
             foreach (var role in Model)
             {
-                <tr>
+                <tr class="clickable-row" data-href='@Url.Action("details", "roles", new { id=role.NormalizedName })'>
                     <td class="col-10">@role.Name</td>
                     <td class="col-2">
-                        <a asp-action="delete" asp-route-id="@role.NormalizedName" class="btn btn-danger btn-sm">Delete</a>
+                        <a asp-action="delete" asp-route-id="@role.Id" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
             }
@@ -32,3 +32,13 @@
     </tbody>
 </table>
 
+@section AdminScripts
+    {
+    <script>
+        $(function () {
+            $('.clickable-row').click(function () {
+                window.location = $(this).data('href');
+            });
+        })
+    </script>
+}

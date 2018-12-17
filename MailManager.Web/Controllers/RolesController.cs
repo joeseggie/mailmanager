@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MailManager.Web.Models;
 using MailManager.Web.Services;
@@ -51,9 +52,11 @@ namespace MailManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var roleNormalizedName = Regex.Replace(formData.Name, "\\W", "-").ToLowerInvariant();
                 var newRole = await _applicationRolesService.AddRoleAsync(new IdentityRole
                 {
-                    Name = formData.Name
+                    Name = formData.Name,
+                    NormalizedName = roleNormalizedName
                 });
 
                 TempData["Message"] = "New roles added successfully";
@@ -79,7 +82,8 @@ namespace MailManager.Web.Controllers
             var model = new RoleDetailsViewModel
             {
                 Id = roleDetails.Id,
-                Name = roleDetails.Name
+                Name = roleDetails.Name,
+                NormalizedName = roleDetails.NormalizedName
             };
 
             return View(model);
@@ -98,24 +102,18 @@ namespace MailManager.Web.Controllers
                     NormalizedName = formData.NormalizedName
                 });
 
-                TempData["Messages"] = "Changes saved successfully.";
+                TempData["Message"] = "Changes saved successfully.";
                 return RedirectToAction("details", new { id = formData.NormalizedName });
             }
 
             return View(formData);
         }
 
-        public async Task<IActionResult> Delete(string role)
+        public async Task<IActionResult> Delete(string id)
         {
             try
             {
-                var roleToDelete = await _applicationRolesService.GetApplicationRoleAsync(role);
-                if (roleToDelete == null)
-                {
-                    return NotFound();
-                }
-
-                await _applicationRolesService.DeleteRoleAsync(roleToDelete.Id);
+                await _applicationRolesService.DeleteRoleAsync(id);
 
                 TempData["Message"] = "Role delete successfully.";
 
