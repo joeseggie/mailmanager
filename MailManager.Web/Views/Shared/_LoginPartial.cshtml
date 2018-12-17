@@ -1,14 +1,15 @@
 @using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
+    var appUser = await UserManager.GetUserAsync(User);
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="Identity" class="btn btn-outline-dark my-2 my-sm-0" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>&nbsp;
+                <a asp-area="Identity" class="btn btn-outline-dark my-2 my-sm-0" asp-page="/Account/Manage/Index" title="Manage">Hello @appUser.Firstname!</a>&nbsp;
             </li>
             <li>
                 <button type="submit" class="btn btn-outline-dark my-2 my-sm-0">Logout</button>
