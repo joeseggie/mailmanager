@@ -3,12 +3,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using MailManager.Web.Models;
 using MailManager.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace MailManager.Web.Controllers
 {
+    [Authorize]
     [Route("[controller]/[action]")]
     public class ActionStatusController : Controller
     {
@@ -36,11 +38,13 @@ namespace MailManager.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Administrator, Support")]
         public IActionResult Add()
         {
             return View();
         }
 
+        [Authorize(Roles = "Administrator, Support")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(NewActionStatusViewModel formData)
@@ -58,6 +62,7 @@ namespace MailManager.Web.Controllers
             return View(formData);
         }
 
+        [Authorize(Roles = "Administrator, Support")]
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
@@ -75,6 +80,7 @@ namespace MailManager.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Administrator, Support")]
         [HttpPost("{id:guid}")]
         public async Task<IActionResult> Details(ActionStatusDetailsViewModel formData)
         {

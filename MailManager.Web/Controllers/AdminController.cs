@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using MailManager.Web.Extensions;
 using MailManager.Web.Models;
 using MailManager.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace MailManager.Web.Controllers
 {
+    [Authorize(Roles = "Administrator, Support")]
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MailManager.Web.Models;
 using MailManager.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MailManager.Web.Controllers
 {
+    [Authorize]
     public class ActionPointController : Controller
     {
         private readonly IActionPointService _actionPointService;

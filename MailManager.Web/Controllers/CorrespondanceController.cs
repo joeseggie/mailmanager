@@ -1,5 +1,6 @@
 using MailManager.Web.Models;
 using MailManager.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace MailManager.Web.Controllers
 {
+    [Authorize]
     public class CorrespondanceController : Controller
     {
         private readonly ILogger<CorrespondanceController> _logger;
