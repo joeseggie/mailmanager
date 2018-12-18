@@ -19,5 +19,10 @@ namespace MailManager.Web.Models
 
         [Required]
         public string Email { get; set; }
+
+        public string Password { get; set; }
+
+        [Display(Name = "Confirm password")]
+        public string ConfirmPassword { get; set; }
     }
 }
