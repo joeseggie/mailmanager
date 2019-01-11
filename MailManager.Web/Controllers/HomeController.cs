@@ -72,7 +72,7 @@ namespace MailManager.Web.Controllers
 
             ApplicationUser adminAccount;
 
-            adminAccount = await _applicationUsersService.GetApplicationUserAsync("admin@education.go.ug");
+            adminAccount = await _applicationUsersService.GetApplicationUserAsync("admin");
 
             if (adminAccount == null)
             {
@@ -81,7 +81,7 @@ namespace MailManager.Web.Controllers
                     Email = "admin@education.go.ug",
                     Firstname = "Admin",
                     Lastname = "Admin",
-                    UserName = "admin@education.go.ug"
+                    UserName = "admin"
                 };
                 var result = await _userManager.CreateAsync(adminAccount, "admin.education");
 

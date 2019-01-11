@@ -8,6 +8,7 @@ using MailManager.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -18,13 +19,22 @@ namespace MailManager.Web.Controllers
     {
         private readonly ILogger<RolesController> _logger;
         private readonly IApplicationRolesService _applicationRolesService;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IApplicationUsersService _applicationUsersService;
 
         public RolesController(
             ILogger<RolesController> logger,
-            IApplicationRolesService applicationRolesService)
+            IApplicationRolesService applicationRolesService,
+            UserManager<ApplicationUser> userManager,
+            IApplicationUsersService applicationUsersService,
+            RoleManager<IdentityRole> roleManager)
         {
             _logger = logger;
             _applicationRolesService = applicationRolesService;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _applicationUsersService = applicationUsersService;
         }
 
         public async Task<IActionResult> Index()
@@ -88,6 +98,22 @@ namespace MailManager.Web.Controllers
                 NormalizedName = roleDetails.NormalizedName
             };
 
+            model.Members = (await _userManager.GetUsersInRoleAsync(roleDetails.NormalizedName.ToLowerInvariant()))
+                .Select(u => new ApplicationUsersListViewModel
+                {
+                    Email = u.Email,
+                    Firstname = u.Firstname,
+                    Lastname = u.Lastname,
+                    Username = u.UserName
+                });
+
+            ViewData["Users"] = await _applicationUsersService.GetApplicationUsers()
+                .Select(u => new SelectListItem
+                {
+                    Text = $"{u.Firstname} {u.Lastname}",
+                    Value = u.UserName
+                }).ToListAsync();
+
             return View(model);
         }
 
@@ -95,6 +121,13 @@ namespace MailManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Details(RoleDetailsViewModel formData)
         {
+            ViewData["Users"] = await _applicationUsersService.GetApplicationUsers()
+                .Select(u => new SelectListItem
+                {
+                    Text = $"{u.Firstname} {u.Lastname}",
+                    Value = u.UserName
+                }).ToListAsync();
+
             if (ModelState.IsValid)
             {
                 var updatedRole = await _applicationRolesService.UpdateRoleAsync(new IdentityRole
@@ -125,6 +158,60 @@ namespace MailManager.Web.Controllers
             {
                 return NotFound();
             }
+        }
+
+        public async Task<IActionResult> Revoke(string username, string role)
+        {
+            var userAccount = await _applicationUsersService.GetApplicationUserAsync(username);
+            var userRole = await _applicationRolesService.GetApplicationRoleAsync(role);
+            var userRoleExists = await _roleManager.RoleExistsAsync(role);
+            if (userRoleExists)
+            {
+                var result = await _userManager.RemoveFromRoleAsync(userAccount, role);
+                if (result.Succeeded)
+                {
+                    TempData["Message"] = "Successfully removed member from role";
+                }
+                else
+                {
+                    TempData["Message"] = "Failed to remove member from role";
+                }
+            }
+            else
+            {
+                TempData["Message"] = "Role does not exist.";
+            }
+
+            return RedirectToAction("details", new { id = role });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddMember(string role, string username)
+        {
+
+
+            var userAccount = await _applicationUsersService.GetApplicationUserAsync(username);
+            var userRole = await _applicationRolesService.GetApplicationRoleAsync(role);
+            var userRoleExists = await _roleManager.RoleExistsAsync(role);
+            if (userRoleExists)
+            {
+                var result = await _userManager.AddToRoleAsync(userAccount, role);
+                if (result.Succeeded)
+                {
+                    TempData["Message"] = "Successfully added new member to role";
+                }
+                else
+                {
+                    TempData["Message"] = "Failed to add new member to role";
+                }
+            }
+            else
+            {
+                TempData["Message"] = "Role does not exist.";
+            }
+
+            return RedirectToAction("details", new { id = role });
         }
     }
 }

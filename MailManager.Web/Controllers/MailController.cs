@@ -57,7 +57,6 @@ namespace MailManager.Web.Controllers
 
             if (!string.IsNullOrWhiteSpace(search))
             {
-                view = 1;
                 model = model
                     .Where(m => 
                         m.From.ToLowerInvariant().Contains(search.ToLowerInvariant()) || 

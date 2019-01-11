@@ -17,9 +17,9 @@
 
 <strong>Details:</strong><br />
 @Model.Details<br /><br />
-<h5 class="text-center">Action points</h5>
-<table class="table table-sm">
-    <thead>
+<h5 class="text-center"><strong>Action points</strong></h5>
+<table class="table table-sm table-bordered">
+    <thead class="thead-dark">
         <tr>
             <th class="col-8">Action Point</th>
             <th class="col-4">Status</th>
@@ -32,21 +32,17 @@
             {
                 <tr>
                     <td class="col-8">
-                        <a asp-action="details" asp-controller="actionpoint" asp-route-mail="@Model.Id" asp-route-id="@actionPoint.Id">
-                            @actionPoint.Details
-                        </a>
+                        @actionPoint.Details
                     </td>
                     <td class="col-4">
-                        <a asp-action="details" asp-controller="actionstatus" asp-route-id="@actionPoint.ActionStatusId">
-                            @actionPoint.ActionStatus
-                        </a>
+                        @actionPoint.ActionStatus
                     </td>
                 </tr>
             }
         }
     </tbody>
 </table><br />
-<h5 class="text-center">Correspondances</h5>
+<h5 class="text-center"><strong>Correspondances</strong></h5>
 <hr />
 @if (Model.Correspondances != null)
 {
@@ -54,9 +50,8 @@
     {
         <div class="mail-correspondace">
             <p>
-                <a asp-action="details" asp-controller="correspondance" asp-route-mail="@Model.Id" asp-route-id="@correspondance.Id">
-                    @correspondance.Details
-                </a><br />
+                @correspondance.Details
+                <br />
                 <small style="font-size: 12px;"><strong>Office:</strong> @correspondance.Office&nbsp;&nbsp;<strong>Logged:</strong> @correspondance.Logged</small>
             </p>
         </div>
