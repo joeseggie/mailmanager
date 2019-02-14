@@ -14,10 +14,11 @@
 
 <form asp-action="index" asp-controller="mail" method="get" role="form">
     <div class="input-group">
-        <input name="search" id="search" type="text" class="form-control" placeholder="Search mail..." aria-label="Mail search" aria-describedby="button-addon-search">
+        <input name="search" id="search" type="text" class="form-control" placeholder="Search incoming mail..." aria-label="Mail search" aria-describedby="button-addon-search">
         <div class="input-group-append" id="button-addon-search">
             <button class="btn btn-outline-secondary" type="submit">Search</button>
-            <a asp-action="index" asp-controller="mail" class="btn btn-outline-secondary">All mail</a>
+            <a asp-action="index" asp-controller="mail" class="btn btn-outline-secondary">Incoming mail</a>
+            <a asp-action="index" asp-controller="correspondance" class="btn btn-outline-secondary">Outgoing mail</a>
         </div>
     </div>
 </form>

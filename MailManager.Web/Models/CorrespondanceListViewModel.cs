@@ -13,5 +13,11 @@ namespace MailManager.Web.Models
         public string Office { get; set; }
 
         public string Details { get; set; }
+
+        public string From { get; set; }
+
+        public string Subject { get; set; }
+
+        public string Received { get; set; }
     }
 }

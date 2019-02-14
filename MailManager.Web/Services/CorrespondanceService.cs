@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MailManager.Web.Data;
 using MailManager.Web.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MailManager.Web.Services
 {
@@ -43,7 +44,7 @@ namespace MailManager.Web.Services
         /// <returns>Correspondances enumerable.</returns>
         public IQueryable<Correspondance> GetCorrespondances()
         {
-            return _db.Correspondances;
+            return _db.Correspondances.Include(correspondance => correspondance.Mail);
         }
 
         /// <summary>
