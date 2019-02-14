@@ -269,7 +269,7 @@ namespace MailManager.Web.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> PrintAll()
+        public async Task<IActionResult> PrintAll(string search)
         {
             var model = await _mailService.GetMail()
                 .OrderBy(m => m.Received)
@@ -284,6 +284,16 @@ namespace MailManager.Web.Controllers
                     To = m.To
                 })
                 .ToListAsync();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                model = model
+                    .Where(m =>
+                        m.From.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
+                        m.To.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
+                        m.Subject.ToLowerInvariant().Contains(search.ToLowerInvariant()))
+                        .ToList();
+            }
 
             return View(model);
         }
