@@ -268,5 +268,24 @@ namespace MailManager.Web.Controllers
 
             return View(model);
         }
+
+        public async Task<IActionResult> PrintAll()
+        {
+            var model = await _mailService.GetMail()
+                .OrderBy(m => m.Received)
+                .Select(m => new MailListViewModel
+                {
+                    Id = m.Id,
+                    ReferenceNumber = m.ReferenceNumber,
+                    Details = m.Details,
+                    From = m.From,
+                    Received = m.Received.ToString("dd MMMM yyyy"),
+                    Subject = m.Subject,
+                    To = m.To
+                })
+                .ToListAsync();
+
+            return View(model);
+        }
     }
 }

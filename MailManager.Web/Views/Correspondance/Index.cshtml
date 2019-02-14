@@ -1,27 +1,30 @@
-﻿@model PaginatedList<MailListViewModel>
+﻿@model PaginatedList<CorrespondanceListViewModel>
 @{
-    ViewData["Title"] = "Incoming Mail";
+    ViewData["Title"] = "Outgoing Mail";
 }
 
-<h1 class="display-5">Incoming Mail</h1>
+<h1 class="display-5">Outgoing Mail</h1>
 <hr />
-<a asp-action="index" asp-controller="correspondance" class="btn btn-primary">Outgoing mail</a>
-<a asp-action="add" asp-controller="mail" class="btn btn-primary">New mail</a>
-<a asp-action="printall" asp-controller="mail" target="_blank" class="btn btn-primary">Print</a><br /><br />
+<a asp-action="index" asp-controller="mail" class="btn btn-primary">Incoming mail</a>
+<a asp-action="printall" asp-controller="correspondance" target="_blank" class="btn btn-primary">Print</a><br /><br />
 <table class="table table-sm table-bordered table-hover">
     <thead class="thead-light">
         <tr>
             <th class="col-2">
-                <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["FromSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">From</a>
+                <a asp-action="index" asp-controller="correspondance" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["FromSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">From</a>
             </th>
             <th class="col-2">
-                <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["ToSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">To</a>
+                <a asp-action="index" asp-controller="correspondance" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["ToSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Received</a>
             </th>
             <th class="col-4">
                 <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["SubjectSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Subject</a>
             </th>
-            <th class="col-2">Received</th>
-            <th class="col-2">Ref. No.</th>
+            <th class="col-2">
+                Sent to
+            </th>
+            <th class="col-2">
+                Sent
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -29,12 +32,12 @@
         {
             foreach (var mail in Model)
             {
-                <tr class="clickable-row" data-href='@Url.Action("details", "mail", new { id=mail.Id})'>
+                <tr class="clickable-row" data-href='@Url.Action("details", "mail", new { controller="Mail", id=mail.MailId})'>
                     <td class="col-2">@mail.From</td>
-                    <td class="col-2">@mail.To</td>
-                    <td class="col-4">@mail.Subject</td>
                     <td class="col-2">@mail.Received</td>
-                    <td class="col-2">@mail.ReferenceNumber</td>
+                    <td class="col-4">@mail.Subject</td>
+                    <td class="col-2">@mail.Office</td>
+                    <td class="col-2">@mail.Logged</td>
                 </tr>
             }
         }
@@ -73,10 +76,9 @@
 @section Scripts
     {
     <script>
-        $(function () {
+$(function () {
             $('.clickable-row').click(function () {
                 window.location = $(this).data('href');
             });
-        })
-    </script>
+        })</script>
 }

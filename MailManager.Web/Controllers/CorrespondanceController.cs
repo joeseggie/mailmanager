@@ -1,11 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using MailManager.Web.Extensions;
 using MailManager.Web.Models;
 using MailManager.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace MailManager.Web.Controllers
 {
@@ -25,6 +29,69 @@ namespace MailManager.Web.Controllers
             _logger = logger;
             _correspondanceService = correspondanceService;
             _mailService = mailService;
+        }
+
+        public async Task<IActionResult> Index(
+            string currentFilter,
+            string search,
+            string sort,
+            int? view
+        )
+        {
+            ViewData["CurrentSort"] = sort;
+            var correspondances = _correspondanceService.GetCorrespondances()
+                .OrderByDescending(correspondance => correspondance.Logged)
+                .Select(correspondance => new CorrespondanceListViewModel
+                {
+                    Details = correspondance.Details,
+                    Id = correspondance.Id,
+                    Logged = correspondance.Logged.ToString("dd MMMM yyyy"),
+                    MailId = correspondance.MailId,
+                    Office = correspondance.Office,
+                    From = correspondance.Mail.From,
+                    Subject = correspondance.Mail.Subject,
+                    Received = correspondance.Mail.Received.ToString("dd MMMM yyyy")
+                });
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                correspondances = correspondances
+                    .Where(correspondance =>
+                        correspondance.Office.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
+                        correspondance.Details.ToLowerInvariant().Contains(search.ToLowerInvariant()));
+                ViewData["search"] = search;
+            }
+            else
+            {
+                search = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = search;
+
+            ViewData["LoggedSortParam"] = string.IsNullOrWhiteSpace(sort) ? "logged_desc" : "";
+            ViewData["OfficeSortParam"] = sort == "office" ? "office_desc" : "office";
+            switch (sort)
+            {
+                case "logged_desc":
+                    correspondances = correspondances.OrderByDescending(m => m.Logged);
+                    ViewData["sort"] = "logged";
+                    break;
+                case "office":
+                    correspondances = correspondances.OrderBy(m => m.Office);
+                    ViewData["sort"] = "officedesc";
+                    break;
+                case "office_desc":
+                    correspondances = correspondances.OrderByDescending(m => m.Office);
+                    ViewData["sort"] = "office";
+                    break;
+                default:
+                    correspondances = correspondances.OrderBy(m => m.Logged);
+                    break;
+            }
+
+            int pageSize = 10;
+
+            return View(await PaginatedList<CorrespondanceListViewModel>.CreateAsync(correspondances.AsNoTracking(), view ?? 1, pageSize));
         }
 
         [HttpGet("mail/{mail:guid}/correspondances/add")]
@@ -123,6 +190,25 @@ namespace MailManager.Web.Controllers
             }
 
             return View(formData);
+        }
+
+        public IActionResult PrintAll()
+        {
+            var model = _correspondanceService.GetCorrespondances()
+                .OrderByDescending(correspondance => correspondance.Logged)
+                .Select(correspondance => new CorrespondanceListViewModel
+                {
+                    Details = correspondance.Details,
+                    Id = correspondance.Id,
+                    Logged = correspondance.Logged.ToString("dd MMMM yyyy"),
+                    MailId = correspondance.MailId,
+                    Office = correspondance.Office,
+                    From = correspondance.Mail.From,
+                    Subject = correspondance.Mail.Subject,
+                    Received = correspondance.Mail.Received.ToString("dd MMMM yyyy")
+                });
+
+            return View(model);
         }
     }
 }

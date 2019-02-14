@@ -4,8 +4,9 @@
 }
 
 <h1 class="display-5">Mail Details</h1>
-<a asp-action="index" asp-controller="mail" class="btn btn-light btn-sm">&laquo; Incoming Mail</a>&nbsp;
-<a asp-action="print" asp-controller="mail" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary btn-sm">Print</a>
+<a asp-action="index" asp-controller="mail" class="btn btn-primary">Incoming Mail</a>&nbsp;
+<a asp-action="index" asp-controller="correspondance" class="btn btn-primary">Outgoing Mail</a>&nbsp;
+<a asp-action="print" asp-controller="mail" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary">Print</a>
 <hr />
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
