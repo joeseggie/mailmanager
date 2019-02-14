@@ -6,7 +6,15 @@
 <h1 class="display-5">Outgoing Mail</h1>
 <hr />
 <a asp-action="index" asp-controller="mail" class="btn btn-primary">Incoming mail</a>
-<a asp-action="printall" asp-controller="correspondance" target="_blank" class="btn btn-primary">Print</a><br /><br />
+<a asp-action="printall" asp-controller="correspondance" asp-route-search="@ViewData["CurrentFilter"]" target="_blank" class="btn btn-primary">Print</a><br /><br />
+<form asp-action="index" asp-controller="correspondance" method="get" role="form">
+    <div class="input-group">
+        <input name="search" id="search" type="text" class="form-control" placeholder="Search outgoing mail..." aria-label="Mail search" aria-describedby="button-addon-search">
+        <div class="input-group-append" id="button-addon-search">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+    </div>
+</form>
 <table class="table table-sm table-bordered table-hover">
     <thead class="thead-light">
         <tr>

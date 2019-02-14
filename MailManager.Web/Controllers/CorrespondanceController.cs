@@ -192,7 +192,7 @@ namespace MailManager.Web.Controllers
             return View(formData);
         }
 
-        public IActionResult PrintAll()
+        public IActionResult PrintAll(string search)
         {
             var model = _correspondanceService.GetCorrespondances()
                 .OrderByDescending(correspondance => correspondance.Logged)
@@ -207,6 +207,14 @@ namespace MailManager.Web.Controllers
                     Subject = correspondance.Mail.Subject,
                     Received = correspondance.Mail.Received.ToString("dd MMMM yyyy")
                 });
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                model = model
+                    .Where(correspondance =>
+                        correspondance.Office.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
+                        correspondance.Details.ToLowerInvariant().Contains(search.ToLowerInvariant()));
+            }
 
             return View(model);
         }
