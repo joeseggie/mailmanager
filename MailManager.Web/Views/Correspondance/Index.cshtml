@@ -19,19 +19,19 @@
     <thead class="thead-light">
         <tr>
             <th class="col-2">
-                <a asp-action="index" asp-controller="correspondance" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["FromSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">From</a>
+                From
             </th>
             <th class="col-2">
-                <a asp-action="index" asp-controller="correspondance" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["ToSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Received</a>
+                Received
             </th>
             <th class="col-4">
-                <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["SubjectSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Subject</a>
+                Subject
             </th>
             <th class="col-2">
-                Sent to
-            </th>
+                <a asp-action="index" asp-controller="correspondance" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["OfficeSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Sent to</a>
+</th>
             <th class="col-2">
-                Sent
+                <a asp-action="index" asp-controller="correspondance" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["LoggedSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Sent</a>
             </th>
         </tr>
     </thead>
@@ -42,10 +42,10 @@
             {
                 <tr class="clickable-row" data-href='@Url.Action("details", "mail", new { controller="Mail", id=mail.MailId})'>
                     <td class="col-2">@mail.From</td>
-                    <td class="col-2">@mail.Received</td>
+                    <td class="col-2">@mail.Received.ToString("dd MMMM yyyy")</td>
                     <td class="col-4">@mail.Subject</td>
                     <td class="col-2">@mail.Office</td>
-                    <td class="col-2">@mail.Logged</td>
+                    <td class="col-2">@mail.Logged.ToString("dd MMMM yyyy")</td>
                 </tr>
             }
         }

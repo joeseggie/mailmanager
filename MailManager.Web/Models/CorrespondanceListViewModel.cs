@@ -8,7 +8,7 @@ namespace MailManager.Web.Models
 
         public Guid MailId { get; set; }
 
-        public string Logged { get; set; }
+        public DateTime Logged { get; set; }
 
         public string Office { get; set; }
 
@@ -18,6 +18,6 @@ namespace MailManager.Web.Models
 
         public string Subject { get; set; }
 
-        public string Received { get; set; }
+        public DateTime Received { get; set; }
     }
 }

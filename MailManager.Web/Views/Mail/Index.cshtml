@@ -20,7 +20,9 @@
             <th class="col-4">
                 <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["SubjectSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Subject</a>
             </th>
-            <th class="col-2">Received</th>
+            <th class="col-2">
+                <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["ReceivedSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Received</a>
+            </th>
             <th class="col-2">Ref. No.</th>
         </tr>
     </thead>
@@ -33,7 +35,7 @@
                     <td class="col-2">@mail.From</td>
                     <td class="col-2">@mail.To</td>
                     <td class="col-4">@mail.Subject</td>
-                    <td class="col-2">@mail.Received</td>
+                    <td class="col-2">@mail.Received.ToString("dd MMMM yyyy")</td>
                     <td class="col-2">@mail.ReferenceNumber</td>
                 </tr>
             }
