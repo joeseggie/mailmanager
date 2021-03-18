@@ -19,6 +19,6 @@ namespace MailManager.Web.Models
 
         public string Details { get; set; }
 
-        public string Received { get; set; }
+        public DateTime Received { get; set; }
     }
 }

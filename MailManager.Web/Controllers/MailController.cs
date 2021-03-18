@@ -43,14 +43,13 @@ namespace MailManager.Web.Controllers
         {
             ViewData["CurrentSort"] = sort;
             var model = _mailService.GetMail()
-                .OrderBy(m => m.Received)
                 .Select(m => new MailListViewModel
                 {
                     Id = m.Id,
                     ReferenceNumber = m.ReferenceNumber,
                     Details = m.Details,
                     From = m.From,
-                    Received = m.Received.ToString("dd MMMM yyyy"),
+                    Received = m.Received,
                     Subject = m.Subject,
                     To = m.To
                 });
@@ -74,6 +73,7 @@ namespace MailManager.Web.Controllers
             ViewData["FromSortParam"] = string.IsNullOrWhiteSpace(sort) ? "from_desc" : "";
             ViewData["ToSortParam"] = sort == "to" ? "to_desc" : "to";
             ViewData["SubjectSortParam"] = sort == "subject" ? "subject_desc" : "subject";
+            ViewData["ReceivedSortParam"] = sort == "received" ? "received_desc" : "received";
             switch (sort)
             {
                 case "from_desc":
@@ -90,11 +90,19 @@ namespace MailManager.Web.Controllers
                     break;
                 case "subject":
                     model = model.OrderBy(m => m.Subject);
-                    ViewData["sort"] = "subjectdesc";
+                    ViewData["sort"] = "subject_desc";
                     break;
                 case "subject_desc":
                     model = model.OrderByDescending(m => m.Subject);
                     ViewData["sort"] = "subject";
+                    break;
+                case "received":
+                    model = model.OrderBy(m => m.Received);
+                    ViewData["sort"] = "received_desc";
+                    break;
+                case "received_desc":
+                    model = model.OrderByDescending(m => m.Received);
+                    ViewData["sort"] = "received";
                     break;
                 default:
                     model = model.OrderBy(m => m.From);
@@ -156,7 +164,7 @@ namespace MailManager.Web.Controllers
                 {
                     Details = c.Details,
                     Id = c.Id,
-                    Logged = c.Logged.ToString("dd/MM/yyyy"),
+                    Logged = c.Logged,
                     MailId = c.MailId,
                     Office = c.Office
                 }).ToListAsync();
@@ -238,7 +246,7 @@ namespace MailManager.Web.Controllers
                 {
                     Details = c.Details,
                     Id = c.Id,
-                    Logged = c.Logged.ToString("dd/MM/yyyy"),
+                    Logged = c.Logged,
                     MailId = c.MailId,
                     Office = c.Office
                 }).ToListAsync();
@@ -279,7 +287,7 @@ namespace MailManager.Web.Controllers
                     ReferenceNumber = m.ReferenceNumber,
                     Details = m.Details,
                     From = m.From,
-                    Received = m.Received.ToString("dd MMMM yyyy"),
+                    Received = m.Received,
                     Subject = m.Subject,
                     To = m.To
                 })

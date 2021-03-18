@@ -40,17 +40,16 @@ namespace MailManager.Web.Controllers
         {
             ViewData["CurrentSort"] = sort;
             var correspondances = _correspondanceService.GetCorrespondances()
-                .OrderByDescending(correspondance => correspondance.Logged)
                 .Select(correspondance => new CorrespondanceListViewModel
                 {
                     Details = correspondance.Details,
                     Id = correspondance.Id,
-                    Logged = correspondance.Logged.ToString("dd MMMM yyyy"),
+                    Logged = correspondance.Logged,
                     MailId = correspondance.MailId,
                     Office = correspondance.Office,
                     From = correspondance.Mail.From,
                     Subject = correspondance.Mail.Subject,
-                    Received = correspondance.Mail.Received.ToString("dd MMMM yyyy")
+                    Received = correspondance.Mail.Received
                 });
 
             if (!string.IsNullOrWhiteSpace(search))
@@ -78,7 +77,7 @@ namespace MailManager.Web.Controllers
                     break;
                 case "office":
                     correspondances = correspondances.OrderBy(m => m.Office);
-                    ViewData["sort"] = "officedesc";
+                    ViewData["sort"] = "office_desc";
                     break;
                 case "office_desc":
                     correspondances = correspondances.OrderByDescending(m => m.Office);
@@ -200,12 +199,12 @@ namespace MailManager.Web.Controllers
                 {
                     Details = correspondance.Details,
                     Id = correspondance.Id,
-                    Logged = correspondance.Logged.ToString("dd MMMM yyyy"),
+                    Logged = correspondance.Logged,
                     MailId = correspondance.MailId,
                     Office = correspondance.Office,
                     From = correspondance.Mail.From,
                     Subject = correspondance.Mail.Subject,
-                    Received = correspondance.Mail.Received.ToString("dd MMMM yyyy")
+                    Received = correspondance.Mail.Received
                 });
 
             if (!string.IsNullOrWhiteSpace(search))
