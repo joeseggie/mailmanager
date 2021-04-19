@@ -1,0 +1,101 @@
+@model RoleDetailsViewModel
+@{
+    ViewData["Title"] = "Role details";
+    Layout = "_AdminLayout";
+    var userSelectList = ViewData["Users"] as IEnumerable<SelectListItem>;
+}
+
+<h1>@Model.Name  Role</h1>
+<a asp-action="index" class="btn btn-light btn-sm">&laquo; Back to roles</a>
+<a asp-action="delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">Delete role</a>
+<hr />
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Details</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="members-tab" data-toggle="tab" href="#members" role="tab" aria-controls="members" aria-selected="false">Members</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
+        <div class="card bg-light text-dark">
+            <div class="card-body">
+                <form asp-action="details" role="form" class="form-horizontal col-4" method="post">
+                    <div asp-validation-summary="All" class="text-danger col-12"></div>
+
+                    <input type="hidden" asp-for="NormalizedName" />
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="form-group">
+                        <label class="col-form-label" asp-for="Name"></label>
+                        <div>
+                            <input type="text" asp-for="Name" class="form-control" placeholder="Role name" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-sm" value="Save changes" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="members" role="tabpanel" aria-labelledby="members-tab">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="addmember" asp-route-role="@Model.NormalizedName" role="form" class="form-horizontal" method="post">
+                    <div asp-validation-summary="All" class="text-danger col-12"></div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Add member</button>
+                            </div>
+                            <select class="form-control" aria-describedby="button-addon1" id="username" name="username" asp-items="@userSelectList">
+                                <option>Select user</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-bordered table-hover table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="col-3">First name</th>
+                            <th class="col-3">Last name</th>
+                            <th class="col-4">Email</th>
+                            <th class="col-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Members != null)
+                        {
+                            foreach (var member in Model.Members)
+                            {
+                                <tr class="clickable-row" data-href='@Url.Action("details", "users", new { username = member.Username })'>
+                                    <td class="col-3">@member.Firstname</td>
+                                    <td class="col-3">@member.Lastname</td>
+                                    <td class="col-4">@member.Email</td>
+                                    <td class="col-2">
+                                        <a asp-action="revoke" asp-route-username="@member.Username" asp-route-role="@Model.NormalizedName" class="btn btn-outline-danger btn-sm">Revoke</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section AdminScripts
+    {
+    <script>
+        $(function () {
+            $('.clickable-row').click(function () {
+                window.location = $(this).data('href');
+            });
+        })
+    </script>
+}

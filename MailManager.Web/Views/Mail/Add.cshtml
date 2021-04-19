@@ -1,0 +1,91 @@
+@model NewMailViewModel
+@{
+    ViewData["Title"] = "New Incoming Mail";
+}
+
+<h1 class="display-5">New Incoming Mail</h1>
+<hr />
+<a asp-action="index" asp-controller="mail" class="btn btn-primary">&laquo; Incoming Mail</a>
+<br />
+<form class="form-horizontal" method="post" asp-action="add" asp-controller="mail" role="form">
+    <div asp-validation-summary="All" class="text-danger col-12"></div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="From" class="col-form-label"></label>
+                <div>
+                    <input type="text" class="form-control" asp-for="From" placeholder="Mail sender" />
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="To" class="col-form-label"></label>
+                <div>
+                    <input type="text" class="form-control" asp-for="To" placeholder="Mail recipient" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="Subject" class="col-form-label"></label>
+                <div>
+                    <input type="text" class="form-control" asp-for="Subject" placeholder="Subject" />
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="Received" class="col-form-label"></label>
+                <div>
+                    <input type="text" class="form-control" asp-for="Received" placeholder="Date received" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="ReferenceNumber" class="col-form-label"></label>
+                <div>
+                    <input type="text" class="form-control" asp-for="ReferenceNumber" placeholder="Reference number" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="Details" class="col-form-label"></label>
+                <div>
+                    <textarea rows="5" class="form-control" asp-for="Details" placeholder="Mail brief details"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div>
+            <input type="submit" class="btn btn-danger" value="Save" />
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <link href="~/lib/datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/lib/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Received").datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d'
+            });
+        });
+    </script>
+}

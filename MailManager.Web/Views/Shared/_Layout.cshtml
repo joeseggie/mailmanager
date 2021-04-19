@@ -1,49 +1,86 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    var message = TempData["Message"] as string;
+    var userAccount = await UserManager.GetUserAsync(User);
+}
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MailManager.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <title>@ViewData["Title"] - Mail Manager</title>
+
+    <environment include="Development">
+        <link href="~/lib/vendor/css/vendor.min.css" rel="stylesheet" />
+        <link href="~/lib/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/lib/vendor/css/vendor.min.css" rel="stylesheet" />
+        <link href="~/lib/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MailManager.Web</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" asp-action="index" asp-controller="home">Home</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    @if ((SignInManager.IsSignedIn(User)) && (await UserManager.IsInRoleAsync(userAccount, "Administrator")))
+                    {
+                        <a class="nav-link" asp-action="index" asp-controller="admin">Admin <span class="sr-only">(current)</span></a>
+                    }
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" asp-action="index" asp-controller="mail" method="get" role="form">
+                <div class="input-group">
+                    <input type="text" class="form-control mr-sm-2" name="search" id="search" value="@ViewData["search"]" placeholder="Search incoming mail..." aria-label="Mail search" aria-describedby="button-addon-search">
+                    <div class="input-group-append" id="button-addon-search">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
+                            Search
+                        </button>&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+            </form>
+            <partial name="_LoginPartial" />
+        </div>
+    </nav>
+    <div class="navbar-border-bottom">&nbsp;</div>
+
+    <!--<partial name="_CookieConsentPartial" />-->
+
+    <div class="container-fluid body-content" style="padding-top: 10px;">
+        @if (!string.IsNullOrWhiteSpace(message))
+        {
+            <div class="card bg-message text-dark">
+                <div class="card-body">
+                    @message
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        }
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Ministry of Education and Sports.</p>
+        </footer>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - MailManager.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <environment include="Development">
+        <script src="~/lib/vendor/js/vendor.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/lib/vendor/js/vendor.min.js"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

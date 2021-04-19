@@ -12,6 +12,8 @@ using MailManager.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MailManager.Web.Services;
+using MailManager.Web.Models;
 
 namespace MailManager.Web
 {
@@ -32,8 +34,16 @@ namespace MailManager.Web
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+        
+            services.AddTransient<IActionPointService, ActionPointService>();
+            services.AddTransient<IActionStatusService, ActionStatusService>();
+            services.AddTransient<ICorrespondanceService, CorrespondanceService>();
+            services.AddTransient<IMailService, MailService>();
+            services.AddTransient<IApplicationUsersService, ApplicationUsersService>();
+            services.AddTransient<IApplicationRolesService, ApplicationRoleService>();
+
             services.AddControllersWithViews();
         }
 

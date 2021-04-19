@@ -1,0 +1,59 @@
+@model MailDetailsViewModel
+@{
+    ViewData["Title"] = "Mail print out";
+    Layout = "/Views/Shared/_PrintLayout.cshtml";
+}
+
+<h1 class="display-4 text-center">Ministry of Education and Sports</h1>
+<h3 class="display-6 text-center">Permanent Secretary Office</h3>
+<h5 class="text-center">Mail Print Out</h5>
+<hr />
+<br />
+<strong>From:</strong>&nbsp;@Model.From<br />
+<strong>To:</strong>&nbsp;@Model.From<br />
+<strong>Received:</strong>&nbsp;@Model.Received<br />
+<strong>Subject:</strong>&nbsp;@Model.Subject<br />
+<strong>Reference Number:</strong>&nbsp;@Model.ReferenceNumber<br /><br />
+
+<strong>Details:</strong><br />
+@Model.Details<br /><br />
+<h5 class="text-center"><strong>Action points</strong></h5>
+<table class="table table-sm table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th class="col-8">Action Point</th>
+            <th class="col-4">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ActionPoints != null)
+        {
+            foreach (var actionPoint in Model.ActionPoints)
+            {
+                <tr>
+                    <td class="col-8">
+                        @actionPoint.Details
+                    </td>
+                    <td class="col-4">
+                        @actionPoint.ActionStatus
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table><br />
+<h5 class="text-center"><strong>Correspondances</strong></h5>
+<hr />
+@if (Model.Correspondances != null)
+{
+    foreach (var correspondance in Model.Correspondances)
+    {
+        <div class="mail-correspondace">
+            <p>
+                @correspondance.Details
+                <br />
+                <small style="font-size: 12px;"><strong>Office:</strong> @correspondance.Office&nbsp;&nbsp;<strong>Logged:</strong> @correspondance.Logged</small>
+            </p>
+        </div>
+    }
+}

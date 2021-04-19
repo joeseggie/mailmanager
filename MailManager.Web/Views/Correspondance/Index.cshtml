@@ -1,0 +1,92 @@
+@model PaginatedList<CorrespondanceListViewModel>
+@{
+    ViewData["Title"] = "Outgoing Mail";
+}
+
+<h1 class="display-5">Outgoing Mail</h1>
+<hr />
+<a asp-action="index" asp-controller="mail" class="btn btn-primary">Incoming mail</a>
+<a asp-action="printall" asp-controller="correspondance" asp-route-search="@ViewData["CurrentFilter"]" target="_blank" class="btn btn-primary">Print</a><br /><br />
+<form asp-action="index" asp-controller="correspondance" method="get" role="form">
+    <div class="input-group">
+        <input name="search" id="search" type="text" class="form-control" placeholder="Search outgoing mail..." aria-label="Mail search" aria-describedby="button-addon-search">
+        <div class="input-group-append" id="button-addon-search">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+    </div>
+</form>
+<table class="table table-sm table-bordered table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th class="col-2">
+                From
+            </th>
+            <th class="col-2">
+                Received
+            </th>
+            <th class="col-4">
+                Subject
+            </th>
+            <th class="col-2">
+                <a asp-action="index" asp-controller="correspondance" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["OfficeSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Sent to</a>
+</th>
+            <th class="col-2">
+                <a asp-action="index" asp-controller="correspondance" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["LoggedSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Sent</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var mail in Model)
+            {
+                <tr class="clickable-row" data-href='@Url.Action("details", "mail", new { controller="Mail", id=mail.MailId})'>
+                    <td class="col-2">@mail.From</td>
+                    <td class="col-2">@mail.Received.ToString("dd MMMM yyyy")</td>
+                    <td class="col-4">@mail.Subject</td>
+                    <td class="col-2">@mail.Office</td>
+                    <td class="col-2">@mail.Logged.ToString("dd MMMM yyyy")</td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                @{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                }
+
+                <a asp-action="index"
+                   asp-controller="mail"
+                   asp-route-search="@ViewData["CurrentFilter"]"
+                   asp-route-sort="@ViewData["CurrentSort"]"
+                   asp-route-view="@(Model.PageIndex - 1)"
+                   asp-route-currentfilter="@ViewData["CurrentFilter"]"
+                   class="btn btn-default @prevDisabled">
+                    &laquo; Previous
+                </a>
+                <a asp-action="index"
+                   asp-controller="mail"
+                   asp-route-search="@ViewData["CurrentFilter"]"
+                   asp-route-sort="@ViewData["CurrentSort"]"
+                   asp-route-currentfilter="@ViewData["CurrentFilter"]"
+                   asp-route-view="@(Model.PageIndex + 1)"
+                   class="btn btn-default @nextDisabled">
+                    Next &raquo;
+                </a>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts
+    {
+    <script>
+$(function () {
+            $('.clickable-row').click(function () {
+                window.location = $(this).data('href');
+            });
+        })</script>
+}

@@ -1,0 +1,25 @@
+@{
+    Layout = "_Layout";
+}
+
+<div style="padding-top: 10px;">
+    <div class="row">
+        <div class="col-2">
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action active text-white">
+                    Admin Panel
+                </a>
+                <a asp-action="index" asp-controller="admin" class="list-group-item list-group-item-action">Users</a>
+                <a asp-action="index" asp-controller="roles" class="list-group-item list-group-item-action">Roles</a>
+                <a asp-action="index" asp-controller="actionstatus" class="list-group-item list-group-item-action">Action point status</a>
+            </div>
+        </div>
+        <div class="col-10">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("AdminScripts", required: false)
+}
