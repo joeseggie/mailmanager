@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,10 +24,10 @@ namespace MailManager.Web.Services
         /// <returns>Application user profile.</returns>
         public async Task<ApplicationUser> GetApplicationUserAsync(string username)
         {
-            return await _db
+            return (ApplicationUser)await _db
                 .Users
                 .SingleOrDefaultAsync(u => 
-                    u.UserName.ToLowerInvariant() == username.ToLowerInvariant()
+                    u.UserName.ToLower() == username.ToLower()
                 );
         }
 
@@ -37,7 +37,7 @@ namespace MailManager.Web.Services
         /// <returns>List of application users.</returns>
         public IQueryable<ApplicationUser> GetApplicationUsers()
         {
-            return _db.Users;
+            return (IQueryable<ApplicationUser>)_db.Users;
         }
 
         /// <summary>
@@ -47,10 +47,10 @@ namespace MailManager.Web.Services
         /// <returns>Application user.</returns>
         public async Task<ApplicationUser> UpdateUserAsync(ApplicationUser applicationUser)
         {
-            var userToUpdate = await _db
+            var userToUpdate = (ApplicationUser)await _db
                 .Users
                 .SingleOrDefaultAsync(u =>
-                    u.UserName.ToLowerInvariant() == applicationUser.UserName.ToLowerInvariant());
+                    u.UserName.ToLower() == applicationUser.UserName.ToLower());
 
             if (userToUpdate == null)
             {

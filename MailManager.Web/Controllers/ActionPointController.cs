@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MailManager.Web.Controllers
 {
-    [Authorize]
+    // [Authorize]
     public class ActionPointController : Controller
     {
         private readonly IActionPointService _actionPointService;

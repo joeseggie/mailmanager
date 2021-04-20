@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MailManager.Web.Controllers
 {
-    [Authorize]
+    // [Authorize]
     public class CorrespondanceController : Controller
     {
         private readonly ILogger<CorrespondanceController> _logger;

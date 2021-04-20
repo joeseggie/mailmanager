@@ -20,6 +20,6 @@ namespace MailManager.Web.Models
         public virtual Mail Mail { get; set; }
 
         [ForeignKey("ActionStatusId")]
-        public virtual ActionStatus ActionStatus { get; set; }     
+        public virtual ActionStatus ActionStatus { get; set; }
     }
 }

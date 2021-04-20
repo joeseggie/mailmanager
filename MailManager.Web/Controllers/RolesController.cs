@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MailManager.Web.Controllers
 {
-    [Authorize(Roles = "Administrator, Support")]
+    // [Authorize(Roles = "Administrator, Support")]
     public class RolesController : Controller
     {
         private readonly ILogger<RolesController> _logger;
