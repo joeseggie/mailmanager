@@ -27,7 +27,7 @@ namespace MailManager.Web.Services
             return (ApplicationUser)await _db
                 .Users
                 .SingleOrDefaultAsync(u => 
-                    u.UserName.ToLowerInvariant() == username.ToLowerInvariant()
+                    u.UserName.ToLower() == username.ToLower()
                 );
         }
 
@@ -50,7 +50,7 @@ namespace MailManager.Web.Services
             var userToUpdate = (ApplicationUser)await _db
                 .Users
                 .SingleOrDefaultAsync(u =>
-                    u.UserName.ToLowerInvariant() == applicationUser.UserName.ToLowerInvariant());
+                    u.UserName.ToLower() == applicationUser.UserName.ToLower());
 
             if (userToUpdate == null)
             {

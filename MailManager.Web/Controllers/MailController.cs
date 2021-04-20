@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MailManager.Web.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [Route("[controller]/[action]")]
     public class MailController : Controller
     {

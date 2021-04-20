@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MailManager.Web.Controllers
 {
-    [Authorize]
+    // [Authorize]
     public class HomeController : Controller
     {
         private IApplicationRolesService _applicationRolesService;

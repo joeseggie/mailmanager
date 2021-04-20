@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MailManager.Web.Controllers
 {
-    [Authorize(Roles = "Administrator, Support")]
+    // [Authorize(Roles = "Administrator, Support")]
     public class UsersController : Controller
     {
         private readonly ILogger<UsersController> _logger;

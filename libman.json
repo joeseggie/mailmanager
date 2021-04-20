@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery-datetimepicker@2.5.20",
+      "destination": ".\\MailManager.Web\\wwwroot\\lib\\jquery-datetimepicker"
+    },
+    {
+      "provider": "unpkg",
+      "library": "font-awesome-5-css@5.4.1",
+      "destination": ".\\MailManager.Web\\wwwroot\\lib\\fontawesome",
+      "files": [
+        "css/all.css",
+        "css/all.min.css",
+        "css/brands.css",
+        "css/brands.min.css",
+        "css/fa-solid.css",
+        "css/fa-solid.min.css"
+      ]
+    }
+  ]
+}

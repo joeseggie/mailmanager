@@ -54,7 +54,7 @@ namespace MailManager.Web.Services
         /// <returns>Application role.</returns>
         public async Task<IdentityRole> GetApplicationRoleAsync(string normalizedName)
         {
-            return await _db.Roles.FirstOrDefaultAsync(r => r.NormalizedName.ToLowerInvariant() == normalizedName.ToLowerInvariant());
+            return await _db.Roles.FirstOrDefaultAsync(r => r.NormalizedName.ToLower() == normalizedName.ToLower());
         }
 
         /// <summary>

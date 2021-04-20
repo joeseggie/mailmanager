@@ -13,15 +13,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Mail Manager</title>
 
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <environment include="Development">
-        <link href="~/lib/vendor/css/vendor.min.css" rel="stylesheet" />
-        <link href="~/lib/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
     <environment exclude="Development">
         <link href="~/lib/vendor/css/vendor.min.css" rel="stylesheet" />
         <link href="~/lib/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
 </head>
 <body>
@@ -68,17 +68,17 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Ministry of Education and Sports.</p>
+            <p>&copy; Ministry of Education and Sports 2018 - @DateTime.Now.Year.</p>
         </footer>
     </div>
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <environment include="Development">
-        <script src="~/lib/vendor/js/vendor.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/lib/vendor/js/vendor.min.js"></script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)
