@@ -1,4 +1,4 @@
-﻿using MailManager.Web.Models;
+using MailManager.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
