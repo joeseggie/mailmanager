@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MailManager.Web.Controllers
 {
-    // [Authorize(Roles = "Administrator, Support")]
+    [Authorize(Roles = "Administrator, Support")]
     public class UsersController : Controller
     {
         private readonly ILogger<UsersController> _logger;
@@ -58,7 +58,7 @@ namespace MailManager.Web.Controllers
                 {
                     if (!string.IsNullOrWhiteSpace(userInput.Password))
                     {
-                        if (userInput.Password.ToLowerInvariant() == userInput.ConfirmPassword.ToLowerInvariant())
+                        if (userInput.Password.ToLower() == userInput.ConfirmPassword.ToLower())
                         {
                             var passwordResetToken = await _userManager.GeneratePasswordResetTokenAsync(userToUpdate);
                             var passwordResetResult = await _userManager

@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MailManager.Web.Controllers
 {
-    // [Authorize]
+    [Authorize]
     public class ActionPointController : Controller
     {
         private readonly IActionPointService _actionPointService;

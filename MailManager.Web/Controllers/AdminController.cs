@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MailManager.Web.Controllers
 {
-    // [Authorize(Roles = "Administrator, Support")]
+    [Authorize(Roles = "Administrator, Support")]
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;

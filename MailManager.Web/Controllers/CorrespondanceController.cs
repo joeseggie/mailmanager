@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MailManager.Web.Controllers
 {
-    // [Authorize]
+    [Authorize]
     public class CorrespondanceController : Controller
     {
         private readonly ILogger<CorrespondanceController> _logger;
@@ -56,8 +56,8 @@ namespace MailManager.Web.Controllers
             {
                 correspondances = correspondances
                     .Where(correspondance =>
-                        correspondance.Office.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
-                        correspondance.Details.ToLowerInvariant().Contains(search.ToLowerInvariant()));
+                        correspondance.Office.ToLower().Contains(search.ToLower()) ||
+                        correspondance.Details.ToLower().Contains(search.ToLower()));
                 ViewData["search"] = search;
             }
             else
@@ -211,8 +211,8 @@ namespace MailManager.Web.Controllers
             {
                 model = model
                     .Where(correspondance =>
-                        correspondance.Office.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
-                        correspondance.Details.ToLowerInvariant().Contains(search.ToLowerInvariant()));
+                        correspondance.Office.ToLower().Contains(search.ToLower()) ||
+                        correspondance.Details.ToLower().Contains(search.ToLower()));
             }
 
             return View(model);

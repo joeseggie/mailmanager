@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MailManager.Web.Controllers
 {
-    // [Authorize]
+    [Authorize]
     [Route("[controller]/[action]")]
     public class MailController : Controller
     {
@@ -58,9 +58,9 @@ namespace MailManager.Web.Controllers
             {
                 model = model
                     .Where(m => 
-                        m.From.ToLowerInvariant().Contains(search.ToLowerInvariant()) || 
-                        m.To.ToLowerInvariant().Contains(search.ToLowerInvariant()) || 
-                        m.Subject.ToLowerInvariant().Contains(search.ToLowerInvariant()));
+                        m.From.ToLower().Contains(search.ToLower()) || 
+                        m.To.ToLower().Contains(search.ToLower()) || 
+                        m.Subject.ToLower().Contains(search.ToLower()));
                 ViewData["search"] = search;
             }
             else
@@ -297,9 +297,9 @@ namespace MailManager.Web.Controllers
             {
                 model = model
                     .Where(m =>
-                        m.From.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
-                        m.To.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
-                        m.Subject.ToLowerInvariant().Contains(search.ToLowerInvariant()))
+                        m.From.ToLower().Contains(search.ToLower()) ||
+                        m.To.ToLower().Contains(search.ToLower()) ||
+                        m.Subject.ToLower().Contains(search.ToLower()))
                         .ToList();
             }
 

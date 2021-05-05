@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MailManager.Web.Controllers
 {
-    // [Authorize(Roles = "Administrator, Support")]
+    [Authorize(Roles = "Administrator, Support")]
     public class RolesController : Controller
     {
         private readonly ILogger<RolesController> _logger;
@@ -64,7 +64,7 @@ namespace MailManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var roleNormalizedName = Regex.Replace(formData.Name, "\\W", "-").ToLowerInvariant();
+                var roleNormalizedName = Regex.Replace(formData.Name, "\\W", "-").ToLower();
                 var newRole = await _applicationRolesService.AddRoleAsync(new IdentityRole
                 {
                     Name = formData.Name,
@@ -98,7 +98,7 @@ namespace MailManager.Web.Controllers
                 NormalizedName = roleDetails.NormalizedName
             };
 
-            model.Members = (await _userManager.GetUsersInRoleAsync(roleDetails.NormalizedName.ToLowerInvariant()))
+            model.Members = (await _userManager.GetUsersInRoleAsync(roleDetails.NormalizedName.ToLower()))
                 .Select(u => new ApplicationUsersListViewModel
                 {
                     Email = u.Email,
