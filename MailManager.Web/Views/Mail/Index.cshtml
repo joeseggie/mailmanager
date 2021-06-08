@@ -11,19 +11,19 @@
 <table class="table table-sm table-bordered table-hover">
     <thead class="thead-light">
         <tr>
-            <th class="col-2">
+            <th class="col-sm-2">
                 <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["FromSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">From</a>
             </th>
-            <th class="col-2">
+            <th class="col-sm-2">
                 <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["ToSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">To</a>
             </th>
-            <th class="col-4">
+            <th class="col-sm-4">
                 <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["SubjectSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Subject</a>
             </th>
-            <th class="col-2">
+            <th class="col-sm-2">
                 <a asp-action="index" asp-controller="mail" asp-route-search="@ViewData["CurrentFilter"]" asp-route-sort="@ViewData["ReceivedSortParam"]" asp-route-currentfilter="@ViewData["CurrentFilter"]">Received</a>
             </th>
-            <th class="col-2">Ref. No.</th>
+            <th class="col-sm-2">Ref. No.</th>
         </tr>
     </thead>
     <tbody>
@@ -32,11 +32,11 @@
             foreach (var mail in Model)
             {
                 <tr class="clickable-row" data-href='@Url.Action("details", "mail", new { id=mail.Id})'>
-                    <td class="col-2">@mail.From</td>
-                    <td class="col-2">@mail.To</td>
-                    <td class="col-4">@mail.Subject</td>
-                    <td class="col-2">@mail.Received.ToString("dd MMMM yyyy")</td>
-                    <td class="col-2">@mail.ReferenceNumber</td>
+                    <td class="col-sm-2">@mail.From</td>
+                    <td class="col-sm-2">@mail.To</td>
+                    <td class="col-sm-4">@mail.Subject</td>
+                    <td class="col-sm-2">@mail.Received.ToString("dd MMMM yyyy")</td>
+                    <td class="col-sm-2">@mail.ReferenceNumber</td>
                 </tr>
             }
         }

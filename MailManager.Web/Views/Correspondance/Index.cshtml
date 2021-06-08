@@ -59,7 +59,7 @@
                 }
 
                 <a asp-action="index"
-                   asp-controller="mail"
+                   asp-controller="correspondance"
                    asp-route-search="@ViewData["CurrentFilter"]"
                    asp-route-sort="@ViewData["CurrentSort"]"
                    asp-route-view="@(Model.PageIndex - 1)"
@@ -68,7 +68,7 @@
                     &laquo; Previous
                 </a>
                 <a asp-action="index"
-                   asp-controller="mail"
+                   asp-controller="correspondance"
                    asp-route-search="@ViewData["CurrentFilter"]"
                    asp-route-sort="@ViewData["CurrentSort"]"
                    asp-route-currentfilter="@ViewData["CurrentFilter"]"
